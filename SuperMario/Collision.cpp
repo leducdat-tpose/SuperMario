@@ -353,3 +353,9 @@ void CCollision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* co
 
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
+
+int CCollisionEvent::WasCollided()
+{
+	//return t >= 0.0f && t <= 1.0f;
+	return t >= 0.0f && t <= 1.0f && obj->IsDirectionColliable(nx, ny) == 1;
+}
