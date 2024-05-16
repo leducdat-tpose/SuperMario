@@ -6,6 +6,7 @@ coin.txt
 goomba.txt
 cloud.txt
 luckybox.txt
+koopas.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -54,6 +55,9 @@ luckybox.txt
 
 #Goomba
 2	300	10
+
+#Koopas
+3	300	10
 
 #Platform
 5	90	136	16	15	16	51000	52000	53000
