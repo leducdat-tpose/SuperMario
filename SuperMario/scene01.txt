@@ -5,6 +5,7 @@ brick.txt
 coin.txt
 goomba.txt
 cloud.txt
+luckybox.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -37,10 +38,12 @@ cloud.txt
 1	304	180
 1	320	180
 1	336	180
-1	352	180
-
 1	352	148
 1	352	164
+
+#LUCKYBOX
+
+6	352	180
 
 #COIN
 4	100	120
