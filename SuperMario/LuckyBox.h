@@ -4,7 +4,7 @@
 #include "Animation.h"
 #include "Animations.h"
 
-#define ID_ANI_LUCKYBOX 11000
+#define ID_ANI_LUCKYBOX 13000
 #define LUCKYBOX_WIDTH 16
 #define LUCKYBOX_BBOX_WIDTH 16
 #define LUCKYBOX_BBOX_HEIGHT 16

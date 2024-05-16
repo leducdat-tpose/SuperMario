@@ -14,9 +14,9 @@
 #define KOOPAS_STATE_DIE 200
 
 #pragma region ANIMATION_ID
-#define KOOPAS_ANI_WALKING_LEFT 10000
-#define KOOPAS_ANI_WALKING_RIGHT 10001
-#define KOOPAS_ANI_DIE 10002
+#define KOOPAS_ANI_WALKING_LEFT 12000
+#define KOOPAS_ANI_WALKING_RIGHT 12001
+#define KOOPAS_ANI_DIE 12002
 #pragma endregion
 
 class CKoopas : public CGameObject
