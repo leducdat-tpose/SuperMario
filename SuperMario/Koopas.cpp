@@ -57,6 +57,8 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 	else if (e->nx != 0)
 	{
 		vx = -vx;
+		if (vx > 0) SetState(KOOPAS_STATE_WALKING_RIGHT);
+		else SetState(KOOPAS_STATE_WALKING_LEFT);
 	}
 }
 
