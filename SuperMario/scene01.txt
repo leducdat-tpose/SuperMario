@@ -11,9 +11,6 @@ cloud.txt
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas
 # See OBJECT_TYPE constants in AssetIDs.h
 
-# MARIO
-0	20	10
-
 # BRICKS
 1	0	148
 1	0	164
@@ -61,3 +58,6 @@ cloud.txt
 
 #Portal 
 50	300	110	316	140	2
+
+# MARIO
+0	20	10
