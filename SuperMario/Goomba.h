@@ -13,6 +13,8 @@
 
 #define GOOMBA_STATE_WALKING 100
 #define GOOMBA_STATE_DIE 200
+#define PARAGOOMBA_STATE_WALKING 300
+#define PARAGOOMBA_STATE_FLY 400
 
 
 #pragma region ID_ANIMATION
@@ -21,8 +23,7 @@
 #define ID_ANI_GOOMBA_DIE 5001
 //Special
 #define ID_ANI_PARAGOOMBA_FLY 14000
-#define ID_ANI_PARAGOOMBA_ID_ANI_GOOMBA_WALKING 14001
-#define ID_ANI_PARAGOOMBA_ID_ANI_GOOMBA_DIE 14002
+#define ID_ANI_PARAGOOMBA_WALKING 14001
 #pragma endregion
 
 
@@ -45,7 +46,6 @@ protected:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
 public:
-	CGoomba(float x, float y);
 	CGoomba(float x, float y, bool specialAbility);
 	virtual void SetState(int state);
 };

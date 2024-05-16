@@ -1,21 +1,13 @@
 #include "Goomba.h"
 
-CGoomba::CGoomba(float x, float y) :CGameObject(x, y)
-{
-	this->specialAbility = false;
-	this->ax = 0;
-	this->ay = GOOMBA_GRAVITY;
-	die_start = -1;
-	SetState(GOOMBA_STATE_WALKING);
-}
-
 CGoomba::CGoomba(float x, float y, bool specialAbility) :CGameObject(x, y)
 {
 	this->specialAbility = specialAbility;
 	this->ax = 0;
 	this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
-	SetState(GOOMBA_STATE_WALKING);
+	if (this->specialAbility == true) SetState(PARAGOOMBA_STATE_WALKING);
+	else SetState(GOOMBA_STATE_WALKING);
 }
 
 void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -76,6 +68,14 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CGoomba::Render()
 {
 	int aniId = ID_ANI_GOOMBA_WALKING;
+	if (state == PARAGOOMBA_STATE_WALKING)
+	{
+		aniId = ID_ANI_PARAGOOMBA_WALKING;
+	}
+	else if (state == PARAGOOMBA_STATE_FLY)
+	{
+		aniId = ID_ANI_PARAGOOMBA_FLY;
+	}
 	if (state == GOOMBA_STATE_DIE)
 	{
 		aniId = ID_ANI_GOOMBA_DIE;
@@ -99,6 +99,13 @@ void CGoomba::SetState(int state)
 		break;
 	case GOOMBA_STATE_WALKING:
 		vx = -GOOMBA_WALKING_SPEED;
+		break;
+	case PARAGOOMBA_STATE_WALKING:
+		vx = -GOOMBA_WALKING_SPEED;
+		//Later
+		break;
+	case PARAGOOMBA_STATE_FLY:
+		//Later
 		break;
 	}
 }
