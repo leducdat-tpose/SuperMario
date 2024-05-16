@@ -14,15 +14,24 @@
 #define GOOMBA_STATE_WALKING 100
 #define GOOMBA_STATE_DIE 200
 
+
+#pragma region ID_ANIMATION
+//Normal
 #define ID_ANI_GOOMBA_WALKING 5000
 #define ID_ANI_GOOMBA_DIE 5001
+//Special
+#define ID_ANI_PARAGOOMBA_FLY 14000
+#define ID_ANI_PARAGOOMBA_ID_ANI_GOOMBA_WALKING 14001
+#define ID_ANI_PARAGOOMBA_ID_ANI_GOOMBA_DIE 14002
+#pragma endregion
+
 
 class CGoomba : public CGameObject
 {
 protected:
 	float ax;
 	float ay;
-
+	bool specialAbility;
 	ULONGLONG die_start;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
@@ -37,5 +46,6 @@ protected:
 
 public:
 	CGoomba(float x, float y);
+	CGoomba(float x, float y, bool specialAbility);
 	virtual void SetState(int state);
 };

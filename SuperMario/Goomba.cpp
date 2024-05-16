@@ -2,6 +2,16 @@
 
 CGoomba::CGoomba(float x, float y) :CGameObject(x, y)
 {
+	this->specialAbility = false;
+	this->ax = 0;
+	this->ay = GOOMBA_GRAVITY;
+	die_start = -1;
+	SetState(GOOMBA_STATE_WALKING);
+}
+
+CGoomba::CGoomba(float x, float y, bool specialAbility) :CGameObject(x, y)
+{
+	this->specialAbility = specialAbility;
 	this->ax = 0;
 	this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
