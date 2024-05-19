@@ -4,7 +4,7 @@ CMushroom::CMushroom(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = MUSHROOM_GRAVITY;
-	SetState(MUSHROOM_STATE_IDLE);
+	SetState(MUSHROOM_STATE_WALKING);
 }
 
 void CMushroom::GetBoundingBox(float& left, float& top, float& right, float& bottom)

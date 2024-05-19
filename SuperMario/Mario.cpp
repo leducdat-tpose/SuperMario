@@ -4,6 +4,7 @@
 #include "Mario.h"
 #include "Game.h"
 
+#include "Mushroom.h"
 #include "Goomba.h"
 #include "Coin.h"
 #include "Portal.h"
@@ -97,6 +98,12 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
 	coin++;
+}
+
+void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
+{
+	e->obj->Delete();
+	level = MARIO_LEVEL_BIG;
 }
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)

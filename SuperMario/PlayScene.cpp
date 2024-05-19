@@ -8,6 +8,7 @@
 #include "Sprites.h"
 #include "Portal.h"
 #include "Coin.h"
+#include "Mushroom.h"
 #include "Platform.h"
 #include "LuckyBox.h"
 #include "Koopas.h"
@@ -124,6 +125,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	case OBJECT_TYPE_LUCKYBOX: obj = new CLuckyBox(x, y); break;
 	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(x, y); break;
+	case OBJECT_TYPE_MUSHROOM: obj = new CMushroom(x, y); break;
 
 	case OBJECT_TYPE_PLATFORM:
 	{
