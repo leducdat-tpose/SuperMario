@@ -7,6 +7,7 @@ goomba.txt
 cloud.txt
 luckybox.txt
 koopas.txt
+mushroom.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type

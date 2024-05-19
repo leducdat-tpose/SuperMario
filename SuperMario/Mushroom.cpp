@@ -41,7 +41,11 @@ void CMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
-
+	if (state == MUSHROOM_STATE_DIE)
+	{
+		isDeleted = true;
+		return;
+	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -61,9 +65,18 @@ void CMushroom::SetState(int state)
 	switch (state)
 	{
 	case MUSHROOM_STATE_IDLE:
+		vx = 0;
+		vy = 0;
+		ay = 0;
 		break;
 	case MUSHROOM_STATE_WALKING:
 		vx = -MUSHROOM_WALKING_SPEED;
 		break;
+	case MUSHROOM_STATE_DIE:
+		vx = 0;
+		vy = 0;
+		ay = 0;
+		break;
 	}
+	
 }

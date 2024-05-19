@@ -58,6 +58,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPortal(e);
 	else if (dynamic_cast<CKoopas*>(e->obj))
 		OnCollisionWithKoopas(e);
+	/*else if (dynamic_cast<CMushroom*>(e->obj))
+		OnCollisionWithKoopas(e);*/
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -100,11 +102,15 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 	coin++;
 }
 
-void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
-{
-	e->obj->Delete();
-	level = MARIO_LEVEL_BIG;
-}
+//void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
+//{
+//	CMushroom* mushroom = dynamic_cast<CMushroom*>(e->obj);
+//	e->obj->Delete();
+//	if (level == MARIO_LEVEL_SMALL)
+//	{
+//		level = MARIO_LEVEL_BIG;
+//	}
+//}
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
