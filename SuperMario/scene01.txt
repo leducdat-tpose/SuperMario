@@ -64,6 +64,9 @@ mushroom.txt
 
 7	250	10
 
+#Parakoopas
+9	370	10
+
 #Mushroom
 8	350	10
 #Platform
