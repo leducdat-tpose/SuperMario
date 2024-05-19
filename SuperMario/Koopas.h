@@ -15,6 +15,10 @@
 #define KOOPAS_STATE_HIDE 300
 #define KOOPAS_STATE_HIDE_FLIP 400
 #define KOOPAS_STATE_DIE 500
+#define PARAKOOPAS_STATE_WALKING_RIGHT 600
+#define PARAKOOPAS_STATE_WALKING_LEFT 700
+#define PARAKOOPAS_STATE_FLY 800
+
 
 #pragma region ANIMATION_ID
 #define KOOPAS_ANI_WALKING_LEFT 12000
@@ -22,6 +26,10 @@
 #define KOOPAS_ANI_HIDE 12002
 #define KOOPAS_ANI_HIDE_FLIP 12003
 #define KOOPAS_ANI_DIE 12004
+#define PARAKOOPAS_ANI_WALKING_LEFT 12005
+#define PARAKOOPAS_ANI_WALKING_RIGHT 12006
+#define PARAKOOPAS_ANI_FLY 12007
+
 #pragma endregion
 
 class CKoopas : public CGameObject
@@ -29,6 +37,7 @@ class CKoopas : public CGameObject
 protected:
 	float ax;
 	float ay;
+	bool specialAbility;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -40,6 +49,6 @@ protected:
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 public:
-	CKoopas(float x, float y);
+	CKoopas(float x, float y, bool specialAbility);
 	virtual void SetState(int state);
 };

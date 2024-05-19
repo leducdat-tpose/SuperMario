@@ -1,10 +1,12 @@
 #include "Koopas.h"
 
-CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
+CKoopas::CKoopas(float x, float y, bool specialAbility) :CGameObject(x, y)
 {
+	this->specialAbility = specialAbility;
 	this->ax = 0;
 	this->ay = KOOPAS_GRAVITY;
-	SetState(KOOPAS_STATE_WALKING_LEFT);
+	if (this->specialAbility == true) SetState(PARAKOOPAS_STATE_WALKING_LEFT);
+	else SetState(KOOPAS_STATE_WALKING_LEFT);
 }
 
 void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -25,6 +27,20 @@ void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& botto
 		bottom = top + KOOPAS_BBOX_HEIGHT;
 	}
 	else if (state == KOOPAS_STATE_HIDE || state == KOOPAS_STATE_HIDE_FLIP)
+	{
+		left = x - KOOPAS_BBOX_WIDTH / 2;
+		top = y - KOOPAS_BBOX_HEIGHT / 2;
+		right = left + KOOPAS_BBOX_WIDTH;
+		bottom = top + KOOPAS_BBOX_HEIGHT;
+	}
+	else if (state == PARAKOOPAS_STATE_WALKING_LEFT|| state == PARAKOOPAS_STATE_WALKING_RIGHT)
+	{
+		left = x - KOOPAS_BBOX_WIDTH / 2;
+		top = y - KOOPAS_BBOX_HEIGHT / 2;
+		right = left + KOOPAS_BBOX_WIDTH;
+		bottom = top + KOOPAS_BBOX_HEIGHT;
+	}
+	else if (PARAKOOPAS_STATE_FLY)
 	{
 		left = x - KOOPAS_BBOX_WIDTH / 2;
 		top = y - KOOPAS_BBOX_HEIGHT / 2;
@@ -95,8 +111,23 @@ void CKoopas::Render()
 		//Need to know when koopas is die
 		aniId = KOOPAS_ANI_DIE;
 	}
-	else if (vx > 0) aniId = KOOPAS_ANI_WALKING_RIGHT;
-	else if (vx <= 0) aniId = KOOPAS_ANI_WALKING_LEFT;
+	else if (state == PARAKOOPAS_STATE_WALKING_LEFT)
+	{
+		aniId = PARAKOOPAS_ANI_WALKING_LEFT;
+	}
+	else if (state == PARAKOOPAS_STATE_WALKING_RIGHT)
+	{
+		aniId = PARAKOOPAS_ANI_WALKING_RIGHT;
+
+	}
+	else if (state == PARAKOOPAS_STATE_FLY)
+	{
+		aniId = PARAKOOPAS_ANI_FLY;
+	}
+	else if (vx > 0 && specialAbility == false) aniId = KOOPAS_ANI_WALKING_RIGHT;
+	else if (vx <= 0 && specialAbility == false) aniId = KOOPAS_ANI_WALKING_LEFT;
+	else if (vx > 0 && specialAbility == true) aniId = PARAKOOPAS_ANI_WALKING_RIGHT;
+	else if (vx <= 0 && specialAbility == true) aniId = PARAKOOPAS_ANI_WALKING_LEFT;
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 
@@ -129,6 +160,12 @@ void CKoopas::SetState(int state)
 		vx = -KOOPAS_WALKING_SPEED;
 		break;
 	case KOOPAS_STATE_WALKING_RIGHT:
+		vx = KOOPAS_WALKING_SPEED;
+		break;
+	case PARAKOOPAS_STATE_WALKING_LEFT:
+		vx = -KOOPAS_WALKING_SPEED;
+		break;
+	case PARAKOOPAS_STATE_WALKING_RIGHT:
 		vx = KOOPAS_WALKING_SPEED;
 		break;
 	}
