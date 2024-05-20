@@ -157,6 +157,7 @@
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Textures.h" />
+    <ClInclude Include="TileMap.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
