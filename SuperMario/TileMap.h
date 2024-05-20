@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include <unordered_map>
+#include <d3d9.h>
 
 #include "Textures.h"
 #include "Sprites.h"

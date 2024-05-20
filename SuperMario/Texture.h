@@ -34,9 +34,9 @@ public:
 	}
 
 	ID3D10ShaderResourceView* getShaderResourceView() { return this->_rsview; }
-
 	int getWidth() { return this->_width; }
 	int getHeight() { return this->_height; }
+
 
 	~CTexture()
 	{
