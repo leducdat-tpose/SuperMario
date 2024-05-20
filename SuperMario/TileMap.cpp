@@ -1,6 +1,9 @@
 #include "TileMap.h"
 #include "AssetIDs.h"
 
+#define SCREEN_WIDTH 320
+#define SCREEN_HEIGHT 240
+
 CTileMap::CTileMap(){}
 
 CTileMap::CTileMap(int ID, LPCWSTR filePathTexture, LPCWSTR filePathData,
@@ -84,7 +87,7 @@ void CTileMap::CreateZoneToDraw()
 	case SCENE_MENU:
 		break;
 	case SCENE_1:
-		limitColToDraw.push_back({0,592});
+		limitColToDraw.push_back({0,160});
 		break;
 	case SCENE_2:
 		break;
@@ -93,5 +96,16 @@ void CTileMap::CreateZoneToDraw()
 
 void CTileMap::Draw(D3DXVECTOR3 camPosition, bool isCrossEffect)
 {
+	int startColDraw = (int)camPosition.x / tileWidth;
+	int endColDraw = startColDraw + SCREEN_WIDTH / tileWidth;
 
+	for (UINT i = 0; i < numsRow; i++)
+	{
+		for (UINT j = startColDraw; j <= endColDraw; j++)
+		{
+			float x = tileWidth * (j - startColDraw) + camPosition.x - (int)camPosition.x;
+			float y = tileHeight * i;
+			tilemap[i][j]->Draw(x, y);
+		}
+	}
 }
