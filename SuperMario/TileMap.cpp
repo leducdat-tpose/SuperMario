@@ -1,5 +1,6 @@
 #include "TileMap.h"
 #include "AssetIDs.h"
+
 CTileMap::CTileMap(){}
 
 CTileMap::CTileMap(int ID, LPCWSTR filePathTexture, LPCWSTR filePathData,
@@ -48,12 +49,46 @@ void CTileMap::LoadResources()
 
 void CTileMap::LoadMap()
 {
+	fstream fs;
+	fs.open(filePathData, ios::in);
 
+	if (fs.fail())
+	{
+		DebugOut(L"[ERROR] TileMap::Load_MapData failed: ID=%d", ID);
+		fs.close();
+		return;
+	}
+	string line;
+	while (!fs.eof())
+	{
+		getline(fs, line);
+		vector<LPSPRITE> spriteline;
+		stringstream ss(line);
+		int n;
+
+		while (ss >> n)
+		{
+			int idTile = ID_TILE + n;
+			spriteline.push_back(sprites->Get(idTile));
+		}
+		tilemap.push_back(spriteline);
+	}
+	fs.close();
 }
 
 void CTileMap::CreateZoneToDraw()
 {
-
+	//Dont has any ideal at here
+	switch (ID)
+	{
+	case SCENE_MENU:
+		break;
+	case SCENE_1:
+		limitColToDraw.push_back({0,592});
+		break;
+	case SCENE_2:
+		break;
+	}
 }
 
 void CTileMap::Draw(D3DXVECTOR3 camPosition, bool isCrossEffect)

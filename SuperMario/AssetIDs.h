@@ -25,9 +25,9 @@
 
 enum SCENE
 {
-	SCENE_MENU,
-	SCENE_1,
-	SCENE_2
+	SCENE_MENU = 0,
+	SCENE_1 = 1,
+	SCENE_2 = 2
 };
 
 //10000
