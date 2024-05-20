@@ -22,6 +22,13 @@
 
 #define OBJECT_TYPE_PORTAL	50
 
+enum SCENE
+{
+	SCENE_MENU,
+	SCENE_1,
+	SCENE_2
+};
+
 //10000
 #pragma region MARIO 
 

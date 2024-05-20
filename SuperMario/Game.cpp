@@ -11,6 +11,7 @@
 
 CGame* CGame::__instance = NULL;
 
+CTileMaps* tilemaps = CTileMaps::GetInstance();
 /*
 	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for
 	rendering 2D images
@@ -454,10 +455,11 @@ void CGame::_ParseSection_SCENES(string line)
 {
 	vector<string> tokens = split(line);
 
-	if (tokens.size() < 2) return;
+	if (tokens.size() < 3) return;
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);   // file: ASCII format (single-byte char) => Wide Char
-
+	wstring texture = ToWSTR(tokens[2]);
+	tilemaps->Add(id, texture.c_str(), path, 2816, 626);
 	LPSCENE scene = new CPlayScene(id, path);
 	scenes[id] = scene;
 }
