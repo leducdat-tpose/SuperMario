@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "Animations.h"
 #include "PlayScene.h"
+#include "TileMaps.h"
 
 CGame* CGame::__instance = NULL;
 
