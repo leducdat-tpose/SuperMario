@@ -13,7 +13,7 @@
 
 using namespace std;
 
-class TileMap {
+class CTileMap {
 	CSprites* sprites = CSprites::GetInstance();
 	vector<vector<LPSPRITE>> tilemap;
 
@@ -28,4 +28,17 @@ class TileMap {
 	LPCWSTR filePathData;
 
 	int ID;
+public:
+	vector<vector<int>> limitColToDraw;
+	int index = 0;
+
+	CTileMap(){}
+	CTileMap(int ID, LPCWSTR filePathTexture, LPCWSTR filePathData,
+		int mapWidth, int mapHeight, int tileWidth = 16, int tileHeight = 16);
+
+	void LoadResources();
+	void LoadMap();
+	void CreateZoneToDraw();
+	void Draw(D3DXVECTOR3 camPosition, bool isCrossEffect = false);
 };
+typedef CTileMap* LPTILEMAP;
