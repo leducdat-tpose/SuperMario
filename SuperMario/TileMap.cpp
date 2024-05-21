@@ -30,20 +30,24 @@ void CTileMap::LoadResources()
 	int textureWidth = 320;
 	int textureHeight = 96;
 	int level = 0;
-	if(ID== 0){}
-	else if (ID == 1) {
+	if(ID == SCENETITLE){}
+	else if (ID == SCENE_1) {
 		textureWidth = 320;
 		textureHeight = 96;
 	}
+	else if (ID == SCENE_2)
+	{
+
+	}
+	int numsColToRead = textureWidth / tileWidth;
 	int numsRowToRead = textureHeight / tileHeight;
-	int numsRolToRead = textureWidth / tileWidth;
-	
+
 	int idSprite = 1;
 	for (int i = 0; i < numsRowToRead; i++)
 	{
-		for (int j = 0; j < numsRolToRead; j++)
+		for (int j = 0; j < numsColToRead; j++)
 		{
-			int idTile = idSprite + ID_TILE;
+			int idTile = ID_TILE + idSprite;
 			sprites->Add(idTile, tileWidth * j, tileHeight * i, tileWidth * (j + 1), tileHeight * (i + 1), texTileMap);
 			idSprite += 1;
 		}
