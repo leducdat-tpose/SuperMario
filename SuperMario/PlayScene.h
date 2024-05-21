@@ -37,12 +37,11 @@ protected:
 
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
-
 	void _ParseSection_ASSETS(string line);
 	void _ParseSection_OBJECTS(string line);
 
 	void LoadAssets(LPCWSTR assetFile);
-
+	void LoadObjects(LPCWSTR filePath);
 public:
 	CPlayScene(int id, LPCWSTR filePath);
 

@@ -204,6 +204,37 @@ void CPlayScene::LoadAssets(LPCWSTR assetFile)
 	DebugOut(L"[INFO] Done loading assets from %s\n", assetFile);
 }
 
+void CPlayScene::LoadObjects(LPCWSTR filePath)
+{
+	fstream fs;
+	fs.open(filePath, ios::in);
+	if (fs.fail())
+	{
+		fs.close();
+		return;
+	}
+	int idObj;
+	float posX, posY;
+	switch (idObj)
+	{
+	case GROUND:
+
+		break;
+	case GOOMBA:
+		break;
+	case PARAGOOMBA:
+		break;
+	case KOOPAS:
+		break;
+	case PARAKOOPAS:
+		break;
+	case CHANGESCENEOBJ:
+		break;
+	default:
+		break;
+	}
+}
+
 void CPlayScene::Load()
 {
 	DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
