@@ -16,6 +16,7 @@ class CPlayScene : public CScene
 	CGame* game = CGame::GetInstance();
 	CTileMaps* tilemaps = CTileMaps::GetInstance();
 	vector<Unit*> listUnits;
+	Grid* grid;
 
 	//Take a sample like brick
 	vector<LPGAMEOBJECT> listStaticObjectsToRender;
@@ -51,6 +52,7 @@ public:
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 	void UpdateGrid();
+	void GetObjectsFromGrid();
 	void Clear();
 	void PurgeDeletedObjects();
 

@@ -285,6 +285,20 @@ void CPlayScene::Update(DWORD dt)
 	PurgeDeletedObjects();
 }
 
+void CPlayScene::GetObjectsFromGrid()
+{
+	//clear a units from previous scene
+
+	listUnits.clear();
+	listCanEarnObjectsToRender.clear();
+	listStaticObjectsToRender.clear();
+	listMovingObjectsToRender.clear();
+	listPipeObjectsToRender.clear();
+	grid->Get(game->GetCameraPositon(), listUnits);
+
+}
+
+
 void CPlayScene::Render()
 {
 	if (isGameOver == true) return;
