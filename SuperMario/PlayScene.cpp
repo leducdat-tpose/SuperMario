@@ -296,6 +296,12 @@ void CPlayScene::GetObjectsFromGrid()
 	listPipeObjectsToRender.clear();
 	grid->Get(game->GetCameraPositon(), listUnits);
 
+	for (UINT i = 0; i < listUnits.size(); i++)
+	{
+		LPGAMEOBJECT obj = listUnits[i]->GetObj();
+		objects.push_back(obj);
+		listMovingObjectsToRender.push_back(obj);
+	}
 }
 
 
@@ -308,7 +314,7 @@ void CPlayScene::Render()
 	}
 	else {
 		tilemaps->Get(id)->Draw(game->GetCameraPositon(), false);
-		for (auto obj : listStaticObjectsToRender)
+		/*for (auto obj : listStaticObjectsToRender)
 		{
 			obj->Render();
 		}
@@ -322,7 +328,9 @@ void CPlayScene::Render()
 		for (auto obj : listPipeObjectsToRender)
 		{
 			obj->Render();
-		}
+		}*/
+		for (int i = 0; i < objects.size(); i++)
+			objects[i]->Render();
 	}
 	/*for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
