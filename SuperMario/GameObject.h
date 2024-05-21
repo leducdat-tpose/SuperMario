@@ -28,6 +28,7 @@ protected:
 
 	int state;
 
+	bool isEnable;
 	bool isDeleted;
 
 public:
@@ -39,7 +40,7 @@ public:
 	int GetState() { return this->state; }
 	virtual void Delete() { isDeleted = true; }
 	bool IsDeleted() { return isDeleted; }
-
+	bool IsEnable() { return isEnable; }
 	void RenderBoundingBox();
 
 	CGameObject();
