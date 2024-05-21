@@ -12,6 +12,7 @@
 #include "Platform.h"
 #include "LuckyBox.h"
 #include "Koopas.h"
+#include "Ground.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -218,7 +219,9 @@ void CPlayScene::LoadObjects(LPCWSTR filePath)
 	switch (idObj)
 	{
 	case GROUND:
-
+		CGround* ground = new CGround();
+		ground->SetPosition(posX, posY);
+		unit = new Unit(grid, ground, posX, posY);
 		break;
 	case GOOMBA:
 		break;
@@ -288,7 +291,7 @@ void CPlayScene::Update(DWORD dt)
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 
-	vector<LPGAMEOBJECT> coObjects;
+	/*vector<LPGAMEOBJECT> coObjects;
 	for (size_t i = 1; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
@@ -297,7 +300,17 @@ void CPlayScene::Update(DWORD dt)
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt, &coObjects);
+	}*/
+	if (id == SCENE_1)
+	{
+
 	}
+	else if(id == SCENE_2)
+	{
+
+	}
+	if (isGameOver == true) return;
+
 
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
@@ -305,6 +318,9 @@ void CPlayScene::Update(DWORD dt)
 	// Update camera to follow mario
 	float cx, cy;
 	player->GetPosition(cx, cy);
+
+	GetObjectsFromGrid();
+	UpdateGrid();
 
 	cx -= game->GetBackBufferWidth() / 2;
 	cy -= game->GetBackBufferHeight() / 2;

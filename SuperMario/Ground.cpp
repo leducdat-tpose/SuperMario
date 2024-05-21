@@ -1,13 +1,7 @@
 #include "Ground.h"
 
-CGround::CGround() :CGameObject()
-{
-
-}
-
 void CGround::Render()
 {
-
 }
 
 void CGround::GetBoundingBox(float& l, float& t, float& r, float& b)
