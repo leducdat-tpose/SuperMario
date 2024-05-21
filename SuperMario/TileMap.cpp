@@ -1,10 +1,9 @@
 #include "TileMap.h"
 #include "AssetIDs.h"
+#include "Utils.h"
 
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
-
-CTileMap::CTileMap(){}
 
 CTileMap::CTileMap(int ID, LPCWSTR filePathTexture, LPCWSTR filePathData,
 	int mapWidth, int mapHeight, int tileWidth, int tileHeight) {
@@ -15,6 +14,9 @@ CTileMap::CTileMap(int ID, LPCWSTR filePathTexture, LPCWSTR filePathData,
 	this->mapHeight = mapHeight;
 	this->tileWidth = tileWidth;
 	this->tileHeight = tileHeight;
+
+	this->filePathData = ToLPCWSTR("tileset.txt");
+	
 	numsCol = this->mapWidth / this->tileWidth;
 	numsRow = this->mapHeight / this->tileHeight;
 	LoadResources();
@@ -27,8 +29,8 @@ void CTileMap::LoadResources()
 	CTextures* texture = CTextures::GetInstance();
 	texture->Add(ID, filePathTexture);
 	LPTEXTURE texTileMap = texture->Get(ID);
-	int textureWidth;
-	int textureHeight;
+	int textureWidth = 320;
+	int textureHeight = 96;
 	int level = 0;
 	if(ID== 0){}
 	else if (ID == 1) {
@@ -39,9 +41,9 @@ void CTileMap::LoadResources()
 	int numsRolToRead = textureWidth / tileWidth;
 	
 	int idSprite = 1;
-	for (UINT i = 0; i < numsRowToRead; i++)
+	for (int i = 0; i < numsRowToRead; i++)
 	{
-		for (UINT j = 0; j < numsRolToRead; j++)
+		for (int j = 0; j < numsRolToRead; j++)
 		{
 			int idTile = idSprite + ID_TILE;
 			sprites->Add(idTile, tileWidth * j, tileHeight * i, tileWidth * (j + 1), tileHeight * (i + 1), texTileMap);
@@ -99,12 +101,12 @@ void CTileMap::Draw(D3DXVECTOR3 camPosition, bool isCrossEffect)
 	int startColDraw = (int)camPosition.x / tileWidth;
 	int endColDraw = startColDraw + SCREEN_WIDTH / tileWidth;
 
-	for (UINT i = 0; i < numsRow; i++)
+	for (int i = 0; i < numsRow; i++)
 	{
-		for (UINT j = startColDraw; j <= endColDraw; j++)
+		for (int j = startColDraw; j <= endColDraw; j++)
 		{
-			float x = tileWidth * (j - startColDraw) + camPosition.x - (int)camPosition.x;
-			float y = tileHeight * i;
+			float x = float(tileWidth * (j - startColDraw) + camPosition.x - (int)camPosition.x);
+			float y = float(tileHeight * i);
 			tilemap[i][j]->Draw(x, y);
 		}
 	}

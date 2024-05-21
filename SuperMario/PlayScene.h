@@ -6,15 +6,16 @@
 #include "Brick.h"
 #include "Mario.h"
 #include "Goomba.h"
-//#include "Koopas.h"
+#include "Koopas.h"
+#include "TileMaps.h"
 
 
 class CPlayScene : public CScene
 {
+	CTileMaps* tilemaps = CTileMaps::GetInstance();
 protected:
 	// A play scene has to have player, right? 
 	LPGAMEOBJECT player;
-
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_SPRITES(string line);

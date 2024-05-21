@@ -32,8 +32,6 @@ class CTileMap {
 public:
 	vector<vector<int>> limitColToDraw;
 	int index = 0;
-
-	CTileMap(){}
 	CTileMap(int ID, LPCWSTR filePathTexture, LPCWSTR filePathData,
 		int mapWidth, int mapHeight, int tileWidth = 16, int tileHeight = 16);
 
