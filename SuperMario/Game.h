@@ -49,6 +49,8 @@ class CGame
 	float cam_x = 0.0f;
 	float cam_y = 0.0f;
 
+	D3DXVECTOR3 cameraPosition;
+
 	HINSTANCE hInstance;
 
 	ID3D10SamplerState* pPointSamplerState;
@@ -114,6 +116,10 @@ public:
 
 	void _ParseSection_TEXTURES(string line);
 
+	D3DXVECTOR3 GetCameraPositon() { 
+		this->GetCamPos(cameraPosition.x, cameraPosition.y);
+		return this->cameraPosition; 
+	}
 
 	~CGame();
 };

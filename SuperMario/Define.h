@@ -4,7 +4,7 @@
 
 enum SCENE
 {
-	TITLESCENE = 0,
+	SCENETITLE = 0,
 	SCENE1_1 = 1,
 	SCENE1_2 = 2
 };

@@ -288,11 +288,19 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
-	for (int i = 0; i < objects.size(); i++)
+	if (isGameOver == true) return;
+	else if (id == SCENETITLE)
+	{
+
+	}
+	else {
+
+	}
+	/*for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 	D3DXVECTOR3 camPos;
 	CGame::GetInstance()->GetCamPos(camPos.x, camPos.y);
-	tilemaps->Get(id)->Draw(camPos);
+	tilemaps->Get(id)->Draw(camPos);*/
 }
 
 /*

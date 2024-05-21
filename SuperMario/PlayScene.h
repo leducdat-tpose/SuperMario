@@ -9,6 +9,7 @@
 #include "Koopas.h"
 #include "TileMaps.h"
 #include "Grid.h"
+#include "Define.h"
 
 class CPlayScene : public CScene
 {
