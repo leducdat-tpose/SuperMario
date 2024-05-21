@@ -14,6 +14,7 @@ class CPlayScene : public CScene
 {
 	CTileMaps* tilemaps = CTileMaps::GetInstance();
 	vector<Unit*> listUnits;
+	bool isGameOver = false;
 
 protected:
 	// A play scene has to have player, right? 
