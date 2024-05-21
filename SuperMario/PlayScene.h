@@ -13,8 +13,19 @@
 
 class CPlayScene : public CScene
 {
+	CGame* game = CGame::GetInstance();
 	CTileMaps* tilemaps = CTileMaps::GetInstance();
 	vector<Unit*> listUnits;
+
+	//Take a sample like brick
+	vector<LPGAMEOBJECT> listStaticObjectsToRender;
+	//Take a sample such as mario, koopas
+	vector<LPGAMEOBJECT> listMovingObjectsToRender;
+	//For instance is mushroom, leaf, coin
+	vector< LPGAMEOBJECT> listCanEarnObjectsToRender;
+	//Mario jump into it
+	vector< LPGAMEOBJECT> listPipeObjectsToRender;
+
 	bool isGameOver = false;
 
 protected:

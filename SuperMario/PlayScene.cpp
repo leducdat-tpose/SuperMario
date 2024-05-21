@@ -275,7 +275,6 @@ void CPlayScene::Update(DWORD dt)
 	float cx, cy;
 	player->GetPosition(cx, cy);
 
-	CGame* game = CGame::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
 	cy -= game->GetBackBufferHeight() / 2;
 
@@ -294,7 +293,22 @@ void CPlayScene::Render()
 
 	}
 	else {
-
+		tilemaps->Get(id)->Draw(game->GetCameraPositon(), false);
+		for (auto obj : listStaticObjectsToRender)
+		{
+			obj->Render();
+		}
+		for (auto obj : listCanEarnObjectsToRender)
+		{
+			obj->Render();
+		}
+		for (auto obj : listMovingObjectsToRender) {
+			obj->Render();
+		}
+		for (auto obj : listPipeObjectsToRender)
+		{
+			obj->Render();
+		}
 	}
 	/*for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
