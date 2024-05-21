@@ -1,9 +1,7 @@
 #include "TileMap.h"
 #include "AssetIDs.h"
 #include "Utils.h"
-
-#define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 240
+#include "Define.h"
 
 CTileMap::CTileMap(int ID, LPCWSTR filePathTexture, LPCWSTR filePathData,
 	int mapWidth, int mapHeight, int tileWidth, int tileHeight) {
