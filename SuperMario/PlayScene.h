@@ -8,11 +8,13 @@
 #include "Goomba.h"
 #include "Koopas.h"
 #include "TileMaps.h"
-
+#include "Grid.h"
 
 class CPlayScene : public CScene
 {
 	CTileMaps* tilemaps = CTileMaps::GetInstance();
+	vector<Unit*> listUnits;
+
 protected:
 	// A play scene has to have player, right? 
 	LPGAMEOBJECT player;
@@ -35,7 +37,7 @@ public:
 	virtual void Unload();
 
 	LPGAMEOBJECT GetPlayer() { return player; }
-
+	void UpdateGrid();
 	void Clear();
 	void PurgeDeletedObjects();
 

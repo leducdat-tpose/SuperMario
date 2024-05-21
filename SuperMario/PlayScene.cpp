@@ -239,6 +239,19 @@ void CPlayScene::Load()
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 }
 
+void CPlayScene::UpdateGrid() {
+	for (int i = 0; i < listUnits.size(); i++)
+	{
+		LPGAMEOBJECT obj = listUnits[i]->GetObj();
+
+		if (obj->IsEnable() == false) continue;
+
+		float newPosX, newPosY;
+		obj->GetPosition(newPosX, newPosY);
+		listUnits[i]->Move(newPosX, newPosY);
+	}
+}
+
 void CPlayScene::Update(DWORD dt)
 {
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
