@@ -9,6 +9,8 @@
 #define SCENE_1 1
 #define SCENE_2 2
 
+#define GAMESTATE_1 1
+
 #define GROUND			0
 #define GOOMBA			1
 #define PARAGOOMBA		2

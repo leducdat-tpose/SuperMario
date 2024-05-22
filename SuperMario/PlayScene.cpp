@@ -2,6 +2,7 @@
 #include <fstream>
 #include "AssetIDs.h"
 
+
 #include "PlayScene.h"
 #include "Utils.h"
 #include "Textures.h"
@@ -360,15 +361,33 @@ void CPlayScene::GetObjectsFromGrid()
 		listMovingObjectsToRender.push_back(obj);
 	}
 }
+//Use when mario jump in a pipe or something else, it will teleport to that position
+void CPlayScene::SetGameState(int state)
+{
+	switch (state)
+	{
+	case GAMESTATE_1:/*
+		player->SetState(1);
+		player->SetPosition();
+		game->SetCamPos();*/
+		break;
+	default:
+		break;
+	}
+}
 
 void CPlayScene::Init(int id)
 {
+	//When the project is quiet complete, I will change this into read file just like professor
 	this->id = id;
 	switch (this->id)
 	{
 	case SCENE_TITLE:
 		break;
 	case SCENE_1:
+		grid = new Grid(2816, 626);
+		LoadObjects(L"scenes\\scene_1_objects.txt");
+		SetGameState(GAMESTATE_1);
 		break;
 	case SCENE_2:
 		break;

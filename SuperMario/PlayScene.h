@@ -49,7 +49,7 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
-
+	void SetGameState(int state);
 	void Init(int id);
 
 	LPGAMEOBJECT GetPlayer() { return player; }
