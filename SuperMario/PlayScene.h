@@ -44,6 +44,7 @@ protected:
 	void LoadObjects(LPCWSTR filePath);
 public:
 	CPlayScene(int id, LPCWSTR filePath);
+	CPlayScene() {};
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();

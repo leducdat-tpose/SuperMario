@@ -28,6 +28,7 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 
 #include "debug.h"
 #include "Game.h"
+#include "PlayScene.h"
 #include "GameObject.h"
 #include "Textures.h"
 #include "Animation.h"
@@ -52,6 +53,9 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
+
+LPGAME game;
+LPPLAYSCENE scene;
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -196,10 +200,15 @@ int WINAPI WinMain(
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	SetDebugWindow(hWnd);
-	LPGAME game = CGame::GetInstance();
+	game = CGame::GetInstance();
 	game->Init(hWnd, hInstance);
 	
 	game->LoadResources();
+
+	scene = new CPlayScene();
+	scene->Init(SCENE_1);
+
+
 
 	//game->InitKeyboard();
 
