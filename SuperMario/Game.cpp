@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "debug.h"
 #include "Utils.h"
+#include "Define.h"
 
 #include "Texture.h"
 #include "Animations.h"
@@ -551,7 +552,17 @@ void CGame::_ParseSection_TEXTURES(string line)
 
 	CTextures::GetInstance()->Add(texID, path.c_str());
 }
+//This function will use to run all resources, instead of using those function professor give
+void CGame::LoadResources()
+{
+	//Load this instead of read mario-sample.txt
+	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png");
+	textures->Add(ID_TEX_MARIO, L"textures\\mario.png");
+	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png");
+	textures->Add(ID_TEX_MISC, L"textures\\misc.png");
 
+
+}
 
 CGame::~CGame()
 {

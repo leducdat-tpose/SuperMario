@@ -28,6 +28,8 @@ class CGame
 	static CGame* __instance;
 	HWND hWnd;									// Window handle
 
+	CTextures* textures = CTextures::GetInstance();
+
 	int backBufferWidth = 0;					// Backbuffer width & height, will be set during Direct3D initialization
 	int backBufferHeight = 0;
 
@@ -112,6 +114,8 @@ public:
 	LPSCENE GetCurrentScene() { return scenes[current_scene]; }
 	void Load(LPCWSTR gameFile);
 	void Load(LPCWSTR pathTexture, LPCWSTR pathData);
+
+	void LoadResources();
 	void SwitchScene();
 	void InitiateSwitchScene(int scene_id);
 
