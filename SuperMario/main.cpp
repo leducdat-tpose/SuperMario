@@ -198,9 +198,10 @@ int WINAPI WinMain(
 	SetDebugWindow(hWnd);
 	LPGAME game = CGame::GetInstance();
 	game->Init(hWnd, hInstance);
-	//game->InitKeyboard();
+	
 	game->LoadResources();
 
+	//game->InitKeyboard();
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 

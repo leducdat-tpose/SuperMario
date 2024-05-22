@@ -30,7 +30,7 @@ void CTileMap::LoadResources()
 	int textureWidth = 320;
 	int textureHeight = 96;
 	int level = 0;
-	if(ID == SCENETITLE){}
+	if(ID == SCENE_TITLE){}
 	else if (ID == SCENE_1) {
 		textureWidth = 320;
 		textureHeight = 96;

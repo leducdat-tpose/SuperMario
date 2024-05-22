@@ -44,11 +44,12 @@ protected:
 	void LoadObjects(LPCWSTR filePath);
 public:
 	CPlayScene(int id, LPCWSTR filePath);
-
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
+
+	void Init(int id);
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 	void UpdateGrid();

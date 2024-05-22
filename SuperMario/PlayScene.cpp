@@ -25,7 +25,6 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	key_handler = new CSampleKeyHandler(this);
 }
 
-
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_ASSETS	1
 #define SCENE_SECTION_OBJECTS	2
@@ -362,11 +361,24 @@ void CPlayScene::GetObjectsFromGrid()
 	}
 }
 
+void CPlayScene::Init(int id)
+{
+	this->id = id;
+	switch (this->id)
+	{
+	case SCENE_TITLE:
+		break;
+	case SCENE_1:
+		break;
+	case SCENE_2:
+		break;
+	}
+}
 
 void CPlayScene::Render()
 {
 	if (isGameOver == true) return;
-	else if (id == SCENETITLE)
+	else if (id == SCENE_TITLE)
 	{
 
 	}
