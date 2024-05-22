@@ -561,6 +561,10 @@ void CGame::LoadResources()
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png");
 	textures->Add(ID_TEX_MISC, L"textures\\misc.png");
 
+	//Load texture for object and animation
+
+	//Load map
+	tilemaps->Add(SCENE_1, L"scenes\\scene_1_texture.png", L"scenes\\scene_1_map.txt", 2816, 626);
 
 }
 

@@ -53,9 +53,6 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
-
-LPGAME game = CGame::GetInstance();
-
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) {
@@ -199,13 +196,11 @@ int WINAPI WinMain(
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	SetDebugWindow(hWnd);
-
+	LPGAME game = CGame::GetInstance();
 	game->Init(hWnd, hInstance);
 	//game->InitKeyboard();
+	game->LoadResources();
 
-
-	//IMPORTANT: this is the only place where a hardcoded file name is allowed ! 
-	game->Load(L"TextureScene1.png", L"scene01Test.txt");
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
