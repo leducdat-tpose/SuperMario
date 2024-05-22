@@ -511,6 +511,12 @@ void CGame::Load(LPCWSTR gameFile)
 	SwitchScene();
 }
 
+void CGame::Load(LPCWSTR pathTexture, LPCWSTR pathData) {
+	tilemaps->Add(1, pathTexture, pathData, 2816, 626);
+	LPSCENE scene = new CPlayScene(1, pathData);
+	scenes[1] = scene;
+}
+
 void CGame::SwitchScene()
 {
 	if (next_scene < 0 || next_scene == current_scene) return;

@@ -6,7 +6,7 @@ height	240
 #id	type	file
 # type: 0: intro, 1: play scene 
 [SCENES]
-1	scene01Test.txt		textures\TextureScene1.png
+1	scene01Test.txt		TextureScene1.png
 
 # id	file 
 [TEXTURES]

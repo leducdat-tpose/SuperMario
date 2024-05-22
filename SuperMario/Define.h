@@ -4,12 +4,10 @@
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
-enum SCENE
-{
-	SCENETITLE = 0,
-	SCENE1_1 = 1,
-	SCENE1_2 = 2
-};
+
+#define SCENETITLE 0
+#define SCENE1_1 1
+#define SCENE1_2 2
 
 #define GROUND			0
 #define GOOMBA			1
