@@ -8,6 +8,8 @@ class CPlayer
 {
 	LPGAME game;
 	LPSCENE scene;
+	CMario* mario;
+
 	//information of player such as point, gadget own or archive
 	string information;
 	int score;

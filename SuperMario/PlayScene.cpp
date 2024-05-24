@@ -367,9 +367,10 @@ void CPlayScene::SetGameState(int state)
 	switch (state)
 	{
 	case GAMESTATE_1:/*
-		player->SetState(1);
-		player->SetPosition();
+		mario->SetState(1);
+		mario->SetPosition();
 		game->SetCamPos();*/
+		tilemaps->Get(SCENE_1)->index = 0;
 		break;
 	default:
 		break;

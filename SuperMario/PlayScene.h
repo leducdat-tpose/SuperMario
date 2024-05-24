@@ -15,7 +15,12 @@ class CPlayScene : public CScene
 {
 	CGame* game = CGame::GetInstance();
 	CTileMaps* tilemaps = CTileMaps::GetInstance();
+	CTextures* textures = CTextures::GetInstance();
+	CAnimations* animations = CAnimations::GetInstance();
+	CTextures* textures = CTextures::GetInstance();
+
 	vector<Unit*> listUnits;
+	vector<LPGAMEOBJECT> objects;
 	Unit* unit;
 	Grid* grid;
 
@@ -33,7 +38,8 @@ class CPlayScene : public CScene
 protected:
 	// A play scene has to have player, right? 
 	LPGAMEOBJECT player;
-	vector<LPGAMEOBJECT> objects;
+	//MARIO
+	CMario* mario;
 
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
