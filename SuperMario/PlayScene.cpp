@@ -26,6 +26,11 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	key_handler = new CSampleKeyHandler(this);
 }
 
+CPlayScene::CPlayScene()
+{
+	mario = new CMario(20, 10);
+}
+
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_ASSETS	1
 #define SCENE_SECTION_OBJECTS	2
@@ -211,31 +216,47 @@ void CPlayScene::LoadObjects(LPCWSTR filePath)
 	fs.open(filePath, ios::in);
 	if (fs.fail())
 	{
+		DebugOut(L"[ERROR] from LoadObjects in PlayScene!");
 		fs.close();
 		return;
 	}
 	int idObj = 0;
 	float posX, posY;
-	switch (idObj)
+
+	while (!fs.eof())
 	{
-	case GROUND:
-		/*CGround* ground = new CGround();
-		ground->SetPosition(posX, posY);
-		unit = new Unit(grid, ground, posX, posY);*/
-		break;
-	case GOOMBA:
-		break;
-	case PARAGOOMBA:
-		break;
-	case KOOPAS:
-		break;
-	case PARAKOOPAS:
-		break;
-	case CHANGESCENEOBJ:
-		break;
-	default:
-		break;
+		switch (idObj)
+		{
+		case OBJECT_TYPE_MARIO:
+			break;
+		case OBJECT_TYPE_BRICK:
+			/*CGround* ground = new CGround();
+			ground->SetPosition(posX, posY);
+			unit = new Unit(grid, ground, posX, posY);*/
+			break;
+		case OBJECT_TYPE_GOOMBA:
+			break;
+		case OBJECT_TYPE_KOOPAS:
+			break;
+		case OBJECT_TYPE_COIN:
+			break;
+		case OBJECT_TYPE_PLATFORM:
+			break;
+		case OBJECT_TYPE_LUCKYBOX:
+			break;
+		case OBJECT_TYPE_PARAGOOMBA:
+			break;
+		case OBJECT_TYPE_MUSHROOM:
+			break;
+		case OBJECT_TYPE_PARAKOOPAS:
+			break;
+		case OBJECT_TYPE_GROUND:
+			break;
+		default:
+			break;
+		}
 	}
+	
 }
 
 
@@ -366,10 +387,10 @@ void CPlayScene::SetGameState(int state)
 {
 	switch (state)
 	{
-	case GAMESTATE_1:/*
+	case GAMESTATE_1:
 		mario->SetState(1);
-		mario->SetPosition();
-		game->SetCamPos();*/
+		mario->SetPosition(20,10);
+		game->SetCamPos(20,10);
 		tilemaps->Get(SCENE_1)->index = 0;
 		break;
 	default:
