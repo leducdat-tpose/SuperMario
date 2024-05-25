@@ -326,14 +326,18 @@ void CPlayScene::UpdateGrid() {
 
 void CPlayScene::Update(DWORD dt)
 {
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
+	if (id == SCENE_TITLE)
+	{
+		return;
+	}
 
 	GetObjectsFromGrid();
 
 	for (int i = 0; i < objects.size(); i++)
 	{
 		LPGAMEOBJECT object = objects[i];
+		vector<LPGAMEOBJECT> coObjects;
+
 
 	}
 	UpdateGrid();
@@ -464,6 +468,49 @@ void CPlayScene::Render()
 	D3DXVECTOR3 camPos;
 	CGame::GetInstance()->GetCamPos(camPos.x, camPos.y);
 	tilemaps->Get(id)->Draw(camPos);*/
+}
+
+void CPlayScene::GetColliableObjects(LPGAMEOBJECT object, vector<LPGAMEOBJECT>& coObjects)
+{
+	if (dynamic_cast<CLuckyBox*>(object))
+	{
+		for (auto obj : objects)
+		{
+			coObjects.push_back(obj);
+		}
+	}
+	else if (dynamic_cast<CMario*>(object))
+	{
+
+	}
+	else if (dynamic_cast<CKoopas*>(object))
+	{
+
+	}
+	else if (dynamic_cast<CGoomba*>(object))
+	{
+
+	}
+	else if (dynamic_cast<CCoin*>(object))
+	{
+
+	}
+	else if (dynamic_cast<CPlatform*>(object))
+	{
+
+	}
+	else if (dynamic_cast<CMushroom*>(object))
+	{
+
+	}
+	else if (dynamic_cast<CGround*>(object))
+	{
+
+	}
+	else if (dynamic_cast<CPortal*>(object))
+	{
+
+	}
 }
 
 /*

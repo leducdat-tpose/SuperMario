@@ -73,7 +73,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 */
 void Update(DWORD dt)
 {
-	//CGame::GetInstance()->GetCurrentScene()->Update(dt);
+	scene->Update(dt);
 }
 
 /*
@@ -175,11 +175,11 @@ int Run()
 		{
 			frameStart = now;
 
-			//CGame::GetInstance()->ProcessKeyboard();
+			CGame::GetInstance()->ProcessKeyboard();
 			Update(dt);
 			Render();
 
-			CGame::GetInstance()->SwitchScene();
+			//CGame::GetInstance()->SwitchScene();
 		}
 		else
 			Sleep(tickPerFrame - dt);
