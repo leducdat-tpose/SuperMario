@@ -333,15 +333,21 @@ void CPlayScene::Update(DWORD dt)
 
 	GetObjectsFromGrid();
 
-	for (int i = 0; i < objects.size(); i++)
+	vector<LPGAMEOBJECT> coObjects;
+	for (size_t i = 0; i < objects.size(); i++)
 	{
-		LPGAMEOBJECT object = objects[i];
-		vector<LPGAMEOBJECT> coObjects;
-
-
+		coObjects.push_back(objects[i]);
 	}
+	for (size_t i = 0; i < objects.size(); i++)
+	{
+		objects[i]->Update(dt, &coObjects);
+	}
+
+	UpdateCameraPosition();
+
 	UpdateGrid();
 
+	PurgeDeletedObjects();
 
 	//vector<LPGAMEOBJECT> coObjects;
 	//for (size_t i = 1; i < objects.size(); i++)
@@ -382,6 +388,16 @@ void CPlayScene::Update(DWORD dt)
 	//CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
 
 	//PurgeDeletedObjects();
+}
+
+void CPlayScene::UpdateCameraPosition()
+{
+	float cx, cy;
+	mario->GetPosition(cx, cy);
+	cx -= game->GetBackBufferWidth() / 2;
+	cy -= game->GetBackBufferHeight() / 2;
+	if (cx < 0) cx = 0;
+	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
 }
 
 void CPlayScene::GetObjectsFromGrid()
@@ -470,48 +486,7 @@ void CPlayScene::Render()
 	tilemaps->Get(id)->Draw(camPos);*/
 }
 
-void CPlayScene::GetColliableObjects(LPGAMEOBJECT object, vector<LPGAMEOBJECT>& coObjects)
-{
-	if (dynamic_cast<CLuckyBox*>(object))
-	{
-		for (auto obj : objects)
-		{
-			coObjects.push_back(obj);
-		}
-	}
-	else if (dynamic_cast<CMario*>(object))
-	{
 
-	}
-	else if (dynamic_cast<CKoopas*>(object))
-	{
-
-	}
-	else if (dynamic_cast<CGoomba*>(object))
-	{
-
-	}
-	else if (dynamic_cast<CCoin*>(object))
-	{
-
-	}
-	else if (dynamic_cast<CPlatform*>(object))
-	{
-
-	}
-	else if (dynamic_cast<CMushroom*>(object))
-	{
-
-	}
-	else if (dynamic_cast<CGround*>(object))
-	{
-
-	}
-	else if (dynamic_cast<CPortal*>(object))
-	{
-
-	}
-}
 
 /*
 *	Clear all objects from this scene

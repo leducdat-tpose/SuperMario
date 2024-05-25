@@ -60,10 +60,11 @@ public:
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 	void UpdateGrid();
-	void GetColliableObjects(LPGAMEOBJECT object, vector<LPGAMEOBJECT>& coObjects);
 	void GetObjectsFromGrid();
 	void Clear();
 	void PurgeDeletedObjects();
+	void UpdateCameraPosition();
+
 
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
 };
