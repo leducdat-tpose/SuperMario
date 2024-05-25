@@ -26,11 +26,6 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	key_handler = new CSampleKeyHandler(this);
 }
 
-CPlayScene::CPlayScene()
-{
-	mario = new CMario(20, 10);
-}
-
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_ASSETS	1
 #define SCENE_SECTION_OBJECTS	2
@@ -209,94 +204,94 @@ void CPlayScene::LoadAssets(LPCWSTR assetFile)
 
 	DebugOut(L"[INFO] Done loading assets from %s\n", assetFile);
 }
-
-void CPlayScene::LoadObjects(LPCWSTR filePath)
-{
-	fstream fs;
-	fs.open(filePath, ios::in);
-	if (fs.fail())
-	{
-		DebugOut(L"[ERROR] from LoadObjects in PlayScene!");
-		fs.close();
-		return;
-	}
-	int idObj = 0;
-	float posX, posY;
-
-	while (!fs.eof())
-	{
-		fs >> idObj >> posX >> posY;
-		switch (idObj)
-		{
-		case OBJECT_TYPE_MARIO:
-		{
-			break;
-		}
-		case OBJECT_TYPE_BRICK:
-		{
-			CBrick* brick = new CBrick(posX, posY);
-			unit = new Unit(grid, brick, posX, posY);
-			break;
-		}
-			
-		case OBJECT_TYPE_GOOMBA:
-		{
-			CGoomba* goomba = new CGoomba(posX, posY, false);
-			unit = new Unit(grid, goomba, posX, posY);
-			break;
-		}
-			
-		case OBJECT_TYPE_KOOPAS:
-		{
-			CKoopas* koopas = new CKoopas(posX, posY, false);
-			unit = new Unit(grid, koopas, posX, posY);
-			break;
-		}
-		case OBJECT_TYPE_COIN:
-		{
-			CCoin* coin = new CCoin(posX, posY);
-			unit = new Unit(grid, coin, posX, posY);
-			break;
-		}
-		case OBJECT_TYPE_PLATFORM:
-		{
-			//Not now
-			break;
-		}
-		case OBJECT_TYPE_LUCKYBOX:
-		{
-			CLuckyBox* luckybox = new CLuckyBox(posX, posY);
-			unit = new Unit(grid, luckybox, posX, posY);
-			break;
-		}
-		case OBJECT_TYPE_PARAGOOMBA:
-		{
-			CGoomba* paragoomba = new CGoomba(posX, posY, true);
-			unit = new Unit(grid, paragoomba, posX, posY);
-			break;
-		}
-		case OBJECT_TYPE_MUSHROOM:
-		{
-			CMushroom* mushroom = new CMushroom(posX, posY);
-			unit = new Unit(grid, mushroom, posX, posY);
-			break;
-		}
-		case OBJECT_TYPE_PARAKOOPAS:
-		{
-			CKoopas* parakoopas = new CKoopas(posX, posY, true);
-			unit = new Unit(grid, parakoopas, posX, posY);
-			break;
-		}
-		case OBJECT_TYPE_GROUND:
-		{
-			CGround* ground = new CGround();
-			unit = new Unit(grid, ground, posX, posY);
-			break;
-		}
-		}
-	}
-	
-}
+//
+//void CPlayScene::LoadObjects(LPCWSTR filePath)
+//{
+//	fstream fs;
+//	fs.open(filePath, ios::in);
+//	if (fs.fail())
+//	{
+//		DebugOut(L"[ERROR] from LoadObjects in PlayScene!");
+//		fs.close();
+//		return;
+//	}
+//	int idObj = 0;
+//	float posX, posY;
+//
+//	while (!fs.eof())
+//	{
+//		fs >> idObj >> posX >> posY;
+//		switch (idObj)
+//		{
+//		case OBJECT_TYPE_MARIO:
+//		{
+//			break;
+//		}
+//		case OBJECT_TYPE_BRICK:
+//		{
+//			CBrick* brick = new CBrick(posX, posY);
+//			unit = new Unit(grid, brick, posX, posY);
+//			break;
+//		}
+//			
+//		case OBJECT_TYPE_GOOMBA:
+//		{
+//			CGoomba* goomba = new CGoomba(posX, posY, false);
+//			unit = new Unit(grid, goomba, posX, posY);
+//			break;
+//		}
+//			
+//		case OBJECT_TYPE_KOOPAS:
+//		{
+//			CKoopas* koopas = new CKoopas(posX, posY, false);
+//			unit = new Unit(grid, koopas, posX, posY);
+//			break;
+//		}
+//		case OBJECT_TYPE_COIN:
+//		{
+//			CCoin* coin = new CCoin(posX, posY);
+//			unit = new Unit(grid, coin, posX, posY);
+//			break;
+//		}
+//		case OBJECT_TYPE_PLATFORM:
+//		{
+//			//Not now
+//			break;
+//		}
+//		case OBJECT_TYPE_LUCKYBOX:
+//		{
+//			CLuckyBox* luckybox = new CLuckyBox(posX, posY);
+//			unit = new Unit(grid, luckybox, posX, posY);
+//			break;
+//		}
+//		case OBJECT_TYPE_PARAGOOMBA:
+//		{
+//			CGoomba* paragoomba = new CGoomba(posX, posY, true);
+//			unit = new Unit(grid, paragoomba, posX, posY);
+//			break;
+//		}
+//		case OBJECT_TYPE_MUSHROOM:
+//		{
+//			CMushroom* mushroom = new CMushroom(posX, posY);
+//			unit = new Unit(grid, mushroom, posX, posY);
+//			break;
+//		}
+//		case OBJECT_TYPE_PARAKOOPAS:
+//		{
+//			CKoopas* parakoopas = new CKoopas(posX, posY, true);
+//			unit = new Unit(grid, parakoopas, posX, posY);
+//			break;
+//		}
+//		case OBJECT_TYPE_GROUND:
+//		{
+//			CGround* ground = new CGround();
+//			unit = new Unit(grid, ground, posX, posY);
+//			break;
+//		}
+//		}
+//	}
+//	
+//}
 
 
 void CPlayScene::Load()
@@ -334,22 +329,49 @@ void CPlayScene::Load()
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 }
 
-void CPlayScene::UpdateGrid() {
-	for (int i = 0; i < listUnits.size(); i++)
-	{
-		LPGAMEOBJECT obj = listUnits[i]->GetObj();
-
-		if (obj->IsEnable() == false) continue;
-
-		float newPosX, newPosY;
-		obj->GetPosition(newPosX, newPosY);
-		listUnits[i]->Move(newPosX, newPosY);
-	}
-}
+//void CPlayScene::UpdateGrid() {
+//	for (int i = 0; i < listUnits.size(); i++)
+//	{
+//		LPGAMEOBJECT obj = listUnits[i]->GetObj();
+//
+//		if (obj->IsEnable() == false) continue;
+//
+//		float newPosX, newPosY;
+//		obj->GetPosition(newPosX, newPosY);
+//		listUnits[i]->Move(newPosX, newPosY);
+//	}
+//}
 
 void CPlayScene::Update(DWORD dt)
 {
-	if (id == SCENE_TITLE)
+	vector<LPGAMEOBJECT> coObjects;
+	for (size_t i = 1; i < objects.size(); i++)
+	{
+		coObjects.push_back(objects[i]);
+	}
+
+	for (size_t i = 0; i < objects.size(); i++)
+	{
+		objects[i]->Update(dt, &coObjects);
+	}
+
+	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
+	if (player == NULL) return;
+
+	// Update camera to follow mario
+	float cx, cy;
+	player->GetPosition(cx, cy);
+
+	CGame* game = CGame::GetInstance();
+	cx -= game->GetBackBufferWidth() / 2;
+	cy -= game->GetBackBufferHeight() / 2;
+
+	if (cx < 0) cx = 0;
+
+	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+
+	PurgeDeletedObjects();
+	/*if (id == SCENE_TITLE)
 	{
 		return;
 	}
@@ -370,7 +392,7 @@ void CPlayScene::Update(DWORD dt)
 
 	UpdateGrid();
 
-	PurgeDeletedObjects();
+	PurgeDeletedObjects();*/
 
 	//vector<LPGAMEOBJECT> coObjects;
 	//for (size_t i = 1; i < objects.size(); i++)
@@ -426,93 +448,64 @@ void CPlayScene::UpdateCameraPosition()
 	if (cx < 0) cx = 0;
 	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
 }
-
-void CPlayScene::GetObjectsFromGrid()
-{
-	//clear a units from previous scene
-
-	listUnits.clear();
-	listCanEarnObjectsToRender.clear();
-	listStaticObjectsToRender.clear();
-	listMovingObjectsToRender.clear();
-	listPipeObjectsToRender.clear();
-	grid->Get(game->GetCameraPositon(), listUnits);
-
-	for (UINT i = 0; i < listUnits.size(); i++)
-	{
-		LPGAMEOBJECT obj = listUnits[i]->GetObj();
-		objects.push_back(obj);
-		listMovingObjectsToRender.push_back(obj);
-	}
-}
+//
+//void CPlayScene::GetObjectsFromGrid()
+//{
+//	//clear a units from previous scene
+//
+//	listUnits.clear();
+//	listCanEarnObjectsToRender.clear();
+//	listStaticObjectsToRender.clear();
+//	listMovingObjectsToRender.clear();
+//	listPipeObjectsToRender.clear();
+//	grid->Get(game->GetCameraPositon(), listUnits);
+//
+//	for (UINT i = 0; i < listUnits.size(); i++)
+//	{
+//		LPGAMEOBJECT obj = listUnits[i]->GetObj();
+//		objects.push_back(obj);
+//		listMovingObjectsToRender.push_back(obj);
+//	}
+//}
 //Use when mario jump in a pipe or something else, it will teleport to that position
-void CPlayScene::SetGameState(int state)
-{
-	switch (state)
-	{
-	case GAMESTATE_1:
-		mario->SetState(1);
-		mario->SetPosition(20,10);
-		game->SetCamPos(20,10);
-		tilemaps->Get(SCENE_1)->index = 0;
-		break;
-	default:
-		break;
-	}
-}
+//void CPlayScene::SetGameState(int state)
+//{
+//	switch (state)
+//	{
+//	case GAMESTATE_1:
+//		mario->SetState(1);
+//		mario->SetPosition(20,10);
+//		game->SetCamPos(20,10);
+//		tilemaps->Get(SCENE_1)->index = 0;
+//		break;
+//	default:
+//		break;
+//	}
+//}
 
-void CPlayScene::Init(int id)
-{
-	//When the project is quiet complete, I will change this into read file just like professor
-	this->id = id;
-	switch (this->id)
-	{
-	case SCENE_TITLE:
-		break;
-	case SCENE_1:
-		grid = new Grid(2816, 626);
-		LoadObjects(L"scenes\\scene_1_objects.txt");
-		SetGameState(GAMESTATE_1);
-		break;
-	case SCENE_2:
-		break;
-	}
-}
+//void CPlayScene::Init(int id)
+//{
+//	//When the project is quiet complete, I will change this into read file just like professor
+//	this->id = id;
+//	switch (this->id)
+//	{
+//	case SCENE_TITLE:
+//		break;
+//	case SCENE_1:
+//		grid = new Grid(2816, 626);
+//		LoadObjects(L"scenes\\scene_1_objects.txt");
+//		SetGameState(GAMESTATE_1);
+//		break;
+//	case SCENE_2:
+//		break;
+//	}
+//}
 
 void CPlayScene::Render()
 {
-	if (isGameOver == true) return;
-	else if (id == SCENE_TITLE)
-	{
-
-	}
-	else {
-		tilemaps->Get(id)->Draw(game->GetCameraPositon(), false);
-		/*for (auto obj : listStaticObjectsToRender)
-		{
-			obj->Render();
-		}
-		for (auto obj : listCanEarnObjectsToRender)
-		{
-			obj->Render();
-		}
-		for (auto obj : listMovingObjectsToRender) {
-			obj->Render();
-		}
-		for (auto obj : listPipeObjectsToRender)
-		{
-			obj->Render();
-		}*/
-		for (int i = 0; i < objects.size(); i++)
-			objects[i]->Render();
-	}
-	/*for (int i = 0; i < objects.size(); i++)
+	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
-	D3DXVECTOR3 camPos;
-	CGame::GetInstance()->GetCamPos(camPos.x, camPos.y);
-	tilemaps->Get(id)->Draw(camPos);*/
 }
-
 
 
 /*

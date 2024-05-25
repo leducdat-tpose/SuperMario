@@ -456,11 +456,10 @@ void CGame::_ParseSection_SCENES(string line)
 {
 	vector<string> tokens = split(line);
 
-	if (tokens.size() < 3) return;
+	if (tokens.size() < 2) return;
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);   // file: ASCII format (single-byte char) => Wide Char
-	wstring texture = ToWSTR(tokens[2]);
-	tilemaps->Add(id, texture.c_str(), path, 2816, 626);
+	
 	LPSCENE scene = new CPlayScene(id, path);
 	scenes[id] = scene;
 }
@@ -552,6 +551,8 @@ void CGame::_ParseSection_TEXTURES(string line)
 
 	CTextures::GetInstance()->Add(texID, path.c_str());
 }
+
+
 //This function will use to run all resources, instead of using those function professor give
 void CGame::LoadResources()
 {

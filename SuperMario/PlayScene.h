@@ -14,14 +14,14 @@
 class CPlayScene : public CScene
 {
 	CGame* game = CGame::GetInstance();
-	CTileMaps* tilemaps = CTileMaps::GetInstance();
+	//CTileMaps* tilemaps = CTileMaps::GetInstance();
 	CTextures* textures = CTextures::GetInstance();
 	CAnimations* animations = CAnimations::GetInstance();
 
-	vector<Unit*> listUnits;
+	//vector<Unit*> listUnits;
 	vector<LPGAMEOBJECT> objects;
-	Unit* unit;
-	Grid* grid;
+	//Unit* unit;
+	//Grid* grid;
 
 	//Take a sample like brick
 	vector<LPGAMEOBJECT> listStaticObjectsToRender;
@@ -49,7 +49,6 @@ protected:
 	void LoadObjects(LPCWSTR filePath);
 public:
 	CPlayScene(int id, LPCWSTR filePath);
-	CPlayScene();
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();

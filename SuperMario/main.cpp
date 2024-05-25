@@ -52,7 +52,6 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 #define BACKGROUND_COLOR D3DXCOLOR(200.0f/255, 200.0f/255, 255.0f/255, 0.0f)
 
 LPGAME game;
-LPPLAYSCENE scene;
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -73,7 +72,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 */
 void Update(DWORD dt)
 {
-	scene->Update(dt);
+	CGame::GetInstance()->GetCurrentScene()->Update(dt);
 }
 
 /*
@@ -95,8 +94,8 @@ void Render()
 	FLOAT NewBlendFactor[4] = { 0,0,0,0 };
 	pD3DDevice->OMSetBlendState(g->GetAlphaBlending(), NewBlendFactor, 0xffffffff);
 
-	//CGame::GetInstance()->GetCurrentScene()->Render();
-
+	CGame::GetInstance()->GetCurrentScene()->Render();
+	
 	spriteHandler->End();
 	pSwapChain->Present(0, 0);
 }
@@ -179,7 +178,7 @@ int Run()
 			Update(dt);
 			Render();
 
-			//CGame::GetInstance()->SwitchScene();
+			CGame::GetInstance()->SwitchScene();
 		}
 		else
 			Sleep(tickPerFrame - dt);
@@ -199,13 +198,14 @@ int WINAPI WinMain(
 	SetDebugWindow(hWnd);
 	game = CGame::GetInstance();
 	game->Init(hWnd, hInstance);
-	
-	game->LoadResources();
 
-	scene = new CPlayScene();
-	scene->Init(SCENE_1);
-	//game->InitKeyboard();
+	game->InitKeyboard();
+	//game->LoadResources();
 
+	/*scene = new CPlayScene();
+	scene->Init(SCENE_1);*/
+
+	game->Load(L"mario-sample.txt");
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 

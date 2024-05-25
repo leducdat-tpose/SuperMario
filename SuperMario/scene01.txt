@@ -5,14 +5,14 @@ brick.txt
 coin.txt
 goomba.txt
 cloud.txt
-luckybox.txt
-koopas.txt
-mushroom.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas
 # See OBJECT_TYPE constants in AssetIDs.h
+
+# MARIO
+0	20	10
 
 # BRICKS
 1	0	148
@@ -40,12 +40,10 @@ mushroom.txt
 1	304	180
 1	320	180
 1	336	180
+1	352	180
+
 1	352	148
 1	352	164
-
-#LUCKYBOX
-
-6	352	180
 
 #COIN
 4	100	120
@@ -57,24 +55,9 @@ mushroom.txt
 #Goomba
 2	300	10
 
-#Koopas
-3	300	10
-
-#Paragoomba
-
-7	250	10
-
-#Parakoopas
-9	370	10
-
-#Mushroom
-8	350	10
 #Platform
 5	90	136	16	15	16	51000	52000	53000
 5	120	90	16	16	8	20001	20001	20001
 
 #Portal 
 50	300	110	316	140	2
-
-# MARIO
-0	20	10
