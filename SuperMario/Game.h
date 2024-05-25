@@ -10,6 +10,7 @@ using namespace std;
 #include <dinput.h>
 
 #include "Texture.h"
+#include "Textures.h"
 #include "KeyEventHandler.h"
 #include "Scene.h"
 #include <string>

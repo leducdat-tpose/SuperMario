@@ -225,51 +225,74 @@ void CPlayScene::LoadObjects(LPCWSTR filePath)
 
 	while (!fs.eof())
 	{
+		fs >> idObj >> posX >> posY;
 		switch (idObj)
 		{
 		case OBJECT_TYPE_MARIO:
+		{
 			break;
+		}
 		case OBJECT_TYPE_BRICK:
+		{
 			CBrick* brick = new CBrick(posX, posY);
 			unit = new Unit(grid, brick, posX, posY);
 			break;
+		}
+			
 		case OBJECT_TYPE_GOOMBA:
+		{
 			CGoomba* goomba = new CGoomba(posX, posY, false);
 			unit = new Unit(grid, goomba, posX, posY);
 			break;
+		}
+			
 		case OBJECT_TYPE_KOOPAS:
+		{
 			CKoopas* koopas = new CKoopas(posX, posY, false);
 			unit = new Unit(grid, koopas, posX, posY);
 			break;
+		}
 		case OBJECT_TYPE_COIN:
+		{
 			CCoin* coin = new CCoin(posX, posY);
 			unit = new Unit(grid, coin, posX, posY);
 			break;
+		}
 		case OBJECT_TYPE_PLATFORM:
+		{
 			//Not now
 			break;
+		}
 		case OBJECT_TYPE_LUCKYBOX:
+		{
 			CLuckyBox* luckybox = new CLuckyBox(posX, posY);
 			unit = new Unit(grid, luckybox, posX, posY);
 			break;
+		}
 		case OBJECT_TYPE_PARAGOOMBA:
+		{
 			CGoomba* paragoomba = new CGoomba(posX, posY, true);
 			unit = new Unit(grid, paragoomba, posX, posY);
 			break;
+		}
 		case OBJECT_TYPE_MUSHROOM:
+		{
 			CMushroom* mushroom = new CMushroom(posX, posY);
 			unit = new Unit(grid, mushroom, posX, posY);
 			break;
+		}
 		case OBJECT_TYPE_PARAKOOPAS:
+		{
 			CKoopas* parakoopas = new CKoopas(posX, posY, true);
 			unit = new Unit(grid, parakoopas, posX, posY);
 			break;
+		}
 		case OBJECT_TYPE_GROUND:
+		{
 			CGround* ground = new CGround();
 			unit = new Unit(grid, ground, posX, posY);
 			break;
-		default:
-			break;
+		}
 		}
 	}
 	
@@ -388,6 +411,10 @@ void CPlayScene::Update(DWORD dt)
 	//CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
 
 	//PurgeDeletedObjects();
+}
+
+void CPlayScene::UpdateMario(DWORD dt)
+{
 }
 
 void CPlayScene::UpdateCameraPosition()

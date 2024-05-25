@@ -17,7 +17,6 @@ class CPlayScene : public CScene
 	CTileMaps* tilemaps = CTileMaps::GetInstance();
 	CTextures* textures = CTextures::GetInstance();
 	CAnimations* animations = CAnimations::GetInstance();
-	CTextures* textures = CTextures::GetInstance();
 
 	vector<Unit*> listUnits;
 	vector<LPGAMEOBJECT> objects;
@@ -50,7 +49,7 @@ protected:
 	void LoadObjects(LPCWSTR filePath);
 public:
 	CPlayScene(int id, LPCWSTR filePath);
-	CPlayScene() {};
+	CPlayScene();
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();
@@ -64,6 +63,7 @@ public:
 	void Clear();
 	void PurgeDeletedObjects();
 	void UpdateCameraPosition();
+	void UpdateMario(DWORD dt);
 
 
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
