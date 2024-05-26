@@ -48,6 +48,7 @@ protected:
 
 	void LoadAssets(LPCWSTR assetFile);
 	void LoadObjects(LPCWSTR filePath);
+	void LoadMap(LPCWSTR filePath, int numsColInMap, int numsRowInMap);
 public:
 	CPlayScene(int id, LPCWSTR filePath);
 	virtual void Load();

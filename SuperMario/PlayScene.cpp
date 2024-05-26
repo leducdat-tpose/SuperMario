@@ -96,7 +96,7 @@ void CPlayScene::_ParseSection_TILEMAP(string line)
 {
 	vector<string> tokens = split(line);
 	if (tokens.size() < 8) return;
-	wstring path = ToWSTR(tokens[0]);
+	LPCWSTR filePath = ToLPCWSTR(tokens[0]);
 	int mapWidth = atoi(tokens[1].c_str());
 	int mapHeight = atoi(tokens[2].c_str());
 	int tileWidth = atoi(tokens[3].c_str());
@@ -127,7 +127,7 @@ void CPlayScene::_ParseSection_TILEMAP(string line)
 			IDSprite++;
 		}
 	}
-
+	LoadMap(filePath, numsColInMap, numsRowInMap);
 }
 /*
 	Parse a line in section [OBJECTS]
@@ -367,6 +367,10 @@ void CPlayScene::Load()
 	f.close();
 
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
+}
+
+void CPlayScene::LoadMap(LPCWSTR filePath, int numsColInMap, int numsRowInMap) {
+	return;
 }
 
 //void CPlayScene::UpdateGrid() {

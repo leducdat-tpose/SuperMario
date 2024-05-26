@@ -516,7 +516,6 @@ void CGame::Load(LPCWSTR gameFile)
 		case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
 		case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;
 		case GAME_FILE_SECTION_TEXTURES: _ParseSection_TEXTURES(line); break;
-		case GAME_FILE_SECTION_SCENES_TEXTURES: _ParseSection_SCENES(line); break;
 		}
 	}
 	f.close();
