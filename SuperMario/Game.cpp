@@ -439,6 +439,7 @@ void CGame::ProcessKeyboard()
 #define GAME_FILE_SECTION_SETTINGS 1
 #define GAME_FILE_SECTION_SCENES 2
 #define GAME_FILE_SECTION_TEXTURES 3
+#define GAME_FILE_SECTION_SCENES_TEXTURES 4
 
 
 void CGame::_ParseSection_SETTINGS(string line)
@@ -450,6 +451,18 @@ void CGame::_ParseSection_SETTINGS(string line)
 		next_scene = atoi(tokens[1].c_str());
 	else
 		DebugOut(L"[ERROR] Unknown game setting: %s\n", ToWSTR(tokens[0]).c_str());
+}
+
+void CGame::_ParseSection_TEXTURES(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 2) return;
+
+	int texID = atoi(tokens[0].c_str());
+	wstring path = ToWSTR(tokens[1]);
+
+	CTextures::GetInstance()->Add(texID, path.c_str());
 }
 
 void CGame::_ParseSection_SCENES(string line)
@@ -487,6 +500,7 @@ void CGame::Load(LPCWSTR gameFile)
 		if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
 		if (line == "[TEXTURES]") { section = GAME_FILE_SECTION_TEXTURES; continue; }
 		if (line == "[SCENES]") { section = GAME_FILE_SECTION_SCENES; continue; }
+		if(line == "[SCENES_TEXTURES]") { section = GAME_FILE_SECTION_SCENES_TEXTURES; continue; }
 		if (line[0] == '[')
 		{
 			section = GAME_FILE_SECTION_UNKNOWN;
@@ -502,6 +516,7 @@ void CGame::Load(LPCWSTR gameFile)
 		case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
 		case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;
 		case GAME_FILE_SECTION_TEXTURES: _ParseSection_TEXTURES(line); break;
+		case GAME_FILE_SECTION_SCENES_TEXTURES: _ParseSection_SCENES(line); break;
 		}
 	}
 	f.close();
@@ -510,6 +525,10 @@ void CGame::Load(LPCWSTR gameFile)
 
 	SwitchScene();
 }
+
+
+
+
 
 void CGame::Load(LPCWSTR pathTexture, LPCWSTR pathData) {
 	tilemaps->Add(1, pathTexture, pathData, 2816, 626);
@@ -538,20 +557,6 @@ void CGame::InitiateSwitchScene(int scene_id)
 {
 	next_scene = scene_id;
 }
-
-
-void CGame::_ParseSection_TEXTURES(string line)
-{
-	vector<string> tokens = split(line);
-
-	if (tokens.size() < 2) return;
-
-	int texID = atoi(tokens[0].c_str());
-	wstring path = ToWSTR(tokens[1]);
-
-	CTextures::GetInstance()->Add(texID, path.c_str());
-}
-
 
 //This function will use to run all resources, instead of using those function professor give
 void CGame::LoadResources()

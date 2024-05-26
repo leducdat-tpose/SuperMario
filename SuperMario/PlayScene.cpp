@@ -29,6 +29,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_ASSETS	1
 #define SCENE_SECTION_OBJECTS	2
+#define SCENE_SECTION_TILEMAP 3
 
 #define ASSETS_SECTION_UNKNOWN -1
 #define ASSETS_SECTION_SPRITES 1
@@ -91,6 +92,19 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 	CAnimations::GetInstance()->Add(ani_id, ani);
 }
 
+void CPlayScene::_ParseSection_TILEMAP(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 1) return;
+	int texID = atoi(tokens[0].c_str());
+	LPTEXTURE tex = CTextures::GetInstance()->Get(texID);
+	if (tex == NULL)
+	{
+		DebugOut(L"[ERROR] Texture ID %d not found!\n", texID);
+		return;
+	}
+}
 /*
 	Parse a line in section [OBJECTS]
 */
@@ -312,6 +326,7 @@ void CPlayScene::Load()
 		if (line[0] == '#') continue;	// skip comment lines	
 		if (line == "[ASSETS]") { section = SCENE_SECTION_ASSETS; continue; };
 		if (line == "[OBJECTS]") { section = SCENE_SECTION_OBJECTS; continue; };
+		if (line == "[TILEMAP]") { section = SCENE_SECTION_TILEMAP; continue; };
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
 
 		//
@@ -321,6 +336,7 @@ void CPlayScene::Load()
 		{
 		case SCENE_SECTION_ASSETS: _ParseSection_ASSETS(line); break;
 		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+		case SCENE_SECTION_TILEMAP: 
 		}
 	}
 
@@ -359,16 +375,7 @@ void CPlayScene::Update(DWORD dt)
 	if (player == NULL) return;
 
 	// Update camera to follow mario
-	float cx, cy;
-	player->GetPosition(cx, cy);
-
-	CGame* game = CGame::GetInstance();
-	cx -= game->GetBackBufferWidth() / 2;
-	cy -= game->GetBackBufferHeight() / 2;
-
-	if (cx < 0) cx = 0;
-
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	UpdateCameraPosition();
 
 	PurgeDeletedObjects();
 	/*if (id == SCENE_TITLE)
@@ -442,10 +449,14 @@ void CPlayScene::UpdateMario(DWORD dt)
 void CPlayScene::UpdateCameraPosition()
 {
 	float cx, cy;
-	mario->GetPosition(cx, cy);
+	player->GetPosition(cx, cy);
+
+	CGame* game = CGame::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
 	cy -= game->GetBackBufferHeight() / 2;
+
 	if (cx < 0) cx = 0;
+
 	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
 }
 //

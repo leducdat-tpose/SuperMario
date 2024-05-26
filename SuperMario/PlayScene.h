@@ -44,6 +44,7 @@ protected:
 	void _ParseSection_ANIMATIONS(string line);
 	void _ParseSection_ASSETS(string line);
 	void _ParseSection_OBJECTS(string line);
+	void _ParseSection_TILEMAP(string line);
 
 	void LoadAssets(LPCWSTR assetFile);
 	void LoadObjects(LPCWSTR filePath);

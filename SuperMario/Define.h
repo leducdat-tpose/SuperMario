@@ -4,8 +4,11 @@
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
+#define TILE_WIDTH		16
+#define TILE_HEIGHT		16
 
-#define SCENE_TITLE 0
+
+#define INTRO 0
 #define SCENE_1 1
 #define SCENE_2 2
 

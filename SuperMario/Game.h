@@ -122,6 +122,7 @@ public:
 
 	void _ParseSection_TEXTURES(string line);
 
+
 	D3DXVECTOR3 GetCameraPositon() { 
 		this->GetCamPos(cameraPosition.x, cameraPosition.y);
 		return this->cameraPosition; 
