@@ -34,6 +34,8 @@ enum SCENE
 	SCENE_2 = 2
 };
 
+#define ID_SPRITE_TILE 0
+
 //10000
 #pragma region MARIO 
 

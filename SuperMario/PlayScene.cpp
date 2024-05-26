@@ -95,15 +95,39 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 void CPlayScene::_ParseSection_TILEMAP(string line)
 {
 	vector<string> tokens = split(line);
+	if (tokens.size() < 8) return;
+	wstring path = ToWSTR(tokens[0]);
+	int mapWidth = atoi(tokens[1].c_str());
+	int mapHeight = atoi(tokens[2].c_str());
+	int tileWidth = atoi(tokens[3].c_str());
+	int tileHeight = atoi(tokens[4].c_str());
+	int texID = atoi(tokens[5].c_str());
+	int texWidth = atoi(tokens[6].c_str());
+	int texHeight = atoi(tokens[7].c_str());
 
-	if (tokens.size() < 1) return;
-	int texID = atoi(tokens[0].c_str());
+	int numsColInMap = mapWidth / tileWidth;
+	int numsRowInMap = mapHeight / tileHeight;
+
+	int numsColInTex = texWidth / tileWidth;
+	int numsRowInTex = texHeight / tileHeight;
+	int IDSprite = 0;
+
 	LPTEXTURE tex = CTextures::GetInstance()->Get(texID);
 	if (tex == NULL)
 	{
 		DebugOut(L"[ERROR] Texture ID %d not found!\n", texID);
 		return;
 	}
+	for (int i = 0; i < numsRowInTex; i++)
+	{
+		for (int j = 0; j < numsColInTex; j++)
+		{
+			int ID = ID_SPRITE_TILE + IDSprite;
+			CSprites::GetInstance()->Add(ID, tileWidth * j, tileHeight * i, tileWidth * (j + 1), tileHeight * (i + 1), tex);
+			IDSprite++;
+		}
+	}
+
 }
 /*
 	Parse a line in section [OBJECTS]
@@ -336,7 +360,7 @@ void CPlayScene::Load()
 		{
 		case SCENE_SECTION_ASSETS: _ParseSection_ASSETS(line); break;
 		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
-		case SCENE_SECTION_TILEMAP: 
+		case SCENE_SECTION_TILEMAP: _ParseSection_TILEMAP(line); break;
 		}
 	}
 

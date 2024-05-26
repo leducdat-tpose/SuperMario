@@ -7,7 +7,7 @@ goomba.txt
 cloud.txt
 #
 [TILEMAP]
-30
+scene_1_map.txt	2816	626	16	16	30	320	96
 
 [OBJECTS]
 # type	x	y	extra_settings per object type
