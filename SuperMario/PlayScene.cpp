@@ -110,6 +110,8 @@ void CPlayScene::_ParseSection_TILEMAP(string line)
 
 	int numsColInTex = texWidth / tileWidth;
 	int numsRowInTex = texHeight / tileHeight;
+	//Use for debug
+	numsRowInTex++;
 	int IDSprite = 0;
 
 	LPTEXTURE tex = CTextures::GetInstance()->Get(texID);
@@ -370,6 +372,32 @@ void CPlayScene::Load()
 }
 
 void CPlayScene::LoadMap(LPCWSTR filePath, int numsColInMap, int numsRowInMap) {
+	DebugOut(L"[INFO] Start loading map from : %s \n", filePath);
+	CSprites* sprites = CSprites::GetInstance();
+	ifstream f;
+	f.open(filePath);
+	if (f.fail())
+	{
+		f.close();
+		return;
+	}
+	int ID;
+	int curRow = 0;
+	int curCol = 0;
+	string line;
+	while (!f.eof())
+	{
+		getline(f, line);
+		vector<LPSPRITE> spriteLine;
+		stringstream ss(line);
+		int n;
+		while (ss >> n)
+		{
+			int ID = ID_SPRITE_TILE + n;
+			
+		}
+	}
+	f.close();
 	return;
 }
 
