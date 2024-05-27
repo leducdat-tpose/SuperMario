@@ -61,35 +61,29 @@ void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& botto
 
 void CKoopas::OnNoCollision(DWORD dt)
 {
-	if(state == KOOPAS_STATE_HIDE|| state == KOOPAS_STATE_HIDE_FLIP)
-	{ }
-	else if (state == KOOPAS_STATE_HIDE_MOVING)
-	{
-		x += vx * dt*1.4;
-		y += vy * dt*1.4;
-	}
-	else {
-		x += vx * dt;
-		y += vy * dt;
-	}
+	x += vx * dt;
+	y += vy * dt;
 }
 //Copy from Goomba
 void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CKoopas*>(e->obj)) return;
-
 	if (e->ny != 0)
 	{
 		vy = 0;
 	}
-	else if (e->nx != 0)
+	else if (e->nx != 0 && (state != KOOPAS_STATE_HIDE_MOVING || state != KOOPAS_STATE_HIDE))
 	{
 		vx = -vx;
 		if (vx > 0 && specialAbility == false) SetState(KOOPAS_STATE_WALKING_RIGHT);
 		else if (vx <= 0 && specialAbility == false) SetState(KOOPAS_STATE_WALKING_LEFT);
 		else if (vx > 0 && specialAbility == true) SetState(PARAKOOPAS_STATE_WALKING_RIGHT);
 		else if (vx <= 0 && specialAbility == true) SetState(PARAKOOPAS_STATE_WALKING_LEFT);
+	}
+	else if (e->nx != 0)
+	{
+		vx -= vx;
 	}
 }
 
