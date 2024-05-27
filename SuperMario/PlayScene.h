@@ -17,6 +17,7 @@ class CPlayScene : public CScene
 	//CTileMaps* tilemaps = CTileMaps::GetInstance();
 	CTextures* textures = CTextures::GetInstance();
 	CAnimations* animations = CAnimations::GetInstance();
+	LPSPRITE sprite = nullptr;
 
 	//vector<Unit*> listUnits;
 	vector<LPGAMEOBJECT> objects;

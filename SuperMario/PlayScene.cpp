@@ -399,12 +399,13 @@ void CPlayScene::LoadMap(LPCWSTR filePath, int numsColInMap, int numsRowInMap) {
 	}
 
 	LPANIMATION ani = new CAnimation();
-	ani->Add(ID, 300);
+	ani->Add(ID, 100000);
 	CAnimations::GetInstance()->Add(0, ani);
 	CGameObject* obj = NULL;
 	obj = new CGround(250, 50);
 	obj->SetPosition(250, 50);
 	objects.push_back(obj);
+	sprite = sprites->Get(ID);
 	f.close();
 	return;
 }
@@ -580,6 +581,8 @@ void CPlayScene::Render()
 {
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
+	if (sprite != nullptr)
+		sprite->Draw(300, 10);
 }
 
 
