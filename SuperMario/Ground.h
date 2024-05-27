@@ -6,7 +6,7 @@
 #define GROUND_BBOX_WIDTH 16
 #define GROUND_BBOX_HEIGHT 16
 
-#define ID_ANI_GROUND 16000
+#define ID_ANI_GROUND 0
 
 class CGround : public CGameObject
 {

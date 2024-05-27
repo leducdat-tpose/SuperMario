@@ -381,7 +381,7 @@ void CPlayScene::LoadMap(LPCWSTR filePath, int numsColInMap, int numsRowInMap) {
 		f.close();
 		return;
 	}
-	int ID;
+	int ID = 0;
 	int curRow = 0;
 	int curCol = 0;
 	string line;
@@ -393,10 +393,18 @@ void CPlayScene::LoadMap(LPCWSTR filePath, int numsColInMap, int numsRowInMap) {
 		int n;
 		while (ss >> n)
 		{
-			int ID = ID_SPRITE_TILE + n;
-			
+			ID = n;
+
 		}
 	}
+
+	LPANIMATION ani = new CAnimation();
+	ani->Add(ID, 300);
+	CAnimations::GetInstance()->Add(0, ani);
+	CGameObject* obj = NULL;
+	obj = new CGround(250, 50);
+	obj->SetPosition(250, 50);
+	objects.push_back(obj);
 	f.close();
 	return;
 }
