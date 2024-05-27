@@ -73,17 +73,18 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 	{
 		vy = 0;
 	}
-	else if (e->nx != 0 && (state != KOOPAS_STATE_HIDE_MOVING || state != KOOPAS_STATE_HIDE))
-	{
-		vx = -vx;
-		if (vx > 0 && specialAbility == false) SetState(KOOPAS_STATE_WALKING_RIGHT);
-		else if (vx <= 0 && specialAbility == false) SetState(KOOPAS_STATE_WALKING_LEFT);
-		else if (vx > 0 && specialAbility == true) SetState(PARAKOOPAS_STATE_WALKING_RIGHT);
-		else if (vx <= 0 && specialAbility == true) SetState(PARAKOOPAS_STATE_WALKING_LEFT);
-	}
 	else if (e->nx != 0)
 	{
-		vx -= vx;
+		vx = -vx;
+		if (specialAbility == true)
+		{
+			if(vx > 0) SetState(PARAKOOPAS_STATE_WALKING_RIGHT);
+			else SetState(PARAKOOPAS_STATE_WALKING_LEFT);
+		}
+		else {
+			if(vx > 0) SetState(KOOPAS_STATE_WALKING_RIGHT);
+			else SetState(KOOPAS_STATE_WALKING_LEFT);
+		}
 	}
 }
 
@@ -154,26 +155,24 @@ void CKoopas::SetState(int state)
 	{
 	case KOOPAS_STATE_HIDE_MOVING:
 	{
-		vx = -KOOPAS_WALKING_SPEED*1.4;
+		vx = KOOPAS_WALKING_SPEED*7;
 		break;
 	}
 	case KOOPAS_STATE_HIDE:
 	{
 		//Need to code here
-		y += KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_DIE + 1;
+		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_HIDE_BBOX_HEIGHT)/2;
 		//
 		vx = 0;
 		vy = 0;
-		ay = 0;
 		break;
 	}
 	case KOOPAS_STATE_HIDE_FLIP:
 	{
-		y += KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_DIE + 1;
+		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_HIDE_BBOX_HEIGHT)/2;
 		//
 		vx = 0;
 		vy = 0;
-		ay = 0;
 		break;
 	}
 	case KOOPAS_STATE_WALKING_LEFT:
