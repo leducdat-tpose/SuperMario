@@ -1,4 +1,8 @@
 #pragma once
+
+
+#include <vector>
+
 #include "Game.h"
 #include "Textures.h"
 #include "Scene.h"
@@ -17,7 +21,9 @@ class CPlayScene : public CScene
 	//CTileMaps* tilemaps = CTileMaps::GetInstance();
 	CTextures* textures = CTextures::GetInstance();
 	CAnimations* animations = CAnimations::GetInstance();
-	LPSPRITE sprite = nullptr;
+	vector<vector<LPSPRITE>> map;
+	int numsRowInMap;
+	int numsColInMap;
 
 	//vector<Unit*> listUnits;
 	vector<LPGAMEOBJECT> objects;
@@ -49,7 +55,8 @@ protected:
 
 	void LoadAssets(LPCWSTR assetFile);
 	void LoadObjects(LPCWSTR filePath);
-	void LoadMap(LPCWSTR filePath, int numsColInMap, int numsRowInMap);
+	void LoadMap(LPCWSTR filePath);
+	void RenderMap();
 public:
 	CPlayScene(int id, LPCWSTR filePath);
 	virtual void Load();

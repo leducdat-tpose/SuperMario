@@ -105,13 +105,12 @@ void CPlayScene::_ParseSection_TILEMAP(string line)
 	int texWidth = atoi(tokens[6].c_str());
 	int texHeight = atoi(tokens[7].c_str());
 
-	int numsColInMap = mapWidth / tileWidth;
-	int numsRowInMap = mapHeight / tileHeight;
-
+	this->numsColInMap = mapWidth / tileWidth;
+	this->numsRowInMap = mapHeight / tileHeight;
+	//Debug
+	this->numsRowInMap++;
 	int numsColInTex = texWidth / tileWidth;
 	int numsRowInTex = texHeight / tileHeight;
-	//Use for debug
-	numsRowInTex++;
 	int IDSprite = 0;
 
 	LPTEXTURE tex = CTextures::GetInstance()->Get(texID);
@@ -129,7 +128,7 @@ void CPlayScene::_ParseSection_TILEMAP(string line)
 			IDSprite++;
 		}
 	}
-	LoadMap(filePath, numsColInMap, numsRowInMap);
+	LoadMap(filePath);
 }
 /*
 	Parse a line in section [OBJECTS]
@@ -371,7 +370,7 @@ void CPlayScene::Load()
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 }
 
-void CPlayScene::LoadMap(LPCWSTR filePath, int numsColInMap, int numsRowInMap) {
+void CPlayScene::LoadMap(LPCWSTR filePath) {
 	DebugOut(L"[INFO] Start loading map from : %s \n", filePath);
 	CSprites* sprites = CSprites::GetInstance();
 	ifstream f;
@@ -394,21 +393,14 @@ void CPlayScene::LoadMap(LPCWSTR filePath, int numsColInMap, int numsRowInMap) {
 		while (ss >> n)
 		{
 			ID = n;
-
+			spriteLine.push_back(sprites->Get(ID));
 		}
+		map.push_back(spriteLine);
 	}
-
-	LPANIMATION ani = new CAnimation();
-	ani->Add(ID, 100000);
-	CAnimations::GetInstance()->Add(0, ani);
-	CGameObject* obj = NULL;
-	obj = new CGround(250, 50);
-	obj->SetPosition(250, 50);
-	objects.push_back(obj);
-	sprite = sprites->Get(ID);
 	f.close();
 	return;
 }
+
 
 //void CPlayScene::UpdateGrid() {
 //	for (int i = 0; i < listUnits.size(); i++)
@@ -577,12 +569,27 @@ void CPlayScene::UpdateCameraPosition()
 //	}
 //}
 
+void CPlayScene::RenderMap()
+{
+	for (int i = 0; i < numsRowInMap; i++)
+	{
+		for (int j = 0; j < numsColInMap; j++)
+		{
+			float x = j * 16;
+			float y = i * 16;
+			map[i][j]->Draw(x, y);
+		}
+	}
+}
+
 void CPlayScene::Render()
 {
+	if (id == SCENE_1)
+	{
+		RenderMap();
+	}
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
-	if (sprite != nullptr)
-		sprite->Draw(300, 10);
 }
 
 
