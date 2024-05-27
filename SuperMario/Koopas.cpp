@@ -26,12 +26,12 @@ void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& botto
 		right = left + KOOPAS_BBOX_WIDTH;
 		bottom = top + KOOPAS_BBOX_HEIGHT;
 	}
-	else if (state == KOOPAS_STATE_HIDE || state == KOOPAS_STATE_HIDE_FLIP)
+	else if (state == KOOPAS_STATE_HIDE || state == KOOPAS_STATE_HIDE_FLIP || state == KOOPAS_STATE_HIDE_MOVING)
 	{
-		left = x - KOOPAS_BBOX_WIDTH / 2;
-		top = y - KOOPAS_BBOX_HEIGHT / 2;
-		right = left + KOOPAS_BBOX_WIDTH;
-		bottom = top + KOOPAS_BBOX_HEIGHT;
+		left = x - KOOPAS_HIDE_BBOX_WIDTH / 2;
+		top = y - KOOPAS_HIDE_BBOX_HEIGHT / 2;
+		right = left + KOOPAS_HIDE_BBOX_WIDTH;
+		bottom = top + KOOPAS_HIDE_BBOX_HEIGHT;
 	}
 	else if (state == PARAKOOPAS_STATE_WALKING_LEFT|| state == PARAKOOPAS_STATE_WALKING_RIGHT)
 	{
@@ -57,8 +57,17 @@ void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& botto
 
 void CKoopas::OnNoCollision(DWORD dt)
 {
-	x += vx * dt;
-	y += vy * dt;
+	if(state == KOOPAS_STATE_HIDE|| state == KOOPAS_STATE_HIDE_FLIP)
+	{ }
+	else if (state == KOOPAS_STATE_HIDE_MOVING)
+	{
+		x += vx * dt*1.4;
+		y += vy * dt*1.4;
+	}
+	else {
+		x += vx * dt;
+		y += vy * dt;
+	}
 }
 //Copy from Goomba
 void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
