@@ -121,10 +121,31 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 {
 	CKoopas* koopas = dynamic_cast<CKoopas*>(e->obj);
-	//Not have idea at here yet
-	if (e->ny >= 0)
+	if (e->ny < 0)
 	{
-		if (untouchable == 0)
+		if (koopas->GetState() == PARAKOOPAS_STATE_WALKING_RIGHT ||
+			koopas->GetState() == PARAKOOPAS_STATE_WALKING_LEFT ||
+			koopas->GetState() == PARAKOOPAS_STATE_FLY)
+		{
+			koopas->SetSpecialAbility(false);
+			koopas->SetState(KOOPAS_STATE_WALKING_LEFT);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+		}
+		else if (koopas->GetState() != KOOPAS_STATE_HIDE)
+		{
+			koopas->SetState(KOOPAS_STATE_HIDE);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+		}
+	}
+	else
+	{
+		//Mario interact with koopas when his hide
+		if (koopas->GetState() == KOOPAS_STATE_HIDE)
+		{
+			koopas->SetState(KOOPAS_STATE_HIDE_MOVING);
+		}
+		//Damage mario
+		else if (untouchable == 0)
 		{
 			if (koopas->GetState() != KOOPAS_STATE_HIDE || koopas->GetState() != KOOPAS_STATE_HIDE_FLIP)
 			{

@@ -55,4 +55,5 @@ protected:
 public:
 	CKoopas(float x, float y, bool specialAbility);
 	virtual void SetState(int state);
+	virtual void SetSpecialAbility(bool specialAbility);
 };

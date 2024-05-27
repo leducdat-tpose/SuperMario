@@ -9,6 +9,10 @@ CKoopas::CKoopas(float x, float y, bool specialAbility) :CGameObject(x, y)
 	else SetState(KOOPAS_STATE_WALKING_LEFT);
 }
 
+void CKoopas::SetSpecialAbility(bool specialAbility) {
+	this->specialAbility = specialAbility;
+}
+
 void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (state == KOOPAS_STATE_WALKING_RIGHT)
@@ -135,6 +139,10 @@ void CKoopas::Render()
 	{
 		aniId = PARAKOOPAS_ANI_FLY;
 	}
+	else if (state == KOOPAS_STATE_HIDE_MOVING)
+	{
+		aniId = KOOPAS_ANI_HIDE_MOVING;
+	}
 	else if (vx > 0 && specialAbility == false) aniId = KOOPAS_ANI_WALKING_RIGHT;
 	else if (vx <= 0 && specialAbility == false) aniId = KOOPAS_ANI_WALKING_LEFT;
 	else if (vx > 0 && specialAbility == true) aniId = PARAKOOPAS_ANI_WALKING_RIGHT;
@@ -150,7 +158,13 @@ void CKoopas::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
+	case KOOPAS_STATE_HIDE_MOVING:
+	{
+		vx = -KOOPAS_WALKING_SPEED*1.4;
+		break;
+	}
 	case KOOPAS_STATE_HIDE:
+	{
 		//Need to code here
 		y += KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_DIE + 1;
 		//
@@ -158,15 +172,16 @@ void CKoopas::SetState(int state)
 		vy = 0;
 		ay = 0;
 		break;
+	}
 	case KOOPAS_STATE_HIDE_FLIP:
-		//Need to code here
+	{
 		y += KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_DIE + 1;
 		//
 		vx = 0;
 		vy = 0;
 		ay = 0;
 		break;
-		break;
+	}
 	case KOOPAS_STATE_WALKING_LEFT:
 		vx = -KOOPAS_WALKING_SPEED;
 		break;
