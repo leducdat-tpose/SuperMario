@@ -10,6 +10,10 @@ CGoomba::CGoomba(float x, float y, bool specialAbility) :CGameObject(x, y)
 	else SetState(GOOMBA_STATE_WALKING);
 }
 
+void CGoomba::SetSpecialAbility(bool specialAbility) {
+	this->specialAbility = specialAbility;
+}
+
 void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (state == GOOMBA_STATE_DIE)
@@ -19,12 +23,26 @@ void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& botto
 		right = left + GOOMBA_BBOX_WIDTH;
 		bottom = top + GOOMBA_BBOX_HEIGHT_DIE;
 	}
-	else
+	else if(state == GOOMBA_STATE_WALKING)
 	{
 		left = x - GOOMBA_BBOX_WIDTH / 2;
 		top = y - GOOMBA_BBOX_HEIGHT / 2;
 		right = left + GOOMBA_BBOX_WIDTH;
 		bottom = top + GOOMBA_BBOX_HEIGHT;
+	}
+	else if (state == PARAGOOMBA_STATE_WALKING)
+	{
+		left = x - PARAGOOMBA_BBOX_WIDTH / 2;
+		top = y - PARAGOOMBA_BBOX_HEIGHT / 2;
+		right = left + PARAGOOMBA_BBOX_WIDTH;
+		bottom = top + PARAGOOMBA_BBOX_HEIGHT;
+	}
+	else if (state == PARAGOOMBA_STATE_FLY)
+	{
+		left = x - PARAGOOMBA_BBOX_WIDTH_FLY / 2;
+		top = y - PARAGOOMBA_BBOX_HEIGHT_FLY / 2;
+		right = left + PARAGOOMBA_BBOX_WIDTH_FLY;
+		bottom = top + PARAGOOMBA_BBOX_HEIGHT_FLY;
 	}
 }
 

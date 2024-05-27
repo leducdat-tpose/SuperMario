@@ -8,6 +8,10 @@
 #define GOOMBA_BBOX_WIDTH 16
 #define GOOMBA_BBOX_HEIGHT 14
 #define GOOMBA_BBOX_HEIGHT_DIE 7
+#define PARAGOOMBA_BBOX_WIDTH 19
+#define PARAGOOMBA_BBOX_HEIGHT 18
+#define PARAGOOMBA_BBOX_WIDTH_FLY 19
+#define PARAGOOMBA_BBOX_HEIGHT_FLY 23
 
 #define GOOMBA_DIE_TIMEOUT 500
 
@@ -22,8 +26,8 @@
 #define ID_ANI_GOOMBA_WALKING 5000
 #define ID_ANI_GOOMBA_DIE 5001
 //Special
-#define ID_ANI_PARAGOOMBA_FLY 14000
-#define ID_ANI_PARAGOOMBA_WALKING 14001
+#define ID_ANI_PARAGOOMBA_WALKING 14000
+#define ID_ANI_PARAGOOMBA_FLY 14001
 #pragma endregion
 
 
@@ -44,8 +48,9 @@ protected:
 	virtual void OnNoCollision(DWORD dt);
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
-
+	
 public:
 	CGoomba(float x, float y, bool specialAbility);
 	virtual void SetState(int state);
+	virtual void SetSpecialAbility(bool specialAbility);
 };
