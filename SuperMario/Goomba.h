@@ -30,14 +30,16 @@
 #define ID_ANI_PARAGOOMBA_FLY 14001
 #pragma endregion
 
-
+#define PARAGOOMBA_FLY_DELAY_TIME 1500
 class CGoomba : public CGameObject
 {
 protected:
 	float ax;
 	float ay;
 	bool specialAbility;
+	bool isFly;
 	ULONGLONG die_start;
+	ULONGLONG fly_start;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -53,4 +55,5 @@ public:
 	CGoomba(float x, float y, bool specialAbility);
 	virtual void SetState(int state);
 	virtual void SetSpecialAbility(bool specialAbility);
+	void StartFly() { isFly = true; fly_start = GetTickCount64(); }
 };

@@ -6,6 +6,8 @@ CGoomba::CGoomba(float x, float y, bool specialAbility) :CGameObject(x, y)
 	this->ax = 0;
 	this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
+	fly_start = -1;
+	isFly = false;
 	if (this->specialAbility == true) SetState(PARAGOOMBA_STATE_WALKING);
 	else SetState(GOOMBA_STATE_WALKING);
 }
