@@ -5,6 +5,8 @@ brick.txt
 coin.txt
 goomba.txt
 cloud.txt
+mushroom.txt
+koopas.txt
 #
 [TILEMAP]
 scene_1_map.txt	2816	626	16	16	30	320	96
@@ -57,6 +59,10 @@ scene_1_map.txt	2816	626	16	16	30	320	96
 
 #Goomba
 2	300	10
+7	350	10
+3	320	8
+9	300	6
+8	200	10
 
 #Platform
 5	90	136	16	15	16	51000	52000	53000
