@@ -76,14 +76,17 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 	else if (e->nx != 0)
 	{
 		vx = -vx;
-		if (specialAbility == true)
+		if (state != KOOPAS_STATE_HIDE_MOVING)
 		{
-			if(vx > 0) SetState(PARAKOOPAS_STATE_WALKING_RIGHT);
-			else SetState(PARAKOOPAS_STATE_WALKING_LEFT);
-		}
-		else {
-			if(vx > 0) SetState(KOOPAS_STATE_WALKING_RIGHT);
-			else SetState(KOOPAS_STATE_WALKING_LEFT);
+			if (specialAbility == true)
+			{
+				if (vx > 0) SetState(PARAKOOPAS_STATE_WALKING_RIGHT);
+				else SetState(PARAKOOPAS_STATE_WALKING_LEFT);
+			}
+			else {
+				if (vx > 0) SetState(KOOPAS_STATE_WALKING_RIGHT);
+				else SetState(KOOPAS_STATE_WALKING_LEFT);
+			}
 		}
 	}
 }

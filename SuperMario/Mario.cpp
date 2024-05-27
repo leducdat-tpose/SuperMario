@@ -131,7 +131,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 			koopas->SetState(KOOPAS_STATE_WALKING_LEFT);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
-		else if (koopas->GetState() != KOOPAS_STATE_HIDE)
+		else if (koopas->GetState() != KOOPAS_STATE_HIDE || koopas->GetState() == KOOPAS_STATE_HIDE_MOVING)
 		{
 			koopas->SetState(KOOPAS_STATE_HIDE);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
