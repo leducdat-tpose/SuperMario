@@ -7,6 +7,7 @@ goomba.txt
 cloud.txt
 mushroom.txt
 koopas.txt
+luckybox.txt
 #
 [TILEMAP]
 scene_1_map.txt	2816	626	16	16	30	320	96
@@ -63,6 +64,9 @@ scene_1_map.txt	2816	626	16	16	30	320	96
 3	320	8
 9	300	6
 8	200	10
+
+#luckybox
+6	220	30
 
 #Platform
 5	90	136	16	15	16	51000	52000	53000

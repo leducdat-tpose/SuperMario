@@ -2,8 +2,9 @@
 
 void CLuckyBox::Render()
 {
-	CAnimations* animations = CAnimations::GetInstance();
-	animations->Get(ID_ANI_LUCKYBOX)->Render(x, y);
+	int aniId = ID_ANI_LUCKYBOX;
+	if (isCollected)	aniId = ID_ANI_LUCKYBOX_COLLECTED;
+	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	//RenderBoundingBox();
 }
 
@@ -13,4 +14,7 @@ void CLuckyBox::GetBoundingBox(float& l, float& t, float& r, float& b)
 	t = y - LUCKYBOX_BBOX_HEIGHT / 2;
 	r = l + LUCKYBOX_BBOX_WIDTH;
 	b = t + LUCKYBOX_BBOX_HEIGHT;
+}
+void CLuckyBox::SetIsCollected(bool isCollected) {
+	this->isCollected = isCollected;
 }
