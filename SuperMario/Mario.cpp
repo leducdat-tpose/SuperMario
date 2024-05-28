@@ -67,8 +67,11 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithLuckybox(LPCOLLISIONEVENT e) {
 	CLuckyBox* luckybox = dynamic_cast<CLuckyBox*>(e->obj);
-	luckybox->SetIsCollected(true);
-	coin++;
+	if (!luckybox->GetIsCollected())
+	{
+		luckybox->SetIsCollected(true);
+		coin++;
+	}
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)

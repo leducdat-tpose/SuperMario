@@ -42,6 +42,10 @@ void CLuckyBox::GetBoundingBox(float& l, float& t, float& r, float& b)
 }
 void CLuckyBox::SetIsCollected(bool isCollected) {
 	this->isCollected = isCollected;
-	upDown_start = GetTickCount64();
+}
+
+bool CLuckyBox::GetIsCollected()
+{
+	return isCollected;
 }
 
