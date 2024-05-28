@@ -10,6 +10,7 @@ koopas.txt
 luckybox.txt
 piranhaplant.txt
 fireball.txt
+superleaf.txt
 #
 [TILEMAP]
 scene_1_map.txt	2816	626	16	16	30	320	96
@@ -72,6 +73,9 @@ scene_1_map.txt	2816	626	16	16	30	320	96
 
 #fireball
 12	250	8
+
+#superleaf
+13	230	8
 
 #luckybox
 6	220	30
