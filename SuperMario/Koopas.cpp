@@ -5,6 +5,7 @@ CKoopas::CKoopas(float x, float y, bool specialAbility) :CGameObject(x, y)
 	this->specialAbility = specialAbility;
 	this->ax = 0;
 	this->ay = KOOPAS_GRAVITY;
+	this->isFly = false;
 	if (this->specialAbility == true) SetState(PARAKOOPAS_STATE_WALKING_LEFT);
 	else SetState(KOOPAS_STATE_WALKING_LEFT);
 }
@@ -44,7 +45,14 @@ void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& botto
 		right = left + KOOPAS_BBOX_WIDTH;
 		bottom = top + KOOPAS_BBOX_HEIGHT;
 	}
-	else if (PARAKOOPAS_STATE_FLY)
+	else if (PARAKOOPAS_STATE_FLY_LEFT)
+	{
+		left = x - KOOPAS_BBOX_WIDTH / 2;
+		top = y - KOOPAS_BBOX_HEIGHT / 2;
+		right = left + KOOPAS_BBOX_WIDTH;
+		bottom = top + KOOPAS_BBOX_HEIGHT;
+	}
+	else if (PARAKOOPAS_STATE_FLY_LEFT)
 	{
 		left = x - KOOPAS_BBOX_WIDTH / 2;
 		top = y - KOOPAS_BBOX_HEIGHT / 2;
@@ -95,10 +103,15 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
-	//Not having idea yet
+	if ((state == KOOPAS_STATE_WALKING_RIGHT || state == KOOPAS_STATE_WALKING_LEFT) && (GetTickCount64() - fly_start > PARAKOOPAS_FLY_DELAY_TIME))
+	{
+		fly_start = 0;
+		isFly = true;
+		if (state == KOOPAS_STATE_WALKING_LEFT)	SetState(PARAKOOPAS_STATE_FLY_LEFT);
+		else SetState(PARAKOOPAS_STATE_FLY_RIGHT);
+	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
-
 }
 
 void CKoopas::Render()
@@ -121,7 +134,6 @@ void CKoopas::Render()
 	}
 	else if (state == KOOPAS_STATE_DIE)
 	{
-		//Need to know when koopas is die
 		aniId = KOOPAS_ANI_DIE;
 	}
 	else if (state == PARAKOOPAS_STATE_WALKING_LEFT)
@@ -133,9 +145,9 @@ void CKoopas::Render()
 		aniId = PARAKOOPAS_ANI_WALKING_RIGHT;
 
 	}
-	else if (state == PARAKOOPAS_STATE_FLY)
+	else if (state == PARAKOOPAS_STATE_FLY_LEFT)
 	{
-		aniId = PARAKOOPAS_ANI_FLY;
+		aniId = PARAKOOPAS_ANI_FLY_LEFT;
 	}
 	else if (state == KOOPAS_STATE_HIDE_MOVING)
 	{
@@ -183,10 +195,26 @@ void CKoopas::SetState(int state)
 		vx = KOOPAS_WALKING_SPEED;
 		break;
 	case PARAKOOPAS_STATE_WALKING_LEFT:
+		fly_start = GetTickCount64();
 		vx = -KOOPAS_WALKING_SPEED;
 		break;
 	case PARAKOOPAS_STATE_WALKING_RIGHT:
+		fly_start = GetTickCount64();
 		vx = KOOPAS_WALKING_SPEED;
+		break;
+	case PARAKOOPAS_STATE_FLY_LEFT:
+		if (isFly)
+		{
+			vy = -PARAKOOPAS_FLY_SPEED;
+			vx = vx * 3.3f;
+		}
+		break;
+	case PARAKOOPAS_STATE_FLY_RIGHT:
+		if (isFly)
+		{
+			vy = -PARAKOOPAS_FLY_SPEED;
+			vx = vx * 3.3f;
+		}
 		break;
 	}
 }
