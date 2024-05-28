@@ -79,7 +79,12 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		isDeleted = true;
 		return;
 	}
-
+	if ((state == PARAGOOMBA_STATE_WALKING) && (GetTickCount64() - fly_start > PARAGOOMBA_FLY_DELAY_TIME))
+	{
+		fly_start = 0;
+		isFly = true;
+		SetState(PARAGOOMBA_STATE_FLY);
+	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -121,10 +126,12 @@ void CGoomba::SetState(int state)
 		vx = -GOOMBA_WALKING_SPEED;
 		break;
 	case PARAGOOMBA_STATE_WALKING:
+		fly_start = GetTickCount64();
 		vx = -GOOMBA_WALKING_SPEED;
 		//Later
 		break;
 	case PARAGOOMBA_STATE_FLY:
+		y -= (PARAGOOMBA_BBOX_HEIGHT_FLY - PARAGOOMBA_BBOX_HEIGHT) / 2;
 		//Later
 		break;
 	}
