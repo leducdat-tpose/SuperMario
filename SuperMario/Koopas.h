@@ -63,4 +63,5 @@ public:
 	virtual void SetState(int state);
 	virtual void SetSpecialAbility(bool specialAbility);
 	void StartFly() { isFly = true; fly_start = GetTickCount64(); }
+	void SetIsFly(bool isFly) { this->isFly = isFly; }
 };

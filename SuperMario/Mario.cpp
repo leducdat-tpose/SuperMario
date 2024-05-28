@@ -134,6 +134,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 			koopas->GetState() == PARAKOOPAS_STATE_FLY_LEFT ||
 			koopas->GetState() == PARAKOOPAS_STATE_FLY_RIGHT)
 		{
+			koopas->SetIsFly(false);
 			koopas->SetSpecialAbility(false);
 			koopas->SetState(KOOPAS_STATE_WALKING_LEFT);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;

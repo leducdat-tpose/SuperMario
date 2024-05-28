@@ -6,8 +6,9 @@ CKoopas::CKoopas(float x, float y, bool specialAbility) :CGameObject(x, y)
 	this->ax = 0;
 	this->ay = KOOPAS_GRAVITY;
 	this->isFly = false;
+	this->fly_start = -1;
 	if (this->specialAbility == true) SetState(PARAKOOPAS_STATE_WALKING_LEFT);
-	else SetState(KOOPAS_STATE_WALKING_LEFT);
+	else if(this->specialAbility == false) SetState(KOOPAS_STATE_WALKING_LEFT);
 }
 
 void CKoopas::SetSpecialAbility(bool specialAbility) {
@@ -77,12 +78,6 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CKoopas*>(e->obj)) return;
-	if (e->ny < 0 && (state == PARAKOOPAS_STATE_FLY_LEFT || state == PARAKOOPAS_STATE_FLY_RIGHT))
-	{
-		isFly = false;
-		if (state == PARAKOOPAS_STATE_FLY_LEFT) SetState(PARAKOOPAS_STATE_WALKING_LEFT);
-		else SetState(PARAKOOPAS_STATE_WALKING_RIGHT);
-	}
 	if (e->ny != 0)
 	{
 		vy = 0;
@@ -109,11 +104,11 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
-	if ((state == KOOPAS_STATE_WALKING_RIGHT || state == KOOPAS_STATE_WALKING_LEFT) && (GetTickCount64() - fly_start > PARAKOOPAS_FLY_DELAY_TIME))
+	if ((state == PARAKOOPAS_STATE_WALKING_RIGHT || state == PARAKOOPAS_STATE_WALKING_LEFT) && (GetTickCount64() - fly_start > PARAKOOPAS_FLY_DELAY_TIME))
 	{
 		fly_start = 0;
 		isFly = true;
-		if (state == KOOPAS_STATE_WALKING_LEFT)	SetState(PARAKOOPAS_STATE_FLY_LEFT);
+		if (state == PARAKOOPAS_STATE_WALKING_LEFT)	SetState(PARAKOOPAS_STATE_FLY_LEFT);
 		else SetState(PARAKOOPAS_STATE_FLY_RIGHT);
 	}
 	CGameObject::Update(dt, coObjects);
@@ -163,10 +158,16 @@ void CKoopas::Render()
 	{
 		aniId = KOOPAS_ANI_HIDE_MOVING;
 	}
-	else if (vx > 0 && specialAbility == false) aniId = KOOPAS_ANI_WALKING_RIGHT;
-	else if (vx <= 0 && specialAbility == false) aniId = KOOPAS_ANI_WALKING_LEFT;
-	else if (vx > 0 && specialAbility == true) aniId = PARAKOOPAS_ANI_WALKING_RIGHT;
-	else if (vx <= 0 && specialAbility == true) aniId = PARAKOOPAS_ANI_WALKING_LEFT;
+	else if (specialAbility == true)
+	{
+		if (vx > 0)aniId = PARAKOOPAS_ANI_WALKING_RIGHT;
+		else aniId = PARAKOOPAS_ANI_WALKING_LEFT;
+	}
+	else if(specialAbility == false)
+	{
+		if(vx > 0)aniId = KOOPAS_ANI_WALKING_RIGHT;
+		else aniId = KOOPAS_ANI_WALKING_LEFT;
+	}
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 
