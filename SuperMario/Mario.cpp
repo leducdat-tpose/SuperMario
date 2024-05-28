@@ -9,6 +9,7 @@
 #include "Coin.h"
 #include "Portal.h"
 #include "Koopas.h"
+#include "LuckyBox.h"
 
 #include "Collision.h"
 
@@ -60,6 +61,14 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithKoopas(e);
 	else if (dynamic_cast<CMushroom*>(e->obj))
 		OnCollisionWithMushroom(e);
+	else if (dynamic_cast<CLuckyBox*>(e->obj))
+		OnCollisionWithLuckybox(e);
+}
+
+void CMario::OnCollisionWithLuckybox(LPCOLLISIONEVENT e) {
+	CLuckyBox* luckybox = dynamic_cast<CLuckyBox*>(e->obj);
+	luckybox->SetIsCollected(true);
+	coin++;
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
