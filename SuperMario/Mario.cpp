@@ -131,7 +131,8 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 	{
 		if (koopas->GetState() == PARAKOOPAS_STATE_WALKING_RIGHT ||
 			koopas->GetState() == PARAKOOPAS_STATE_WALKING_LEFT ||
-			koopas->GetState() == PARAKOOPAS_STATE_FLY)
+			koopas->GetState() == PARAKOOPAS_STATE_FLY_LEFT ||
+			koopas->GetState() == PARAKOOPAS_STATE_FLY_RIGHT)
 		{
 			koopas->SetSpecialAbility(false);
 			koopas->SetState(KOOPAS_STATE_WALKING_LEFT);

@@ -77,6 +77,12 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CKoopas*>(e->obj)) return;
+	if (e->ny < 0 && (state == PARAKOOPAS_STATE_FLY_LEFT || state == PARAKOOPAS_STATE_FLY_RIGHT))
+	{
+		isFly = false;
+		if (state == PARAKOOPAS_STATE_FLY_LEFT) SetState(PARAKOOPAS_STATE_WALKING_LEFT);
+		else SetState(PARAKOOPAS_STATE_WALKING_RIGHT);
+	}
 	if (e->ny != 0)
 	{
 		vy = 0;
@@ -148,6 +154,10 @@ void CKoopas::Render()
 	else if (state == PARAKOOPAS_STATE_FLY_LEFT)
 	{
 		aniId = PARAKOOPAS_ANI_FLY_LEFT;
+	}
+	else if (state == PARAKOOPAS_STATE_FLY_RIGHT)
+	{
+		aniId = PARAKOOPAS_ANI_FLY_RIGHT;
 	}
 	else if (state == KOOPAS_STATE_HIDE_MOVING)
 	{
