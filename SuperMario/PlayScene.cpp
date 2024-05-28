@@ -15,6 +15,7 @@
 #include "Koopas.h"
 #include "Ground.h"
 #include "PiranhaPlant.h"
+#include "FireBall.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -167,6 +168,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_PARAKOOPAS: obj = new CKoopas(x, y, true); break;
 	case OBJECT_TYPE_MUSHROOM: obj = new CMushroom(x, y); break;
 	case OBJECT_TYPE_PIRANHAPLANT: obj = new CPiranhaPlant(x, y); break;
+	case OBJECT_TYPE_FIREBALL: obj = new CFireBall(x, y); break;
 
 	case OBJECT_TYPE_PLATFORM:
 	{
