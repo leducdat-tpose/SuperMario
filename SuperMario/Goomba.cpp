@@ -1,4 +1,5 @@
 #include "Goomba.h"
+#include "Brick.h"
 
 CGoomba::CGoomba(float x, float y, bool specialAbility) :CGameObject(x, y)
 {
@@ -58,6 +59,11 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CGoomba*>(e->obj)) return;
+	if (e->ny < 0 && state == PARAGOOMBA_STATE_FLY)
+	{
+		isFly = false;
+		SetState(PARAGOOMBA_STATE_WALKING);
+	}
 
 	if (e->ny != 0)
 	{
@@ -131,7 +137,11 @@ void CGoomba::SetState(int state)
 		//Later
 		break;
 	case PARAGOOMBA_STATE_FLY:
-		y -= (PARAGOOMBA_BBOX_HEIGHT_FLY - PARAGOOMBA_BBOX_HEIGHT) / 2;
+		y -= (PARAGOOMBA_BBOX_HEIGHT_FLY - PARAGOOMBA_BBOX_HEIGHT + 2) / 2;
+		if (isFly)
+		{
+			vy = -PARAGOOMBA_FLY_SPEED;
+		}
 		//Later
 		break;
 	}

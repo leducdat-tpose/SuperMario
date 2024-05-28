@@ -3,7 +3,7 @@
 
 #define GOOMBA_GRAVITY 0.002f
 #define GOOMBA_WALKING_SPEED 0.05f
-
+#define PARAGOOMBA_FLY_SPEED 0.35f
 
 #define GOOMBA_BBOX_WIDTH 16
 #define GOOMBA_BBOX_HEIGHT 14
@@ -14,6 +14,7 @@
 #define PARAGOOMBA_BBOX_HEIGHT_FLY 23
 
 #define GOOMBA_DIE_TIMEOUT 500
+#define PARAGOOMBA_FLY_DELAY_TIME 2500
 
 #define GOOMBA_STATE_WALKING 100
 #define GOOMBA_STATE_DIE 200
@@ -30,7 +31,6 @@
 #define ID_ANI_PARAGOOMBA_FLY 14001
 #pragma endregion
 
-#define PARAGOOMBA_FLY_DELAY_TIME 1500
 class CGoomba : public CGameObject
 {
 protected:

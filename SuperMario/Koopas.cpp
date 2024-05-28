@@ -165,7 +165,6 @@ void CKoopas::SetState(int state)
 	{
 		//Need to code here
 		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_HIDE_BBOX_HEIGHT)/2;
-		//
 		vx = 0;
 		vy = 0;
 		break;
@@ -173,7 +172,6 @@ void CKoopas::SetState(int state)
 	case KOOPAS_STATE_HIDE_FLIP:
 	{
 		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_HIDE_BBOX_HEIGHT)/2;
-		//
 		vx = 0;
 		vy = 0;
 		break;
