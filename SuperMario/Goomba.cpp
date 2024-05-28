@@ -87,7 +87,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if ((state == PARAGOOMBA_STATE_WALKING) && (GetTickCount64() - fly_start > PARAGOOMBA_FLY_DELAY_TIME))
 	{
-		fly_start = 0;
+		fly_start = -1;
 		isFly = true;
 		SetState(PARAGOOMBA_STATE_FLY);
 	}
