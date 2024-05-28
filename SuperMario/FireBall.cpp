@@ -9,14 +9,16 @@ CFireBall::CFireBall(float x, float y) :CGameObject(x, y)
 
 void CFireBall::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x  / 2;
-	top = y  / 2;
-	right = left;
-	bottom = top;
+	left = x - FIREBALL_BBOX_WIDTH / 2;
+	top = y  - FIREBALL_BBOX_HEIGHT / 2;
+	right = left + FIREBALL_BBOX_WIDTH;
+	bottom = top + FIREBALL_BBOX_HEIGHT;
 }
 
 void CFireBall::OnNoCollision(DWORD dt)
 {
+	x += vx * dt;
+	y += vy * dt;
 };
 
 void CFireBall::OnCollisionWith(LPCOLLISIONEVENT e)
@@ -35,7 +37,7 @@ void CFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CFireBall::Render()
 {
-	int aniId = 1;
+	int aniId = ID_ANI_FIREBALL;
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	RenderBoundingBox();
 }

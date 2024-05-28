@@ -1,6 +1,13 @@
 #pragma once
 #include "GameObject.h"
 
+#define FIREBALL_TIME_ENABLE 7000
+
+#define FIREBALL_BBOX_WIDTH 8
+#define FIREBALL_BBOX_HEIGHT 8
+
+#define ID_ANI_FIREBALL 17000
+
 class CFireBall: public CGameObject
 {
 protected:
