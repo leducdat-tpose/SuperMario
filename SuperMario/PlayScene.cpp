@@ -14,6 +14,7 @@
 #include "LuckyBox.h"
 #include "Koopas.h"
 #include "Ground.h"
+#include "PiranhaPlant.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -165,10 +166,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(x, y, false); break;
 	case OBJECT_TYPE_PARAKOOPAS: obj = new CKoopas(x, y, true); break;
 	case OBJECT_TYPE_MUSHROOM: obj = new CMushroom(x, y); break;
+	case OBJECT_TYPE_PIRANHAPLANT: obj = new CPiranhaPlant(x, y); break;
 
 	case OBJECT_TYPE_PLATFORM:
 	{
-
 		float cell_width = (float)atof(tokens[3].c_str());
 		float cell_height = (float)atof(tokens[4].c_str());
 		int length = atoi(tokens[5].c_str());

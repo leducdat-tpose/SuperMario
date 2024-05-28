@@ -8,6 +8,7 @@ cloud.txt
 mushroom.txt
 koopas.txt
 luckybox.txt
+piranhaplant.txt
 #
 [TILEMAP]
 scene_1_map.txt	2816	626	16	16	30	320	96
@@ -64,6 +65,9 @@ scene_1_map.txt	2816	626	16	16	30	320	96
 3	320	8
 9	300	6
 8	200	10
+
+#piranhaPlant
+11	300	6
 
 #luckybox
 6	220	30

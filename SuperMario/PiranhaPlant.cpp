@@ -28,6 +28,8 @@ void CPiranhaPlant::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	vy += ay * dt;
+	vx += ax * dt;
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
