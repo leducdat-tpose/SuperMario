@@ -141,6 +141,7 @@ void CGoomba::SetState(int state)
 		if (isFly)
 		{
 			vy = -PARAGOOMBA_FLY_SPEED;
+			vx = vx * 3.5f;
 		}
 		//Later
 		break;
