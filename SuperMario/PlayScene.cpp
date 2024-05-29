@@ -407,13 +407,27 @@ void CPlayScene::LoadMap(LPCWSTR filePath) {
 
 void CPlayScene::LoadObjectsFromMap()
 {
+	//This is for platform in map
+	float posXSpriteBegin = 0;
+	float posYSpriteBegin = 0;
+	int idSpriteBegin = 0;
+	int idSpriteMiddle = 0;
+	int idSpriteEnd = 0;
+	//
 	for (int i = 0; i < numsRowInMap; i++)
 	{
+		int lengthPlatform = 0;
 		for (int j = 0; j < numsColInMap; j++)
 		{
 			int idSprite = map[i][j]->GetID();
 			switch (idSprite)
 			{
+			case 7:
+			{
+				LPGAMEOBJECT obj = new CCoin(j * 16, i * 16);
+				objects.push_back(obj);
+				break;
+			}
 			case 10:
 			{
 				LPGAMEOBJECT obj = new CLuckyBox(j * 16, i * 16);
@@ -433,6 +447,40 @@ void CPlayScene::LoadObjectsFromMap()
 				objects.push_back(obj);
 				break;
 			}
+			case 13:
+			case 48:
+			case 31:
+			case 39:
+			{
+				idSpriteBegin = idSprite;
+				posXSpriteBegin = j * TILE_WIDTH;
+				posYSpriteBegin = i * TILE_HEIGHT;
+				lengthPlatform += 1;
+				break;
+			}
+			case 14:
+			case 49:
+			case 32:
+			case 40:
+			{
+				idSpriteMiddle = idSprite;
+				lengthPlatform += 1;
+				break;
+			}
+			case 15:
+			case 50:
+			case 33:
+			case 41:
+				idSpriteEnd = idSprite;
+				lengthPlatform += 1;
+				LPGAMEOBJECT obj = new CPlatform(
+					posXSpriteBegin, posYSpriteBegin,
+					16, 16, lengthPlatform,
+					idSpriteBegin, idSpriteMiddle, idSpriteEnd
+				);
+				objects.push_back(obj);
+				lengthPlatform = 0;
+				break;
 			}
 		}
 	}
