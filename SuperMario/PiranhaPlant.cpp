@@ -7,7 +7,6 @@ CPiranhaPlant::CPiranhaPlant(float x, float y, LPGAMEOBJECT player) :CGameObject
 	float disXToPlayer = 0;
 	float disYToPlayer = 0;
 	this->player = player;
-	this->time_swap_State = -1;
 	shoot_start = -1;
 	SetState(PIRANHAPLANT_STATE_HEAD_DOWN);
 }
@@ -35,7 +34,12 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 	CalPosPlayer();
-	DistanceToShoot();
+	if (shoot_start == -1) shoot_start = GetTickCount64();
+	if (GetTickCount64() - shoot_start > PIRANHAPLANT_SHOOT_DELAY_TIME)
+	{
+		shoot_start = -1;
+		Shoot();
+	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -72,9 +76,10 @@ void CPiranhaPlant::Shoot()
 	CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
 	if (playScene != nullptr)
 	{
-
+		playScene->AddObject(fireball);
 	}
 	else {
+		DebugOut(L"[ERROR] Can't spawn obj in PiranhaPlant\n");
 	}
 }
 

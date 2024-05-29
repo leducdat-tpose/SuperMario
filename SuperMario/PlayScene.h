@@ -73,7 +73,7 @@ public:
 	void PurgeDeletedObjects();
 	void UpdateCameraPosition();
 	void UpdateMario(DWORD dt);
-
+	void AddObject(LPGAMEOBJECT obj);
 
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
 };

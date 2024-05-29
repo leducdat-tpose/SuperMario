@@ -7,7 +7,6 @@
 
 
 #define PIRANHAPLANT_SHOOT_DELAY_TIME 10000
-#define PIRANHAPLANT_COOLDOWN 1000
 
 #define PIRANHAPLANT_STATE_HEAD_UP 100
 #define PIRANHAPLANT_STATE_HEAD_DOWN 200
@@ -24,7 +23,6 @@ protected:
 	float disXToPlayer;
 	float disYToPlayer;
 	ULONGLONG shoot_start;
-	ULONGLONG time_swap_State;
 	LPGAMEOBJECT player;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

@@ -595,6 +595,10 @@ void CPlayScene::Render()
 		objects[i]->Render();
 }
 
+void CPlayScene::AddObject(LPGAMEOBJECT obj)
+{
+	objects.push_back(obj);
+}
 
 /*
 *	Clear all objects from this scene
