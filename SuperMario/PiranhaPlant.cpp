@@ -4,6 +4,8 @@ CPiranhaPlant::CPiranhaPlant(float x, float y, LPGAMEOBJECT player) :CGameObject
 {
 	this->ax = 0;
 	this->ay = 0;
+	float disXToPlayer = 0;
+	float disYToPlayer = 0;
 	this->player = player;
 	shoot_start = -1;
 	SetState(PIRANHAPLANT_STATE_HEAD_DOWN);
@@ -48,7 +50,15 @@ void CPiranhaPlant::CalPosPlayer()
 	{
 		SetState(PIRANHAPLANT_STATE_HEAD_UP);
 	}
+	disXToPlayer = abs(posX_player - x);
+	disYToPlayer = abs(posY_player - y);
 }
+
+void CPiranhaPlant::Shoot()
+{
+	LPGAMEOBJECT fireball = new CFireBall(x,y, disXToPlayer, disYToPlayer);
+}
+
 
 void CPiranhaPlant::Render()
 {
@@ -79,6 +89,7 @@ void CPiranhaPlant::SetState(int state)
 	switch (state)
 	{
 	case PIRANHAPLANT_STATE_HEAD_UP:
+		shoot_start = GetTickCount64();
 		break;
 	case PIRANHAPLANT_STATE_HEAD_DOWN:
 		break;

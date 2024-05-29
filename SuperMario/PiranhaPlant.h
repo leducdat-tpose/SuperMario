@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "FireBall.h"
 
 #define PIRANHAPLANT_BBOX_WIDTH 16
 #define PIRANHAPLANT_BBOX_HEIGHT 32
@@ -23,6 +24,8 @@ class CPiranhaPlant : public CGameObject
 protected:
 	float ax;
 	float ay;
+	float disXToPlayer;
+	float disYToPlayer;
 	ULONGLONG shoot_start;
 	LPGAMEOBJECT player;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
@@ -36,4 +39,5 @@ public:
 	CPiranhaPlant(float x, float y, LPGAMEOBJECT player);
 	virtual void SetState(int state);
 	void CalPosPlayer();
+	void Shoot();
 };

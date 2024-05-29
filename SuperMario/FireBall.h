@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
+#define FIREBALL_GRAVITY	0.002f
+
 #define FIREBALL_TIME_ENABLE 7000
 
 #define FIREBALL_BBOX_WIDTH 8
@@ -22,6 +24,6 @@ protected:
 	virtual void OnNoCollision(DWORD dt);
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 public:
-	CFireBall(float x, float y);
+	CFireBall(float x, float y, float disX, float disY);
 	virtual void SetState(int state);
 };

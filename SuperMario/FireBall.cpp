@@ -1,9 +1,13 @@
 #include "FireBall.h"
 
-CFireBall::CFireBall(float x, float y) :CGameObject(x, y)
+CFireBall::CFireBall(float x, float y, float disX, float disY) :CGameObject(x, y)
 {
-	this->ax = 0;
-	this->ay = 0;
+	//L = v * (sqrt(2h/g))
+	//Testing
+	if (disY == 0)
+		this->ax = 0;
+	else this->ax = disX / (2 * disY / FIREBALL_GRAVITY);
+	this->ay = FIREBALL_GRAVITY;
 	disable_start = -1;
 }
 
