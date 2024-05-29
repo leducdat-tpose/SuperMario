@@ -24,7 +24,7 @@ CFireBall::CFireBall(float x, float y, float disX, float disY) :CGameObject(x, y
 		ax = FIREBALL_SPEED;
 		ay = -FIREBALL_GRAVITY;
 	}
-	disable_start = -1;
+	disable_start = GetTickCount64();
 }
 
 void CFireBall::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -41,16 +41,14 @@ void CFireBall::OnNoCollision(DWORD dt)
 	y += vy * dt;
 };
 
-void CFireBall::OnCollisionWith(LPCOLLISIONEVENT e)
-{
-	if (!e->obj->IsBlocking()) return;
-	if (dynamic_cast<CFireBall*>(e->obj)) return;
-}
-
 void CFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy = ay * dt;
 	vx = ax * dt;
+	if (GetTickCount64() - disable_start > FIREBALL_TIME_ENABLE)
+	{
+		Delete();
+	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -60,14 +58,4 @@ void CFireBall::Render()
 	int aniId = ID_ANI_FIREBALL;
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	RenderBoundingBox();
-}
-
-void CFireBall::SetState(int state)
-{
-	CGameObject::SetState(state);
-	switch (state)
-	{
-	default:
-		break;
-	}
 }

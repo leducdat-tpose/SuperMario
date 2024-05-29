@@ -72,7 +72,7 @@ void CPiranhaPlant::CalPosPlayer()
 
 void CPiranhaPlant::Shoot()
 {
-	LPGAMEOBJECT fireball = new CFireBall(x, y, disXToPlayer, disYToPlayer);
+	LPGAMEOBJECT fireball = new CFireBall(x, y - 8, disXToPlayer, disYToPlayer);
 	CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
 	if (playScene != nullptr)
 	{

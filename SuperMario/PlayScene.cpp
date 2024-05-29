@@ -471,6 +471,7 @@ void CPlayScene::LoadObjectsFromMap()
 			case 50:
 			case 33:
 			case 41:
+			{
 				idSpriteEnd = idSprite;
 				lengthPlatform += 1;
 				LPGAMEOBJECT obj = new CPlatform(
@@ -481,6 +482,7 @@ void CPlayScene::LoadObjectsFromMap()
 				objects.push_back(obj);
 				lengthPlatform = 0;
 				break;
+			}
 			}
 		}
 	}

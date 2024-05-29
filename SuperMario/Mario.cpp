@@ -177,7 +177,6 @@ void CMario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithFireBall(LPCOLLISIONEVENT e)
 {
-	e->obj->Delete();
 	DamagedMario();
 }
 

@@ -40,7 +40,7 @@ scene1sim.txt	1088	176	16	16	30	320	96
 8	200	10
 
 #piranhaPlant
-11	320	130
+11	360	128
 
 #fireball
 12	250	13
