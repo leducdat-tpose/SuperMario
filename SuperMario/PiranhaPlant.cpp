@@ -8,6 +8,7 @@ CPiranhaPlant::CPiranhaPlant(float x, float y, LPGAMEOBJECT player) :CGameObject
 	float disYToPlayer = 0;
 	this->player = player;
 	shoot_start = -1;
+	isFlip = 0;
 	SetState(PIRANHAPLANT_STATE_HEAD_DOWN);
 }
 
@@ -56,19 +57,17 @@ void CPiranhaPlant::DistanceToShoot()
 
 void CPiranhaPlant::CalPosPlayer()
 {
+	if (player == nullptr) return;
 	float posX_player = 0, posY_player = 0;
 	player->GetPosition(posX_player, posY_player);
-	if (posY_player > y)
-	{
-		SetState(PIRANHAPLANT_STATE_HEAD_DOWN);
-	}
-	else 
-	{
-		SetState(PIRANHAPLANT_STATE_HEAD_UP);
-	}
 	//This index can negative
 	disXToPlayer = posX_player - x;
 	disYToPlayer = posY_player - y;
+
+	if (disYToPlayer > 0) SetState(PIRANHAPLANT_STATE_HEAD_DOWN);
+	else SetState(PIRANHAPLANT_STATE_HEAD_UP);
+	if (disXToPlayer > 0) isFlip = 1;
+	else isFlip = 0;
 }
 
 void CPiranhaPlant::Shoot()
@@ -88,13 +87,27 @@ void CPiranhaPlant::Shoot()
 void CPiranhaPlant::Render()
 {
 	int aniId = ID_ANI_PIRANHAPLANT_HEAD_UP;
-	if (state == PIRANHAPLANT_STATE_HEAD_UP)
+	if (isFlip)
 	{
-		aniId = ID_ANI_PIRANHAPLANT_HEAD_UP;
+		if (state == PIRANHAPLANT_STATE_HEAD_UP)
+		{
+			aniId = ID_ANI_PIRANHAPLANT_HEAD_UP_FLIP;
+		}
+		else if (state == PIRANHAPLANT_STATE_HEAD_DOWN)
+		{
+			aniId = ID_ANI_PIRANHAPLANT_HEAD_DOWN_FLIP;
+		}
 	}
-	else if(state == PIRANHAPLANT_STATE_HEAD_DOWN)
-	{
-		aniId = ID_ANI_PIRANHAPLANT_HEAD_DOWN;
+	else {
+
+		if (state == PIRANHAPLANT_STATE_HEAD_UP)
+		{
+			aniId = ID_ANI_PIRANHAPLANT_HEAD_UP;
+		}
+		else if (state == PIRANHAPLANT_STATE_HEAD_DOWN)
+		{
+			aniId = ID_ANI_PIRANHAPLANT_HEAD_DOWN;
+		}
 	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	RenderBoundingBox();

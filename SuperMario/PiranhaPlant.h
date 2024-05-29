@@ -14,6 +14,8 @@
 #define ID_ANI_PIRANHAPLANT_HEAD_UP 16000
 #define ID_ANI_PIRANHAPLANT_HEAD_DOWN 16001
 
+#define ID_ANI_PIRANHAPLANT_HEAD_UP_FLIP 16002
+#define ID_ANI_PIRANHAPLANT_HEAD_DOWN_FLIP 16003
 
 class CPiranhaPlant : public CGameObject
 {
@@ -22,6 +24,7 @@ protected:
 	float ay;
 	float disXToPlayer;
 	float disYToPlayer;
+	int isFlip;
 	ULONGLONG shoot_start;
 	LPGAMEOBJECT player;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
