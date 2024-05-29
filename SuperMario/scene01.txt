@@ -69,7 +69,7 @@ scene_1_map.txt	2816	626	16	16	30	320	96
 8	200	10
 
 #piranhaPlant
-11	200	13
+11	320	130
 
 #fireball
 12	250	13

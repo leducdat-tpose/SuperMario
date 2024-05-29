@@ -1,9 +1,10 @@
 #include "PiranhaPlant.h"
 
-CPiranhaPlant::CPiranhaPlant(float x, float y) :CGameObject(x, y)
+CPiranhaPlant::CPiranhaPlant(float x, float y, LPGAMEOBJECT player) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = 0;
+	this->player = player;
 	shoot_start = -1;
 	SetState(PIRANHAPLANT_STATE_HEAD_DOWN);
 }
@@ -30,8 +31,23 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
+	CalPosPlayer();
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+}
+
+void CPiranhaPlant::CalPosPlayer()
+{
+	float posX_player = 0, posY_player = 0;
+	player->GetPosition(posX_player, posY_player);
+	if (posY_player > y)
+	{
+		SetState(PIRANHAPLANT_STATE_HEAD_DOWN);
+	}
+	else 
+	{
+		SetState(PIRANHAPLANT_STATE_HEAD_UP);
+	}
 }
 
 void CPiranhaPlant::Render()

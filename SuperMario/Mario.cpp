@@ -120,7 +120,6 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
-	CMushroom* mushroom = dynamic_cast<CMushroom*>(e->obj);
 	e->obj->Delete();
 	if (level == MARIO_LEVEL_SMALL)
 	{
@@ -181,6 +180,7 @@ void CMario::OnCollisionWithFireBall(LPCOLLISIONEVENT e)
 	e->obj->Delete();
 	DamagedMario();
 }
+
 void CMario::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
 {
 	DamagedMario();
@@ -246,7 +246,6 @@ int CMario::GetAniIdSmall()
 
 	return aniId;
 }
-
 
 //
 // Get animdation ID for big Mario

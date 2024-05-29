@@ -24,6 +24,7 @@ protected:
 	float ax;
 	float ay;
 	ULONGLONG shoot_start;
+	LPGAMEOBJECT player;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
@@ -32,6 +33,7 @@ protected:
 	virtual void OnNoCollision(DWORD dt);
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 public:
-	CPiranhaPlant(float x, float y);
+	CPiranhaPlant(float x, float y, LPGAMEOBJECT player);
 	virtual void SetState(int state);
+	void CalPosPlayer();
 };
