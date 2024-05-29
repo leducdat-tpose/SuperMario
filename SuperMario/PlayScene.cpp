@@ -587,10 +587,10 @@ void CPlayScene::RenderMap()
 
 void CPlayScene::Render()
 {
-	/*if (id == SCENE_1)
+	if (id == SCENE_1)
 	{
 		RenderMap();
-	}*/
+	}
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }
