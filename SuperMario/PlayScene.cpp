@@ -27,6 +27,8 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 {
 	player = NULL;
 	key_handler = new CSampleKeyHandler(this);
+	numsRowInMap = 0;
+	numsColInMap = 0;
 }
 
 #define SCENE_SECTION_UNKNOWN -1

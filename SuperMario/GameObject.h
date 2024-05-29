@@ -36,14 +36,14 @@ public:
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void SetEnable(bool isEnable) { this->isEnable = isEnable; }
-	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
-	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
-	int GetState() { return this->state; }
+	void GetPosition(float& x, float& y) const { x = this->x; y = this->y; }
+	void GetSpeed(float& vx, float& vy) const { vx = this->vx; vy = this->vy; }
+	int GetState() const { return this->state; }
 	virtual void Delete() { isDeleted = true; }
 	//IsDeleted is for object need to be delete
-	bool IsDeleted() { return isDeleted; }
+	bool IsDeleted() const { return isDeleted; }
 	//IsEnable is for render object in the camera
-	bool IsEnable() { return isEnable; }
+	bool IsEnable() const { return isEnable; }
 	void RenderBoundingBox();
 
 	CGameObject();

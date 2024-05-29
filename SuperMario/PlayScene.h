@@ -44,8 +44,6 @@ class CPlayScene : public CScene
 protected:
 	// A play scene has to have player, right? 
 	LPGAMEOBJECT player;
-	//MARIO
-	CMario* mario;
 
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
@@ -63,12 +61,8 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
-	void SetGameState(int state);
-	void Init(int id);
 
-	LPGAMEOBJECT GetPlayer() { return player; }
-	void UpdateGrid();
-	void GetObjectsFromGrid();
+	LPGAMEOBJECT GetPlayer() const { return player; }
 	void Clear();
 	void PurgeDeletedObjects();
 	void UpdateCameraPosition();
