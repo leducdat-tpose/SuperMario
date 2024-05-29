@@ -6,13 +6,16 @@
 #define GROUND_BBOX_WIDTH 16
 #define GROUND_BBOX_HEIGHT 16
 
-#define ID_ANI_GROUND 0
-
 class CGround : public CGameObject
 {
+	int spriteId;
+	LPSPRITE sprite;
 public:
-	CGround() {};
-	CGround(float x, float y):CGameObject(x,y){}
-	virtual void Render();
-	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
+	CGround(float x, float y, int spriteId):CGameObject(x,y){
+		this->spriteId = spriteId;
+		sprite = CSprites::GetInstance()->Get(spriteId);
+	}
+	void Render();
+	void Update(DWORD dt) {};
+	void GetBoundingBox(float& l, float& t, float& r, float& b);
 };

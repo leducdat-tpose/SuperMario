@@ -581,6 +581,7 @@ void CPlayScene::RenderMap()
 			float x = j * 16;
 			float y = i * 16;
 			map[i][j]->Draw(x, y);
+			}
 		}
 	}
 }
