@@ -125,7 +125,7 @@ void CPlayScene::_ParseSection_TILEMAP(string line)
 		for (int j = 0; j < numsColInTex; j++)
 		{
 			int ID = ID_SPRITE_TILE + IDSprite;
-			CSprites::GetInstance()->Add(ID, tileWidth * j, tileHeight * i, tileWidth * (j + 1), tileHeight * (i + 1), tex);
+			CSprites::GetInstance()->Add(ID, tileWidth * j, tileHeight * i, tileWidth * (j + 1) - 1, tileHeight * (i + 1) - 1, tex);
 			IDSprite++;
 		}
 	}
