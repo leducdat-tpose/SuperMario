@@ -7,6 +7,7 @@ CPiranhaPlant::CPiranhaPlant(float x, float y, LPGAMEOBJECT player) :CGameObject
 	float disXToPlayer = 0;
 	float disYToPlayer = 0;
 	this->player = player;
+	this->time_swap_State = -1;
 	shoot_start = -1;
 	SetState(PIRANHAPLANT_STATE_HEAD_DOWN);
 }
@@ -34,8 +35,19 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 	CalPosPlayer();
+	DistanceToShoot();
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+}
+
+void CPiranhaPlant::DistanceToShoot()
+{
+	float distance = 0;
+	distance = sqrt(pow(disXToPlayer, 2) + pow(disYToPlayer, 2));
+	if (5 <= distance && distance <= 10)
+	{
+		shoot_start = GetTickCount64();
+	}
 }
 
 void CPiranhaPlant::CalPosPlayer()
@@ -56,7 +68,14 @@ void CPiranhaPlant::CalPosPlayer()
 
 void CPiranhaPlant::Shoot()
 {
-	LPGAMEOBJECT fireball = new CFireBall(x,y, disXToPlayer, disYToPlayer);
+	LPGAMEOBJECT fireball = new CFireBall(x,y, 0, 0);
+	CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
+	if (playScene != nullptr)
+	{
+
+	}
+	else {
+	}
 }
 
 
@@ -71,14 +90,6 @@ void CPiranhaPlant::Render()
 	{
 		aniId = ID_ANI_PIRANHAPLANT_HEAD_DOWN;
 	}
-	else if (state == PIRANHAPLANT_STATE_SHOOT_UP)
-	{
-		aniId = ID_ANI_PIRANHAPLANT_SHOOT_UP;
-	}
-	else if (state == PIRANHAPLANT_STATE_SHOOT_DOWN)
-	{
-		aniId = ID_ANI_PIRANHAPLANT_SHOOT_DOWN;
-	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	RenderBoundingBox();
 }
@@ -89,13 +100,8 @@ void CPiranhaPlant::SetState(int state)
 	switch (state)
 	{
 	case PIRANHAPLANT_STATE_HEAD_UP:
-		shoot_start = GetTickCount64();
 		break;
 	case PIRANHAPLANT_STATE_HEAD_DOWN:
-		break;
-	case PIRANHAPLANT_STATE_SHOOT_UP:
-		break;
-	case PIRANHAPLANT_STATE_SHOOT_DOWN:
 		break;
 	default:
 		break;
