@@ -20,5 +20,4 @@ protected:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 public:
 	CSuperLeaf(float x, float y);
-	virtual void SetState(int state);
 };

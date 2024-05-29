@@ -40,13 +40,3 @@ void CSuperLeaf::Render()
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	RenderBoundingBox();
 }
-
-void CSuperLeaf::SetState(int state)
-{
-	CGameObject::SetState(state);
-	switch (state)
-	{
-	default:
-		break;
-	}
-}

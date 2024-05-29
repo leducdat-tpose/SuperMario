@@ -10,6 +10,9 @@
 #include "Portal.h"
 #include "Koopas.h"
 #include "LuckyBox.h"
+#include "SuperLeaf.h"
+#include "FireBall.h"
+#include "PiranhaPlant.h"
 
 #include "Collision.h"
 
@@ -63,6 +66,12 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithMushroom(e);
 	else if (dynamic_cast<CLuckyBox*>(e->obj))
 		OnCollisionWithLuckybox(e);
+	else if (dynamic_cast<CFireBall*>(e->obj))
+		OnCollisionWithFireBall(e);
+	else if (dynamic_cast<CPiranhaPlant*>(e->obj))
+		OnCollisionWithPiranhaPlant(e);
+	else if (dynamic_cast<CSuperLeaf*>(e->obj))
+		OnCollisionWithSuperLeaf(e);
 }
 
 void CMario::OnCollisionWithLuckybox(LPCOLLISIONEVENT e) {
@@ -96,21 +105,9 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	}
 	else // hit by Goomba
 	{
-		if (untouchable == 0)
+		if (goomba->GetState() != GOOMBA_STATE_DIE)
 		{
-			if (goomba->GetState() != GOOMBA_STATE_DIE)
-			{
-				if (level > MARIO_LEVEL_SMALL)
-				{
-					level = MARIO_LEVEL_SMALL;
-					StartUntouchable();
-				}
-				else
-				{
-					DebugOut(L">>> Mario DIE >>> \n");
-					SetState(MARIO_STATE_DIE);
-				}
-			}
+			DamagedMario();
 		}
 	}
 }
@@ -166,23 +163,27 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 			koopas->SetState(KOOPAS_STATE_HIDE_MOVING);
 		}
 		//Damage mario
-		else if (untouchable == 0)
+		else if (koopas->GetState() != KOOPAS_STATE_HIDE || koopas->GetState() != KOOPAS_STATE_HIDE_FLIP)
 		{
-			if (koopas->GetState() != KOOPAS_STATE_HIDE || koopas->GetState() != KOOPAS_STATE_HIDE_FLIP)
-			{
-				if (level > MARIO_LEVEL_SMALL)
-				{
-					level = MARIO_LEVEL_SMALL;
-					StartUntouchable();
-				}
-				else
-				{
-					DebugOut(L">>> Mario DIE >>> \n");
-					SetState(MARIO_STATE_DIE);
-				}
-			}
+			DamagedMario();
 		}
 	}
+}
+
+void CMario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
+{
+	e->obj->Delete();
+	if (level == MARIO_LEVEL_BIG)	level = MARIO_LEVEL_RACCOON;
+}
+
+void CMario::OnCollisionWithFireBall(LPCOLLISIONEVENT e)
+{
+	e->obj->Delete();
+	DamagedMario();
+}
+void CMario::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
+{
+	DamagedMario();
 }
 
 //
@@ -382,7 +383,7 @@ void CMario::Render()
 
 	animations->Get(aniId)->Render(x, y);
 
-	//RenderBoundingBox();
+	RenderBoundingBox();
 
 	DebugOutTitle(L"Coins: %d", coin);
 }
@@ -506,5 +507,27 @@ void CMario::SetLevel(int l)
 	{
 	}
 	level = l;
+}
+
+void CMario::DamagedMario()
+{
+	if (untouchable == 0)
+	{
+		if (level == MARIO_LEVEL_RACCOON)
+		{
+			level = MARIO_LEVEL_BIG;
+			StartUntouchable();
+		}
+		else if (level == MARIO_LEVEL_BIG)
+		{
+			level = MARIO_LEVEL_SMALL;
+			StartUntouchable();
+		}
+		else if (level == MARIO_LEVEL_SMALL)
+		{
+			DebugOut(L">>> Mario DIE >>> \n");
+			SetState(MARIO_STATE_DIE);
+		}
+	}
 }
 

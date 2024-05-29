@@ -69,13 +69,13 @@ scene_1_map.txt	2816	626	16	16	30	320	96
 8	200	10
 
 #piranhaPlant
-11	300	6
+11	200	13
 
 #fireball
-12	250	8
+12	250	13
 
 #superleaf
-13	230	8
+13	230	13
 
 #luckybox
 6	220	30
