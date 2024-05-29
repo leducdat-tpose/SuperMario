@@ -104,6 +104,27 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 			}
 		}
 	}
+
+	if (dynamic_cast<CGoomba*>(e->obj))
+		OnCollisionWithGoomba(e);
+}
+
+void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
+{
+	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+	if (state == KOOPAS_STATE_HIDE || state == KOOPAS_STATE_HIDE_FLIP)
+	{
+		if (goomba->GetState() == PARAGOOMBA_STATE_WALKING || goomba->GetState() == PARAGOOMBA_STATE_FLY)
+		{
+			goomba->SetSpecialAbility(false);
+			goomba->SetState(GOOMBA_STATE_WALKING);
+		}
+		else if (goomba->GetState() != GOOMBA_STATE_DIE)
+		{
+			goomba->SetState(GOOMBA_STATE_DIE);
+		}
+	}
+	
 }
 
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

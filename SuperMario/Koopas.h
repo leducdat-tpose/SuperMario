@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-
+#include "Goomba.h"
 #define KOOPAS_GRAVITY 0.002f
 #define KOOPAS_WALKING_SPEED 0.03f
 #define PARAKOOPAS_FLY_SPEED 0.5f
@@ -58,6 +58,7 @@ protected:
 	virtual void OnNoCollision(DWORD dt);
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 public:
 	CKoopas(float x, float y, bool specialAbility);
 	virtual void SetState(int state);
