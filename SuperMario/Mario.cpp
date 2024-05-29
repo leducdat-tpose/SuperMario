@@ -125,6 +125,7 @@ void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 	{
 		level = MARIO_LEVEL_BIG;
 	}
+	vy = -MARIO_JUMP_DEFLECT_SPEED;
 }
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)

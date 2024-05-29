@@ -76,6 +76,8 @@ void CKoopas::OnNoCollision(DWORD dt)
 //Copy from Goomba
 void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 {
+	if (dynamic_cast<CGoomba*>(e->obj))
+		OnCollisionWithGoomba(e);
 	if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CKoopas*>(e->obj)) return;
 	if (e->ny < 0 && (state == PARAKOOPAS_STATE_FLY_LEFT|| state == PARAKOOPAS_STATE_FLY_RIGHT))
@@ -105,14 +107,13 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 		}
 	}
 
-	if (dynamic_cast<CGoomba*>(e->obj))
-		OnCollisionWithGoomba(e);
+	
 }
 
 void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-	if (state == KOOPAS_STATE_HIDE || state == KOOPAS_STATE_HIDE_FLIP)
+	if (state == KOOPAS_STATE_HIDE_MOVING)
 	{
 		if (goomba->GetState() == PARAGOOMBA_STATE_WALKING || goomba->GetState() == PARAGOOMBA_STATE_FLY)
 		{
@@ -214,14 +215,14 @@ void CKoopas::SetState(int state)
 	case KOOPAS_STATE_HIDE:
 	{
 		//Need to code here
-		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_HIDE_BBOX_HEIGHT)/2;
+		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_HIDE_BBOX_HEIGHT - 6)/2;
 		vx = 0;
 		vy = 0;
 		break;
 	}
 	case KOOPAS_STATE_HIDE_FLIP:
 	{
-		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_HIDE_BBOX_HEIGHT)/2;
+		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_HIDE_BBOX_HEIGHT - 2)/2;
 		vx = 0;
 		vy = 0;
 		break;
