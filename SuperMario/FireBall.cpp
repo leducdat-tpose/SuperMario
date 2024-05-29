@@ -2,12 +2,28 @@
 
 CFireBall::CFireBall(float x, float y, float disX, float disY) :CGameObject(x, y)
 {
-	//L = v * (sqrt(2h/g))
-	//Testing
-	if (disY == 0)
-		this->ax = 0;
-	else this->ax = disX / (2 * disY / FIREBALL_GRAVITY);
-	this->ay = FIREBALL_GRAVITY;
+	ax = 0;
+	ay = 0;
+	if (disX < 0 && disY > 0)
+	{
+		ax = -FIREBALL_SPEED;
+		ay = FIREBALL_GRAVITY;
+	}
+	else if (disX > 0 && disY > 0)
+	{
+		ax = FIREBALL_SPEED;
+		ay = FIREBALL_GRAVITY;
+	}
+	else if (disX < 0 && disY < 0)
+	{
+		ax = -FIREBALL_SPEED;
+		ay = -FIREBALL_GRAVITY;
+	}
+	else if (disX > 0 && disY < 0)
+	{
+		ax = FIREBALL_SPEED;
+		ay = -FIREBALL_GRAVITY;
+	}
 	disable_start = -1;
 }
 
@@ -33,8 +49,8 @@ void CFireBall::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	vy += ay * dt;
-	vx += ax * dt;
+	vy = ay * dt;
+	vx = ax * dt;
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }

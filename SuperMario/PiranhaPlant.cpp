@@ -66,13 +66,14 @@ void CPiranhaPlant::CalPosPlayer()
 	{
 		SetState(PIRANHAPLANT_STATE_HEAD_UP);
 	}
-	disXToPlayer = abs(posX_player - x);
-	disYToPlayer = abs(posY_player - y);
+	//This index can negative
+	disXToPlayer = posX_player - x;
+	disYToPlayer = posY_player - y;
 }
 
 void CPiranhaPlant::Shoot()
 {
-	LPGAMEOBJECT fireball = new CFireBall(x,y, 0, 0);
+	LPGAMEOBJECT fireball = new CFireBall(x, y, disXToPlayer, disYToPlayer);
 	CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
 	if (playScene != nullptr)
 	{
