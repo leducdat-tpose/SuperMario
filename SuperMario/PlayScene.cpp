@@ -401,10 +401,42 @@ void CPlayScene::LoadMap(LPCWSTR filePath) {
 		map.push_back(spriteLine);
 	}
 	f.close();
+	LoadObjectsFromMap();
 	return;
 }
 
-
+void CPlayScene::LoadObjectsFromMap()
+{
+	for (int i = 0; i < numsRowInMap; i++)
+	{
+		for (int j = 0; j < numsColInMap; j++)
+		{
+			int idSprite = map[i][j]->GetID();
+			switch (idSprite)
+			{
+			case 10:
+			{
+				LPGAMEOBJECT obj = new CLuckyBox(j * 16, i * 16);
+				objects.push_back(obj);
+				break;
+			}
+			case 8:
+			case 9:
+			case 11:
+			case 12:
+			case 89:
+			case 90:
+			case 91:
+			case 93:
+			{
+				LPGAMEOBJECT obj = new CGround(j * 16, i * 16, idSprite);
+				objects.push_back(obj);
+				break;
+			}
+			}
+		}
+	}
+}
 //void CPlayScene::UpdateGrid() {
 //	for (int i = 0; i < listUnits.size(); i++)
 //	{
@@ -581,7 +613,6 @@ void CPlayScene::RenderMap()
 			float x = j * 16;
 			float y = i * 16;
 			map[i][j]->Draw(x, y);
-			}
 		}
 	}
 }

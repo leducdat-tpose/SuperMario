@@ -54,7 +54,7 @@ protected:
 	void _ParseSection_TILEMAP(string line);
 
 	void LoadAssets(LPCWSTR assetFile);
-	void LoadObjects(LPCWSTR filePath);
+	void LoadObjectsFromMap();
 	void LoadMap(LPCWSTR filePath);
 	void RenderMap();
 public:
