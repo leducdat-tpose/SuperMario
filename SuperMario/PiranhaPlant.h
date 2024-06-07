@@ -39,5 +39,4 @@ public:
 	virtual void SetState(int state);
 	void CalPosPlayer();
 	void Shoot();
-	void DistanceToShoot();
 };

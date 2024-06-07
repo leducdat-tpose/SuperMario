@@ -34,6 +34,7 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
+	// Only for flip
 	CalPosPlayer();
 	if (shoot_start == -1) shoot_start = GetTickCount64();
 	if (GetTickCount64() - shoot_start > PIRANHAPLANT_SHOOT_DELAY_TIME)
@@ -43,16 +44,6 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
-}
-
-void CPiranhaPlant::DistanceToShoot()
-{
-	float distance = 0;
-	distance = sqrt(pow(disXToPlayer, 2) + pow(disYToPlayer, 2));
-	if (5 <= distance && distance <= 10)
-	{
-		shoot_start = GetTickCount64();
-	}
 }
 
 void CPiranhaPlant::CalPosPlayer()

@@ -49,3 +49,48 @@ bool CLuckyBox::GetIsCollected()
 	return isCollected;
 }
 
+void CLuckyBox::SpawnObject()
+{
+	switch (objectSpawned)
+	{
+	case OBJECT_TYPE_COIN:
+	{
+		LPGAMEOBJECT coin = new CCoin(x, y - 16);
+		CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
+		if (playScene != nullptr)
+		{
+			playScene->AddObject(coin);
+		}
+		else {
+			DebugOut(L"[ERROR] Can't spawn coin in LuckyBox\n");
+		}
+		break;
+	}
+	case OBJECT_TYPE_MUSHROOM:
+	{
+		LPGAMEOBJECT mushroom = new CMushroom(x, y - 16);
+		CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
+		if (playScene != nullptr)
+		{
+			playScene->AddObject(mushroom);
+		}
+		else {
+			DebugOut(L"[ERROR] Can't spawn mushroom in LuckyBox\n");
+		}
+		break;
+	}
+	case OBJECT_TYPE_SUPERLEAF:
+	{
+		LPGAMEOBJECT superleaf = new CSuperLeaf(x, y - 16);
+		CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
+		if (playScene != nullptr)
+		{
+			playScene->AddObject(superleaf);
+		}
+		else {
+			DebugOut(L"[ERROR] Can't spawn superleaf in LuckyBox\n");
+		}
+		break;
+	}
+	}
+}

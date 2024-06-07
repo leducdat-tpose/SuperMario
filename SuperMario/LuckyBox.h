@@ -3,6 +3,11 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
+#include "AssetIDs.h"
+#include "Coin.h"
+#include "Mushroom.h"
+#include "SuperLeaf.h"
+#include "PlayScene.h"
 
 #define ID_ANI_LUCKYBOX 13000
 #define ID_ANI_LUCKYBOX_COLLECTED 13001
@@ -22,15 +27,18 @@ class CLuckyBox : public CGameObject {
 private:
 	float upDown_start;
 	bool isCollected;
+	int objectSpawned;
 public:
-	CLuckyBox(float x, float y) : CGameObject(x, y) {
+	CLuckyBox(float x, float y, int objectSpawned = OBJECT_TYPE_COIN) : CGameObject(x, y) {
 		this->upDown_start = 0;
 		this->isCollected = false;
+		this->objectSpawned = objectSpawned;
 		CGameObject::SetState(LUCKYBOX_NORNMAL_STATE);
 	}
 	void Render();
 	void Update(DWORD dt);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
+	void SpawnObject();
 	void SetIsCollected(bool isCollected);
 	bool GetIsCollected();
 	void SetState(int state);
