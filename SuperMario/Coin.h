@@ -20,7 +20,7 @@ class CCoin : public CGameObject {
 protected:
 	float ax;
 	float ay;
-	float fly_start;
+	ULONGLONG fly_start;
 	bool fromLuckyBox;
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
@@ -30,5 +30,5 @@ public:
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
-	int IsBlocking() { return 0; }
+	int IsBlocking() { return 0; };
 };

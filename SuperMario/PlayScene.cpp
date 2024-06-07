@@ -410,8 +410,8 @@ void CPlayScene::LoadMap(LPCWSTR filePath) {
 void CPlayScene::LoadObjectsFromMap()
 {
 	//This is for platform in map
-	int posXSpriteBegin = 0;
-	int posYSpriteBegin = 0;
+	float posXSpriteBegin = 0;
+	float posYSpriteBegin = 0;
 	int idSpriteBegin = 0;
 	int idSpriteMiddle = 0;
 	int idSpriteEnd = 0;
@@ -426,13 +426,13 @@ void CPlayScene::LoadObjectsFromMap()
 			{
 			case 7:
 			{
-				LPGAMEOBJECT obj = new CCoin(j * 16, i * 16);
+				LPGAMEOBJECT obj = new CCoin(j * 16.0f, i * 16.0f);
 				objects.push_back(obj);
 				break;
 			}
 			case 10:
 			{
-				LPGAMEOBJECT obj = new CLuckyBox(j * 16, i * 16);
+				LPGAMEOBJECT obj = new CLuckyBox(j * 16.0f, i * 16.0f);
 				objects.push_back(obj);
 				break;
 			}
@@ -445,7 +445,7 @@ void CPlayScene::LoadObjectsFromMap()
 			case 91:
 			case 93:
 			{
-				LPGAMEOBJECT obj = new CGround(j * 16, i * 16, idSprite);
+				LPGAMEOBJECT obj = new CGround(j * 16.0f, i * 16.0f, idSprite);
 				objects.push_back(obj);
 				break;
 			}
@@ -455,8 +455,8 @@ void CPlayScene::LoadObjectsFromMap()
 			case 39:
 			{
 				idSpriteBegin = idSprite;
-				posXSpriteBegin = j * TILE_WIDTH;
-				posYSpriteBegin = i * TILE_HEIGHT;
+				posXSpriteBegin = j * TILE_WIDTH * 1.0f;
+				posYSpriteBegin = i * TILE_HEIGHT * 1.0f;
 				lengthPlatform += 1;
 				break;
 			}
@@ -478,7 +478,7 @@ void CPlayScene::LoadObjectsFromMap()
 				lengthPlatform += 1;
 				LPGAMEOBJECT obj = new CPlatform(
 					posXSpriteBegin, posYSpriteBegin,
-					16, 16, lengthPlatform,
+					16.0f, 16.0f, lengthPlatform,
 					idSpriteBegin, idSpriteMiddle, idSpriteEnd
 				);
 				objects.push_back(obj);
@@ -662,8 +662,8 @@ void CPlayScene::RenderMap()
 	{
 		for (int j = 0; j < numsColInMap; j++)
 		{
-			float x = j * 16;
-			float y = i * 16;
+			float x = j * 16.0f;
+			float y = i * 16.0f;
 			map[i][j]->Draw(x, y);
 		}
 	}
