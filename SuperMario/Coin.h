@@ -7,24 +7,25 @@
 
 #define ID_ANI_COIN 11000
 
-#define COIN_GRAVITY	0.002f
-#define COIN_SPEED		0.002f
-#define TIME_FLY_UP		750
+#define COIN_GRAVITY	0.014f
+#define COIN_SPEED		0.02f
+#define TIME_FLY_UP		200
 
 #define	COIN_WIDTH 10
 #define COIN_BBOX_WIDTH 10
 #define COIN_BBOX_HEIGHT 16
 
 class CCoin : public CGameObject {
-	
+private:
+	void OnCollisionWithLuckybox(LPCOLLISIONEVENT e);
 protected:
 	float ax;
 	float ay;
 	ULONGLONG fly_start;
 	bool fromLuckyBox;
-	void OnNoCollision(DWORD dt);
-	void OnCollisionWith(LPCOLLISIONEVENT e);
-	void OnCollisionWithLuckybox(LPCOLLISIONEVENT e);
+	virtual void OnNoCollision(DWORD dt);
+	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+	virtual int IsCollidable() { return 1; };
 public:
 	CCoin(float x, float y, bool fromLuckyBox = false);
 	void Render();

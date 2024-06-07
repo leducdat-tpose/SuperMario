@@ -40,7 +40,6 @@ void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		ay = COIN_GRAVITY;
 		fly_start = -1;
 	}
-	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
@@ -57,7 +56,8 @@ void CCoin::OnCollisionWith(LPCOLLISIONEVENT e)
 }
 void CCoin::OnCollisionWithLuckybox(LPCOLLISIONEVENT e)
 {
-	if (!fromLuckyBox) return;
-	//Have effect like point showing up at here
-	this->Delete();
+	if (e->ny < 0)
+	{
+		this->Delete();
+	}
 }
