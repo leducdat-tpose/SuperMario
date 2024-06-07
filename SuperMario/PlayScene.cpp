@@ -410,8 +410,8 @@ void CPlayScene::LoadMap(LPCWSTR filePath) {
 void CPlayScene::LoadObjectsFromMap()
 {
 	//This is for platform in map
-	float posXSpriteBegin = 0;
-	float posYSpriteBegin = 0;
+	int posXSpriteBegin = 0;
+	int posYSpriteBegin = 0;
 	int idSpriteBegin = 0;
 	int idSpriteMiddle = 0;
 	int idSpriteEnd = 0;

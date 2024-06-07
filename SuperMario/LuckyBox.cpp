@@ -55,7 +55,7 @@ void CLuckyBox::SpawnObject()
 	{
 	case OBJECT_TYPE_COIN:
 	{
-		LPGAMEOBJECT coin = new CCoin(x, y - 16);
+		LPGAMEOBJECT coin = new CCoin(x, y - 16, true);
 		CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
 		if (playScene != nullptr)
 		{
