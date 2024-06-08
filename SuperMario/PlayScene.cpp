@@ -666,7 +666,7 @@ void CPlayScene::RenderMap()
 	{
 		for (int j = startColDraw; j <= endColDraw; j++)
 		{
-			float x = (j - startColDraw) * TILE_WIDTH * 1.0f + camPosition.x - (int)camPosition.x;
+			float x = (j - startColDraw) * TILE_WIDTH * 1.0f + camPosition.x ;
 			float y = i * TILE_HEIGHT* 1.0f;
 			map[i][j]->Draw(x, y);
 		}
