@@ -658,12 +658,16 @@ void CPlayScene::UpdateCameraPosition()
 
 void CPlayScene::RenderMap()
 {
+	D3DXVECTOR3 camPosition = game->GetCameraPositon();
+	int startColDraw = (int)camPosition.x/TILE_WIDTH;
+	int endColDraw = startColDraw + SCREEN_WIDTH/TILE_WIDTH;
+
 	for (int i = 0; i < numsRowInMap; i++)
 	{
-		for (int j = 0; j < numsColInMap; j++)
+		for (int j = startColDraw; j <= endColDraw; j++)
 		{
-			float x = j * 16.0f;
-			float y = i * 16.0f;
+			float x = (j - startColDraw) * TILE_WIDTH * 1.0f + camPosition.x - (int)camPosition.x;
+			float y = i * TILE_HEIGHT* 1.0f;
 			map[i][j]->Draw(x, y);
 		}
 	}
