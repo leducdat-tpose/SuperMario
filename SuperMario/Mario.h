@@ -35,7 +35,7 @@
 
 #define MARIO_STATE_ATTACK			700
 
-#define MARIO_ATTACK_TIME			1200
+#define MARIO_ATTACK_TIME			600
 
 #pragma region ANIMATION_ID
 
@@ -179,7 +179,7 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);
-
+	int GetLevel() const { return level; }
 	int IsCollidable()
 	{
 		return (state != MARIO_STATE_DIE);
