@@ -4,9 +4,6 @@
 #include "Animation.h"
 #include "Animations.h"
 
-#define HITBOX_SPEED 0.1f
-
-
 //E.g: When Mario is raccoon, he can attack goomba by click A
 class CHitBox : public CGameObject {
 protected:

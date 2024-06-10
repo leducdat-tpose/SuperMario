@@ -30,10 +30,21 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		untouchable = 0;
 	}
 	if (isAttack)
+	{
+		if (nx > 0)
+		{
+			hitbox->SetPosition(this->x + 10.0f, this->y + 5.0f);
+		}
+		else if(nx < 0)
+		{
+			hitbox->SetPosition(this->x - 10.0f, this->y + 5.0f);
+		}
 		if (GetTickCount64() - attack_start > MARIO_ATTACK_TIME) {
 			SetAttack(false);
 			hitbox->SetEnable(false);
 		}
+	}
+		
 
 	isOnPlatform = false;
 
@@ -553,6 +564,7 @@ void CMario::StartAttack()
 	if (isAttack) return;
 	attack_start = GetTickCount64();
 	SetAttack(true);
+	hitbox->SetPosition(this->x, this->y + 5.0f);
 	hitbox->SetEnable(true);
 }
 void CMario::AddHitBox()
