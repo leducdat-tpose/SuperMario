@@ -345,13 +345,12 @@ int CMario::GetAniIdRaccoon()
 		else
 			if (vx == 0)
 			{
-				if (nx > 0) aniId = ID_ANI_MARIO_RACCOON_IDLE_RIGHT;
-				else aniId = ID_ANI_MARIO_RACCOON_IDLE_LEFT;
 				if (isAttack)
-				{
-					if (aniId == ID_ANI_MARIO_RACCOON_IDLE_RIGHT) aniId = ID_ANI_MARIO_RACCOON_ATTACK_RIGHT;
+					if (nx > 0) aniId = ID_ANI_MARIO_RACCOON_ATTACK_RIGHT;
 					else aniId = ID_ANI_MARIO_RACCOON_ATTACK_LEFT;
-				}
+				else
+					if (nx > 0) aniId = ID_ANI_MARIO_RACCOON_IDLE_RIGHT;
+					else aniId = ID_ANI_MARIO_RACCOON_IDLE_LEFT;
 			}
 			else if (vx > 0)
 			{
