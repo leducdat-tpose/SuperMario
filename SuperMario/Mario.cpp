@@ -30,7 +30,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		untouchable = 0;
 	}
 	if (isAttack)
-		if (GetTickCount64() - attack_start > MARIO_ATTACK_TIME) SetAttack(false);
+		if (GetTickCount64() - attack_start > MARIO_ATTACK_TIME) {
+			SetAttack(false);
+			hitbox->SetEnable(false);
+		}
 
 	isOnPlatform = false;
 
@@ -177,8 +180,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
-	if (level == MARIO_LEVEL_BIG)	level = MARIO_LEVEL_RACCOON;
-	AddHitBox();
+	if (level == MARIO_LEVEL_BIG) SetLevel(MARIO_LEVEL_RACCOON);
 }
 
 void CMario::OnCollisionWithFireBall(LPCOLLISIONEVENT e)
@@ -521,6 +523,7 @@ void CMario::SetLevel(int l)
 	{
 	}
 	level = l;
+	if (l == MARIO_LEVEL_RACCOON) AddHitBox();
 }
 
 void CMario::DamagedMario()
@@ -550,6 +553,7 @@ void CMario::StartAttack()
 	if (isAttack) return;
 	attack_start = GetTickCount64();
 	SetAttack(true);
+	hitbox->SetEnable(true);
 }
 void CMario::AddHitBox()
 {

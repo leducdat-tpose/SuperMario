@@ -18,11 +18,7 @@ protected:
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	void Render() {
-		//Common is not has any render
-		//Can has some animation such as in Dead Cells
-		RenderBoundingBox();
-	}
+	void Render();
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 	int IsCollidable() { return 0; }
@@ -34,6 +30,7 @@ public:
 		this->bboxWidth = bboxWidth;
 		this->bboxHeight = bboxHeight;
 		this->active = active;
+		isEnable = this->active;
 	}
 	void SetActive(bool active) { this->active = active; }
 	void UpdatePos()
