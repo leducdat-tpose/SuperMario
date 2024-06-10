@@ -21,13 +21,14 @@ protected:
 	void Render() {
 		//Common is not has any render
 		//Can has some animation such as in Dead Cells
+		RenderBoundingBox();
 	}
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 	int IsCollidable() { return 0; }
 	int IsBlocking() { return 0; }
 public:
-	CHitBox(LPGAMEOBJECT GameObject, float x, float y, float bboxWidth, float bboxHeight, bool active = false) : CGameObject(x, y)
+	CHitBox(LPGAMEOBJECT GameObject, float x, float y,float bboxWidth, float bboxHeight, bool active = false) : CGameObject(x, y)
 	{
 		this->GameObject = GameObject;
 		this->bboxWidth = bboxWidth;

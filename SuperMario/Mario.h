@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-
+#include "PlayScene.h"
 #include "Animation.h"
 #include "Animations.h"
 
@@ -134,8 +134,7 @@
 
 class CMario : public CGameObject
 {
-	LPGAMEOBJECT HitBox;
-
+	LPGAMEOBJECT hitbox;
 	BOOLEAN isSitting;
 	//Only when level is Racoon
 	BOOLEAN isAttack;
@@ -167,12 +166,7 @@ class CMario : public CGameObject
 public:
 	CMario(float x, float y) : CGameObject(x, y)
 	{
-		HitBox = new CHitBox(this, x, y+8, 12.0f, 8.0f, false);
-		CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
-		if (playScene != nullptr)
-		{
-			playScene->AddObject(HitBox);
-		}
+		hitbox = nullptr;
 		isSitting = false;
 		isAttack = false;
 		maxVx = 0.0f;
@@ -199,7 +193,10 @@ public:
 
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
-
+	void SetHitBox(LPGAMEOBJECT hitbox)
+	{
+		this->hitbox = hitbox;
+	}
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
@@ -207,4 +204,5 @@ public:
 	void SetAttack(BOOLEAN isAttack) { this->isAttack = isAttack; }
 	void StartAttack();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	void AddHitBox();
 };

@@ -178,6 +178,7 @@ void CMario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
 	if (level == MARIO_LEVEL_BIG)	level = MARIO_LEVEL_RACCOON;
+	AddHitBox();
 }
 
 void CMario::OnCollisionWithFireBall(LPCOLLISIONEVENT e)
@@ -549,5 +550,17 @@ void CMario::StartAttack()
 	if (isAttack) return;
 	attack_start = GetTickCount64();
 	SetAttack(true);
+}
+void CMario::AddHitBox()
+{
+	hitbox = new CHitBox(this, x, y, 12.0f, 8.0f, true);
+	CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
+	if (playScene != nullptr)
+	{
+		playScene->AddObject(hitbox);
+	}
+	else {
+		DebugOut(L"[ERROR] Can't spawn Mario's hitbox");
+	}
 }
 
