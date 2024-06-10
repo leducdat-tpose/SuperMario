@@ -29,6 +29,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
+	if (isAttack)
+		if (GetTickCount64() - attack_start > MARIO_ATTACK_TIME) SetAttack(false);
 
 	isOnPlatform = false;
 
@@ -309,7 +311,9 @@ int CMario::GetAniIdBig()
 
 	return aniId;
 }
-
+//
+// Get animation ID for Raccoon Mario
+//
 int CMario::GetAniIdRaccoon()
 {
 	int aniId = -1;
@@ -343,6 +347,11 @@ int CMario::GetAniIdRaccoon()
 			{
 				if (nx > 0) aniId = ID_ANI_MARIO_RACCOON_IDLE_RIGHT;
 				else aniId = ID_ANI_MARIO_RACCOON_IDLE_LEFT;
+				if (isAttack)
+				{
+					if (aniId == ID_ANI_MARIO_RACCOON_IDLE_RIGHT) aniId = ID_ANI_MARIO_RACCOON_ATTACK_RIGHT;
+					else aniId = ID_ANI_MARIO_RACCOON_ATTACK_LEFT;
+				}
 			}
 			else if (vx > 0)
 			{
@@ -352,6 +361,8 @@ int CMario::GetAniIdRaccoon()
 					aniId = ID_ANI_MARIO_RACCOON_RUNNING_RIGHT;
 				else if (ax == MARIO_ACCEL_WALK_X)
 					aniId = ID_ANI_MARIO_RACCOON_WALKING_RIGHT;
+				if(isAttack && aniId == ID_ANI_MARIO_RACCOON_WALKING_RIGHT)
+					aniId = ID_ANI_MARIO_RACCOON_ATTACK_RIGHT;
 			}
 			else // vx < 0
 			{
@@ -361,6 +372,8 @@ int CMario::GetAniIdRaccoon()
 					aniId = ID_ANI_MARIO_RACCOON_RUNNING_LEFT;
 				else if (ax == -MARIO_ACCEL_WALK_X)
 					aniId = ID_ANI_MARIO_RACCOON_WALKING_LEFT;
+				if (isAttack && aniId == ID_ANI_MARIO_RACCOON_WALKING_LEFT)
+					aniId = ID_ANI_MARIO_RACCOON_ATTACK_LEFT;
 			}
 
 	if (aniId == -1) aniId = ID_ANI_MARIO_RACCOON_IDLE_RIGHT;
@@ -530,5 +543,12 @@ void CMario::DamagedMario()
 			SetState(MARIO_STATE_DIE);
 		}
 	}
+}
+void CMario::StartAttack()
+{
+	//This function is use to avoid attack many times as the same time(spam attack)
+	if (isAttack) return;
+	attack_start = GetTickCount64();
+	SetAttack(true);
 }
 
