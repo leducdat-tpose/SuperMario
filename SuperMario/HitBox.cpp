@@ -2,7 +2,7 @@
 
 void CHitBox::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	if (!isEnable) return;
+	if (!enable) return;
 	l = x - bboxWidth / 2;
 	t = y - bboxHeight / 2;
 	r = l + bboxWidth;
@@ -11,7 +11,7 @@ void CHitBox::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void CHitBox::Render()
 {
-	if (!isEnable) return;
+	if (!enable) return;
 	RenderBoundingBox();
 }
 

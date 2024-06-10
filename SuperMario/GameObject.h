@@ -29,21 +29,20 @@ protected:
 
 	int state;
 
-	bool isEnable;
+	bool enable;
 	bool isDeleted;
 
 public:
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
-	void SetEnable(bool isEnable) { this->isEnable = isEnable; }
+	void SetEnable(bool enable) { this->enable = enable; }
 	void GetPosition(float& x, float& y) const { x = this->x; y = this->y; }
 	void GetSpeed(float& vx, float& vy) const { vx = this->vx; vy = this->vy; }
+	bool IsEnable() const { return enable; }
 	int GetState() const { return this->state; }
 	virtual void Delete() { isDeleted = true; }
 	//IsDeleted is for object need to be delete
 	bool IsDeleted() const { return isDeleted; }
-	//IsEnable is for render object in the camera
-	bool IsEnable() const { return isEnable; }
 	void RenderBoundingBox();
 
 	CGameObject();

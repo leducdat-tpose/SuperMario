@@ -557,7 +557,7 @@ void CMario::StartAttack()
 }
 void CMario::AddHitBox()
 {
-	hitbox = new CHitBox(this, x, y, 12.0f, 8.0f, true);
+	hitbox = new CHitBox(this, x, y, 12.0f, 8.0f, false);
 	CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
 	if (playScene != nullptr)
 	{

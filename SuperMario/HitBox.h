@@ -14,7 +14,6 @@ protected:
 	LPGAMEOBJECT GameObject;
 	float bboxWidth;
 	float bboxHeight;
-	bool active;
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -24,15 +23,13 @@ protected:
 	int IsCollidable() { return 0; }
 	int IsBlocking() { return 0; }
 public:
-	CHitBox(LPGAMEOBJECT GameObject, float x, float y,float bboxWidth, float bboxHeight, bool active = false) : CGameObject(x, y)
+	CHitBox(LPGAMEOBJECT GameObject, float x, float y,float bboxWidth, float bboxHeight, bool enable = false) : CGameObject(x, y)
 	{
 		this->GameObject = GameObject;
 		this->bboxWidth = bboxWidth;
 		this->bboxHeight = bboxHeight;
-		this->active = active;
-		isEnable = this->active;
+		this->enable = enable;
 	}
-	void SetActive(bool active) { this->active = active; }
 	void UpdatePos()
 	{
 		GameObject->GetPosition(x, y);
