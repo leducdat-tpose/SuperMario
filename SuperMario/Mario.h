@@ -6,6 +6,8 @@
 
 #include "debug.h"
 
+#include "HitBox.h"
+
 #define MARIO_WALKING_SPEED		0.1f
 #define MARIO_RUNNING_SPEED		0.2f
 
@@ -132,6 +134,8 @@
 
 class CMario : public CGameObject
 {
+	LPGAMEOBJECT HitBox;
+
 	BOOLEAN isSitting;
 	//Only when level is Racoon
 	BOOLEAN isAttack;
@@ -163,6 +167,12 @@ class CMario : public CGameObject
 public:
 	CMario(float x, float y) : CGameObject(x, y)
 	{
+		HitBox = new CHitBox(this, x, y+8, 12.0f, 8.0f, false);
+		CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
+		if (playScene != nullptr)
+		{
+			playScene->AddObject(HitBox);
+		}
 		isSitting = false;
 		isAttack = false;
 		maxVx = 0.0f;
