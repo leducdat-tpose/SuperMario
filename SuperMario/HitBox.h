@@ -4,6 +4,9 @@
 #include "Animation.h"
 #include "Animations.h"
 
+#include "Goomba.h"
+#include "Koopas.h"
+
 //E.g: When Mario is raccoon, he can attack goomba by click A
 class CHitBox : public CGameObject {
 protected:
@@ -17,7 +20,9 @@ protected:
 	void Render();
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
-	int IsCollidable() { return 0; }
+	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
+	void OnCollisionWithKoopas(LPCOLLISIONEVENT e);
+	int IsCollidable() { return 1; }
 	int IsBlocking() { return 0; }
 public:
 	CHitBox(LPGAMEOBJECT GameObject, float x, float y,float bboxWidth, float bboxHeight, bool enable = false) : CGameObject(x, y)
@@ -26,9 +31,5 @@ public:
 		this->bboxWidth = bboxWidth;
 		this->bboxHeight = bboxHeight;
 		this->enable = enable;
-	}
-	void UpdatePos()
-	{
-		GameObject->GetPosition(x, y);
 	}
 };
