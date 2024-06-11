@@ -443,9 +443,6 @@ void CPlayScene::LoadObjectsFromMap()
 			case 24:
 			case 42:
 			case 77:
-			case 89:
-			case 90:
-			case 91:
 			case 93:
 			case 95:
 			{
@@ -457,6 +454,7 @@ void CPlayScene::LoadObjectsFromMap()
 			case 48:
 			case 31:
 			case 39:
+			case 89:
 			{
 				idSpriteBegin = idSprite;
 				posXSpriteBegin = j * TILE_WIDTH * 1.0f;
@@ -468,6 +466,7 @@ void CPlayScene::LoadObjectsFromMap()
 			case 49:
 			case 32:
 			case 40:
+			case 90:
 			{
 				idSpriteMiddle = idSprite;
 				lengthPlatform += 1;
@@ -484,6 +483,19 @@ void CPlayScene::LoadObjectsFromMap()
 					posXSpriteBegin, posYSpriteBegin,
 					16.0f, 16.0f, lengthPlatform,
 					idSpriteBegin, idSpriteMiddle, idSpriteEnd
+				);
+				objects.push_back(obj);
+				lengthPlatform = 0;
+				break;
+			}
+			case 91:
+			{
+				idSpriteEnd = idSprite;
+				lengthPlatform += 1;
+				LPGAMEOBJECT obj = new CPlatform(
+					posXSpriteBegin, posYSpriteBegin,
+					16.0f, 16.0f, lengthPlatform,
+					idSpriteBegin, idSpriteMiddle, idSpriteEnd, true
 				);
 				objects.push_back(obj);
 				lengthPlatform = 0;
