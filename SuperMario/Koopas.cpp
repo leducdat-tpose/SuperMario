@@ -7,6 +7,8 @@ CKoopas::CKoopas(float x, float y, bool specialAbility) :CGameObject(x, y)
 	this->ay = KOOPAS_GRAVITY;
 	this->isFly = false;
 	this->fly_start = -1;
+	checkfall = nullptr;
+	AddCheckFall();
 	if (this->specialAbility == true) SetState(PARAKOOPAS_STATE_WALKING_LEFT);
 	else if(this->specialAbility == false) SetState(KOOPAS_STATE_WALKING_LEFT);
 }
@@ -205,6 +207,10 @@ void CKoopas::Render()
 void CKoopas::SetState(int state)
 {
 	CGameObject::SetState(state);
+	if (state != KOOPAS_STATE_WALKING_LEFT && state != KOOPAS_STATE_WALKING_RIGHT)
+		checkfall->SetEnable(false);
+	else checkfall->SetEnable(true);
+
 	switch (state)
 	{
 	case KOOPAS_STATE_HIDE_MOVING:
@@ -255,5 +261,18 @@ void CKoopas::SetState(int state)
 			vx = vx * 3.3f;
 		}
 		break;
+	}
+}
+
+void CKoopas::AddCheckFall()
+{
+	checkfall = new CCheckFall(this, x + KOOPAS_BBOX_WIDTH/2 + 1.5f, y, 3.0f, KOOPAS_BBOX_HEIGHT);
+	CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
+	if (playScene != nullptr)
+	{
+		playScene->AddObject(this->checkfall);
+	}
+	else {
+		DebugOut(L"[ERROR] Can't spawn check fall from Koopas!");
 	}
 }

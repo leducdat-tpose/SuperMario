@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+#include "PlayScene.h"
+#include "CheckFall.h"
 #include "Goomba.h"
 #define KOOPAS_GRAVITY 0.002f
 #define KOOPAS_WALKING_SPEED 0.03f
@@ -48,6 +50,7 @@ protected:
 	bool specialAbility;
 	bool isFly;
 	ULONGLONG fly_start;
+	LPGAMEOBJECT checkfall;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -65,4 +68,5 @@ public:
 	virtual void SetSpecialAbility(bool specialAbility);
 	void StartFly() { isFly = true; fly_start = GetTickCount64(); }
 	void SetIsFly(bool isFly) { this->isFly = isFly; }
+	void AddCheckFall();
 };

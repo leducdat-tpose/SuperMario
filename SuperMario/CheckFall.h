@@ -3,7 +3,7 @@
 
 #define CHECKFALL_GRAVITY 0.001f
 
-class CCheckFall :CGameObject
+class CCheckFall :public CGameObject
 {
 protected:
 	LPGAMEOBJECT GameObject;
@@ -24,5 +24,6 @@ public:
 		this->GameObject = GameObject;
 		this->bboxWidth = bboxWidth;
 		this->bboxHeight = bboxHeight;
+		this->enable = false;
 	}
 };
