@@ -440,10 +440,14 @@ void CPlayScene::LoadObjectsFromMap()
 			case 9:
 			case 11:
 			case 12:
+			case 24:
+			case 42:
+			case 77:
 			case 89:
 			case 90:
 			case 91:
 			case 93:
+			case 95:
 			{
 				LPGAMEOBJECT obj = new CGround(j * 16.0f, i * 16.0f, idSprite);
 				objects.push_back(obj);
