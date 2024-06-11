@@ -94,7 +94,7 @@ void Grid::Move(Unit* unit, float x, float y)
 void Grid::Get(D3DXVECTOR3 camPosition, vector<Unit*>& listUnits)
 {
 	int start_col = (int)(camPosition.x / cell_width);
-	int end_col = ceil((camPosition.x + SCREEN_WIDTH) / cell_width);
+	int end_col = (int)ceil((camPosition.x + SCREEN_WIDTH) / cell_width);
 
 	for (int i = 0; i < nums_row; i++)
 	{

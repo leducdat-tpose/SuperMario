@@ -178,6 +178,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 		//Mario interact with koopas when his hide
 		if (koopas->GetState() == KOOPAS_STATE_HIDE)
 		{
+			this->SetState(MARIO_STATE_KICK);
 			koopas->SetState(KOOPAS_STATE_HIDE_MOVING);
 		}
 		//Damage mario
@@ -245,6 +246,8 @@ int CMario::GetAniIdSmall()
 			{
 				if (ax < 0)
 					aniId = ID_ANI_MARIO_SMALL_BRACE_RIGHT;
+				else if (state == MARIO_STATE_KICK)
+					aniId = ID_ANI_MARIO_SMALL_KICK_RIGHT;
 				else if (ax == MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_SMALL_RUNNING_RIGHT;
 				else if (ax == MARIO_ACCEL_WALK_X)
@@ -253,7 +256,9 @@ int CMario::GetAniIdSmall()
 			else // vx < 0
 			{
 				if (ax > 0)
-					aniId = ID_ANI_MARIO_SMALL_BRACE_LEFT;
+					aniId = ID_ANI_MARIO_SMALL_BRACE_LEFT; 
+				else if (state == MARIO_STATE_KICK)
+					aniId = ID_ANI_MARIO_SMALL_KICK_LEFT;
 				else if (ax == -MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_SMALL_RUNNING_LEFT;
 				else if (ax == -MARIO_ACCEL_WALK_X)
@@ -306,6 +311,8 @@ int CMario::GetAniIdBig()
 			{
 				if (ax < 0)
 					aniId = ID_ANI_MARIO_BRACE_RIGHT;
+				else if (state == MARIO_STATE_KICK)
+					aniId = ID_ANI_MARIO_KICK_RIGHT;
 				else if (ax == MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_RUNNING_RIGHT;
 				else if (ax == MARIO_ACCEL_WALK_X)
@@ -315,6 +322,8 @@ int CMario::GetAniIdBig()
 			{
 				if (ax > 0)
 					aniId = ID_ANI_MARIO_BRACE_LEFT;
+				else if (state == MARIO_STATE_KICK)
+					aniId = ID_ANI_MARIO_KICK_LEFT;
 				else if (ax == -MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_RUNNING_LEFT;
 				else if (ax == -MARIO_ACCEL_WALK_X)
@@ -370,6 +379,8 @@ int CMario::GetAniIdRaccoon()
 			{
 				if (ax < 0)
 					aniId = ID_ANI_MARIO_RACCOON_BRACE_RIGHT;
+				else if (state == MARIO_STATE_KICK)
+					aniId = ID_ANI_MARIO_RACCOON_KICK_RIGHT;
 				else if (ax == MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_RACCOON_RUNNING_RIGHT;
 				else if (ax == MARIO_ACCEL_WALK_X)
@@ -381,6 +392,8 @@ int CMario::GetAniIdRaccoon()
 			{
 				if (ax > 0)
 					aniId = ID_ANI_MARIO_RACCOON_BRACE_LEFT;
+				else if (state == MARIO_STATE_KICK)
+					aniId = ID_ANI_MARIO_RACCOON_KICK_LEFT;
 				else if (ax == -MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_RACCOON_RUNNING_LEFT;
 				else if (ax == -MARIO_ACCEL_WALK_X)
@@ -489,6 +502,9 @@ void CMario::SetState(int state)
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 		vx = 0;
 		ax = 0;
+		break;
+	case MARIO_STATE_KICK:
+
 		break;
 	}
 
