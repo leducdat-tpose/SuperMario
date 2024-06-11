@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-#define CHECKFALL_GRAVITY 0.001f
+#define CHECKFALL_GRAVITY 0.002f
 
 class CCheckFall :public CGameObject
 {

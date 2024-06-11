@@ -10,12 +10,11 @@ void CCheckFall::GetBoundingBox(float& l, float& t, float& r, float& b)
 void CCheckFall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (!enable) return;
-	GameObject->GetPosition(x, y);
-	x += 14.0f;
 	vy += ay * dt;
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
+
 void CCheckFall::Render()
 {
 	if (!enable) return;

@@ -34,9 +34,12 @@ protected:
 
 public:
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
+	void SetPositionX(float x) { this->x = x; }
+	void SetPositionY(float y) { this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void SetEnable(bool enable) { this->enable = enable; }
 	void GetPosition(float& x, float& y) const { x = this->x; y = this->y; }
+	float GetPositionY() const { return this->y; }
 	void GetSpeed(float& vx, float& vy) const { vx = this->vx; vy = this->vy; }
 	bool IsEnable() const { return enable; }
 	int GetState() const { return this->state; }

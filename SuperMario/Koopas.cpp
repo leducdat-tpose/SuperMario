@@ -21,7 +21,6 @@ void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& botto
 {
 	if (state == KOOPAS_STATE_WALKING_RIGHT)
 	{
-		//Not code yet, it's from Goomba.cpp
 		left = x - KOOPAS_BBOX_WIDTH / 2;
 		top = y - KOOPAS_BBOX_HEIGHT / 2;
 		right = left + KOOPAS_BBOX_WIDTH;
@@ -141,6 +140,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (state == PARAKOOPAS_STATE_WALKING_LEFT)	SetState(PARAKOOPAS_STATE_FLY_LEFT);
 		else SetState(PARAKOOPAS_STATE_FLY_RIGHT);
 	}
+	UpdateCheckFall();
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -275,4 +275,27 @@ void CKoopas::AddCheckFall()
 	else {
 		DebugOut(L"[ERROR] Can't spawn check fall from Koopas!");
 	}
+}
+
+void CKoopas::UpdateCheckFall()
+{
+	if ((state == KOOPAS_STATE_WALKING_RIGHT || state == KOOPAS_STATE_WALKING_LEFT) && !checkfall->IsEnable())
+	{
+		checkfall->SetPositionY(this->y);
+		checkfall->SetEnable(true);
+	}
+	if (!checkfall->IsEnable()) return;
+	if(vx > 0)
+		checkfall->SetPositionX(this->x + 13.0f);
+	else 
+		checkfall->SetPositionX(this->x - 13.0f);
+	if (checkfall->GetPositionY() - this->y > 3.0f)
+	{
+		if (this->vx > 0)
+			SetState(KOOPAS_STATE_WALKING_LEFT);
+		else
+			SetState(KOOPAS_STATE_WALKING_RIGHT);
+		checkfall->SetEnable(false);
+	}
+
 }

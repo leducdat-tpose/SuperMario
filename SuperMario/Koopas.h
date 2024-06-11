@@ -69,4 +69,5 @@ public:
 	void StartFly() { isFly = true; fly_start = GetTickCount64(); }
 	void SetIsFly(bool isFly) { this->isFly = isFly; }
 	void AddCheckFall();
+	void UpdateCheckFall();
 };
