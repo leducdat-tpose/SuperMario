@@ -42,9 +42,15 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (GetTickCount64() - attack_start > MARIO_ATTACK_TIME) {
 			SetAttack(false);
 			hitbox->SetEnable(false);
+			attack_start = -1;
 		}
 	}
-		
+	if (isKick)
+	{
+		if (GetTickCount64() - kick_start > MARIO_KICK_ANIMATION_TIME) {
+			StopKick();
+		}
+	}
 
 	isOnPlatform = false;
 
@@ -245,8 +251,11 @@ int CMario::GetAniIdSmall()
 			else if (vx > 0)
 			{
 				if (ax < 0)
+				{
 					aniId = ID_ANI_MARIO_SMALL_BRACE_RIGHT;
-				else if (state == MARIO_STATE_KICK)
+					if(isKick) StopKick();
+				}
+				else if (isKick)
 					aniId = ID_ANI_MARIO_SMALL_KICK_RIGHT;
 				else if (ax == MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_SMALL_RUNNING_RIGHT;
@@ -256,8 +265,11 @@ int CMario::GetAniIdSmall()
 			else // vx < 0
 			{
 				if (ax > 0)
-					aniId = ID_ANI_MARIO_SMALL_BRACE_LEFT; 
-				else if (state == MARIO_STATE_KICK)
+				{
+					aniId = ID_ANI_MARIO_SMALL_BRACE_LEFT;
+					if (isKick) StopKick();
+				}
+				else if (isKick)
 					aniId = ID_ANI_MARIO_SMALL_KICK_LEFT;
 				else if (ax == -MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_SMALL_RUNNING_LEFT;
@@ -310,8 +322,11 @@ int CMario::GetAniIdBig()
 			else if (vx > 0)
 			{
 				if (ax < 0)
+				{
 					aniId = ID_ANI_MARIO_BRACE_RIGHT;
-				else if (state == MARIO_STATE_KICK)
+					if (isKick) StopKick();
+				}
+				else if (isKick)
 					aniId = ID_ANI_MARIO_KICK_RIGHT;
 				else if (ax == MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_RUNNING_RIGHT;
@@ -321,8 +336,11 @@ int CMario::GetAniIdBig()
 			else // vx < 0
 			{
 				if (ax > 0)
+				{
 					aniId = ID_ANI_MARIO_BRACE_LEFT;
-				else if (state == MARIO_STATE_KICK)
+					if (isKick) StopKick();
+				}
+				else if (isKick)
 					aniId = ID_ANI_MARIO_KICK_LEFT;
 				else if (ax == -MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_RUNNING_LEFT;
@@ -378,8 +396,11 @@ int CMario::GetAniIdRaccoon()
 			else if (vx > 0)
 			{
 				if (ax < 0)
+				{
 					aniId = ID_ANI_MARIO_RACCOON_BRACE_RIGHT;
-				else if (state == MARIO_STATE_KICK)
+					if (isKick) StopKick();
+				}
+				else if (isKick)
 					aniId = ID_ANI_MARIO_RACCOON_KICK_RIGHT;
 				else if (ax == MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_RACCOON_RUNNING_RIGHT;
@@ -391,8 +412,11 @@ int CMario::GetAniIdRaccoon()
 			else // vx < 0
 			{
 				if (ax > 0)
+				{
 					aniId = ID_ANI_MARIO_RACCOON_BRACE_LEFT;
-				else if (state == MARIO_STATE_KICK)
+					if (isKick) StopKick();
+				}
+				else if (isKick)
 					aniId = ID_ANI_MARIO_RACCOON_KICK_LEFT;
 				else if (ax == -MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_RACCOON_RUNNING_LEFT;
@@ -504,7 +528,8 @@ void CMario::SetState(int state)
 		ax = 0;
 		break;
 	case MARIO_STATE_KICK:
-
+		isKick = true;
+		kick_start = GetTickCount64();
 		break;
 	}
 
@@ -594,5 +619,11 @@ void CMario::AddHitBox()
 	else {
 		DebugOut(L"[ERROR] Can't spawn Mario's hitbox");
 	}
+}
+
+void CMario::StopKick()
+{
+	isKick = false;
+	kick_start = -1;
 }
 

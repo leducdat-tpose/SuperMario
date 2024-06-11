@@ -40,6 +40,7 @@
 #define MARIO_STATE_KICK			800
 
 #define MARIO_ATTACK_TIME			600
+#define MARIO_KICK_ANIMATION_TIME	300
 
 #pragma region ANIMATION_ID
 
@@ -153,6 +154,7 @@ class CMario : public CGameObject
 	BOOLEAN isSitting;
 	//Only when level is Racoon
 	BOOLEAN isAttack;
+	BOOLEAN isKick;
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
@@ -161,6 +163,7 @@ class CMario : public CGameObject
 	int untouchable;
 	ULONGLONG untouchable_start;
 	ULONGLONG attack_start;
+	ULONGLONG kick_start;
 	BOOLEAN isOnPlatform;
 	int coin;
 
@@ -184,6 +187,7 @@ public:
 		hitbox = nullptr;
 		isSitting = false;
 		isAttack = false;
+		isKick = false;
 		maxVx = 0.0f;
 		ax = 0.0f;
 		ay = MARIO_GRAVITY;
@@ -192,6 +196,7 @@ public:
 		untouchable = 0;
 		untouchable_start = -1;
 		attack_start = -1;
+		kick_start = -1;
 		isOnPlatform = false;
 		coin = 0;
 	}
@@ -216,4 +221,5 @@ public:
 	void StartAttack();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void AddHitBox();
+	void StopKick();
 };
