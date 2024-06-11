@@ -126,6 +126,9 @@
     <ClInclude Include="HitBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CheckFall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -219,6 +222,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HitBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckFall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
