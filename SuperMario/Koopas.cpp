@@ -7,6 +7,7 @@ CKoopas::CKoopas(float x, float y, bool specialAbility) :CGameObject(x, y)
 	this->ay = KOOPAS_GRAVITY;
 	this->isFly = false;
 	this->fly_start = -1;
+	this->dirKicked = 1;
 	checkfall = nullptr;
 	AddCheckFall();
 	if (this->specialAbility == true) SetState(PARAKOOPAS_STATE_WALKING_LEFT);
@@ -215,7 +216,7 @@ void CKoopas::SetState(int state)
 	{
 	case KOOPAS_STATE_HIDE_MOVING:
 	{
-		vx = KOOPAS_WALKING_SPEED*7;
+		vx = KOOPAS_WALKING_SPEED * 7 * dirKicked;
 		y -= 2.0f;
 		break;
 	}

@@ -47,6 +47,7 @@ class CKoopas : public CGameObject
 protected:
 	float ax;
 	float ay;
+	int dirKicked;//Modify direct while hide moving 
 	bool specialAbility;
 	bool isFly;
 	ULONGLONG fly_start;
@@ -70,4 +71,5 @@ public:
 	void SetIsFly(bool isFly) { this->isFly = isFly; }
 	void AddCheckFall();
 	void UpdateCheckFall();
+	void SetDirKicked(int dirKicked) { this->dirKicked = dirKicked; }
 };

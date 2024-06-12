@@ -181,6 +181,8 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 		else if (koopas->GetState() == KOOPAS_STATE_HIDE)
 		{
 			this->SetState(MARIO_STATE_KICK);
+			if (this->nx > 0)koopas->SetDirKicked(1);
+			else koopas->SetDirKicked(-1);
 			koopas->SetState(KOOPAS_STATE_HIDE_MOVING);
 		}
 	}
@@ -190,6 +192,8 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 		if (koopas->GetState() == KOOPAS_STATE_HIDE)
 		{
 			this->SetState(MARIO_STATE_KICK);
+			if (this->nx > 0)koopas->SetDirKicked(1);
+			else koopas->SetDirKicked(-1);
 			koopas->SetState(KOOPAS_STATE_HIDE_MOVING);
 		}
 		//Damage mario
