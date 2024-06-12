@@ -17,6 +17,11 @@
 #define ID_ANI_PIRANHAPLANT_HEAD_UP_FLIP 16002
 #define ID_ANI_PIRANHAPLANT_HEAD_DOWN_FLIP 16003
 
+#define ID_ANI_PIRANHAPLANT_NOT_SHOOT 16004
+
+#define PIRANHAPLANT_TYPE_SHOOT 1
+#define PIRANHAPLANT_TYPE_NOT_SHOOT 2
+
 class CPiranhaPlant : public CGameObject
 {
 protected:
@@ -25,6 +30,7 @@ protected:
 	float disXToPlayer;
 	float disYToPlayer;
 	int isFlip;
+	int type;
 	ULONGLONG shoot_start;
 	LPGAMEOBJECT player;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
@@ -35,7 +41,7 @@ protected:
 	virtual void OnNoCollision(DWORD dt);
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 public:
-	CPiranhaPlant(float x, float y, LPGAMEOBJECT player);
+	CPiranhaPlant(float x, float y, LPGAMEOBJECT player, int type = PIRANHAPLANT_TYPE_SHOOT);
 	virtual void SetState(int state);
 	void CalPosPlayer();
 	void Shoot();

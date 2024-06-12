@@ -1,6 +1,6 @@
 #include "PiranhaPlant.h"
 
-CPiranhaPlant::CPiranhaPlant(float x, float y, LPGAMEOBJECT player) :CGameObject(x, y)
+CPiranhaPlant::CPiranhaPlant(float x, float y, LPGAMEOBJECT player, int type) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = 0;
@@ -8,8 +8,12 @@ CPiranhaPlant::CPiranhaPlant(float x, float y, LPGAMEOBJECT player) :CGameObject
 	float disYToPlayer = 0;
 	this->player = player;
 	shoot_start = -1;
+	this->type = type;
 	isFlip = 0;
-	SetState(PIRANHAPLANT_STATE_HEAD_DOWN);
+	if (type == PIRANHAPLANT_TYPE_SHOOT)
+	{
+		SetState(PIRANHAPLANT_STATE_HEAD_DOWN);
+	}
 }
 
 void CPiranhaPlant::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -34,13 +38,15 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
-	// Only for flip
-	CalPosPlayer();
-	if (shoot_start == -1) shoot_start = GetTickCount64();
-	if (GetTickCount64() - shoot_start > PIRANHAPLANT_SHOOT_DELAY_TIME)
+	if (type == PIRANHAPLANT_TYPE_SHOOT)
 	{
-		shoot_start = -1;
-		Shoot();
+		CalPosPlayer();
+		if (shoot_start == -1) shoot_start = GetTickCount64();
+		if (GetTickCount64() - shoot_start > PIRANHAPLANT_SHOOT_DELAY_TIME)
+		{
+			shoot_start = -1;
+			Shoot();
+		}
 	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -77,27 +83,30 @@ void CPiranhaPlant::Shoot()
 
 void CPiranhaPlant::Render()
 {
-	int aniId = ID_ANI_PIRANHAPLANT_HEAD_UP;
-	if (isFlip)
+	int aniId = ID_ANI_PIRANHAPLANT_NOT_SHOOT;
+	if (type == PIRANHAPLANT_TYPE_SHOOT)
 	{
-		if (state == PIRANHAPLANT_STATE_HEAD_UP)
+		if (isFlip)
 		{
-			aniId = ID_ANI_PIRANHAPLANT_HEAD_UP_FLIP;
+			if (state == PIRANHAPLANT_STATE_HEAD_UP)
+			{
+				aniId = ID_ANI_PIRANHAPLANT_HEAD_UP_FLIP;
+			}
+			else if (state == PIRANHAPLANT_STATE_HEAD_DOWN)
+			{
+				aniId = ID_ANI_PIRANHAPLANT_HEAD_DOWN_FLIP;
+			}
 		}
-		else if (state == PIRANHAPLANT_STATE_HEAD_DOWN)
-		{
-			aniId = ID_ANI_PIRANHAPLANT_HEAD_DOWN_FLIP;
-		}
-	}
-	else {
+		else {
 
-		if (state == PIRANHAPLANT_STATE_HEAD_UP)
-		{
-			aniId = ID_ANI_PIRANHAPLANT_HEAD_UP;
-		}
-		else if (state == PIRANHAPLANT_STATE_HEAD_DOWN)
-		{
-			aniId = ID_ANI_PIRANHAPLANT_HEAD_DOWN;
+			if (state == PIRANHAPLANT_STATE_HEAD_UP)
+			{
+				aniId = ID_ANI_PIRANHAPLANT_HEAD_UP;
+			}
+			else if (state == PIRANHAPLANT_STATE_HEAD_DOWN)
+			{
+				aniId = ID_ANI_PIRANHAPLANT_HEAD_DOWN;
+			}
 		}
 	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
