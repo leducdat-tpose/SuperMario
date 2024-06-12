@@ -187,6 +187,13 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 	}
 	else
 	{
+		//this->level != MARIO_LEVEL_RACCOON for present, future will develop at this point
+		if (this->keyRunDown && this->level != MARIO_LEVEL_RACCOON)
+		{
+			koopas->SetState(KOOPAS_STATE_HELD);
+			heldKoopas = koopas;
+			return;
+		}
 		//Mario interact with koopas when his hide
 		if (koopas->GetState() == KOOPAS_STATE_HIDE || koopas->GetState() == KOOPAS_STATE_HIDE_FLIP)
 		{
@@ -633,5 +640,18 @@ void CMario::StopKick()
 {
 	isKick = false;
 	kick_start = -1;
+}
+
+void CMario::HoldKoopas()
+{
+	if (level == MARIO_LEVEL_RACCOON) return;
+	if (keyRunDown == false) return;
+
+	if (heldKoopas->GetState() == KOOPAS_STATE_HELD)
+	{
+		if (nx > 0)
+			heldKoopas->SetPosition(this->x + 13, this->y - 2);
+		else heldKoopas->SetPosition(this->x - 13, this->y - 2);
+	}
 }
 

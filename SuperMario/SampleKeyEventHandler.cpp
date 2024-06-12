@@ -31,6 +31,9 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_R: // reset
 		//Reload();
 		break;
+	case DIK_A:
+		mario->keyRunDown = true;
+		break;
 	}
 }
 
@@ -58,18 +61,22 @@ void CSampleKeyHandler::KeyState(BYTE* states)
 	if (game->IsKeyDown(DIK_RIGHT))
 	{
 		if (game->IsKeyDown(DIK_A))
+		{
 			if (mario->GetLevel() == MARIO_LEVEL_RACCOON)
 				mario->StartAttack();
 			else mario->SetState(MARIO_STATE_RUNNING_RIGHT);
+		}
 		else
 			mario->SetState(MARIO_STATE_WALKING_RIGHT);
 	}
 	else if (game->IsKeyDown(DIK_LEFT))
 	{
 		if (game->IsKeyDown(DIK_A))
+		{
 			if (mario->GetLevel() == MARIO_LEVEL_RACCOON)
 				mario->StartAttack();
 			else mario->SetState(MARIO_STATE_RUNNING_LEFT);
+		}
 		else
 			mario->SetState(MARIO_STATE_WALKING_LEFT);
 	}

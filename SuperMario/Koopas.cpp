@@ -247,7 +247,7 @@ void CKoopas::SetState(int state)
 	if (state != KOOPAS_STATE_WALKING_LEFT && state != KOOPAS_STATE_WALKING_RIGHT)
 		checkfall->SetEnable(false);
 	else checkfall->SetEnable(true);
-
+	ay = KOOPAS_GRAVITY;
 	switch (state)
 	{
 	case KOOPAS_STATE_HIDE_MOVING:
@@ -299,6 +299,9 @@ void CKoopas::SetState(int state)
 			vy = -PARAKOOPAS_FLY_SPEED;
 			vx = vx * 3.3f;
 		}
+		break;
+	case KOOPAS_STATE_HELD:
+		ay = 0;
 		break;
 	}
 }

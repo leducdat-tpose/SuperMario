@@ -151,6 +151,8 @@
 class CMario : public CGameObject
 {
 	LPGAMEOBJECT hitbox;
+	LPGAMEOBJECT heldKoopas;
+
 	BOOLEAN isSitting;
 	//Only when level is Racoon
 	BOOLEAN isAttack;
@@ -167,6 +169,7 @@ class CMario : public CGameObject
 	BOOLEAN isOnPlatform;
 	int coin;
 
+
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
@@ -182,14 +185,17 @@ class CMario : public CGameObject
 	int GetAniIdRaccoon();
 
 public:
+	bool keyRunDown;
 	CMario(float x, float y) : CGameObject(x, y)
 	{
+		heldKoopas = nullptr;
 		hitbox = nullptr;
 		isSitting = false;
 		isAttack = false;
 		isKick = false;
 		maxVx = 0.0f;
 		ax = 0.0f;
+		keyRunDown = false;
 		ay = MARIO_GRAVITY;
 
 		level = MARIO_LEVEL_BIG;
@@ -223,4 +229,5 @@ public:
 	void AddHitBox();
 	void StopKick();
 	void CollectCoin() { coin++; }
+	void HoldKoopas();
 };
