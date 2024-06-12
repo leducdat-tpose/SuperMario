@@ -18,6 +18,7 @@
 #define MARIO_JUMP_RUN_SPEED_Y	0.6f
 
 #define MARIO_GRAVITY			0.002f
+#define MARIO_FLY_GRAVITY		0.0012f
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.4f
 
@@ -152,6 +153,7 @@
 
 
 #define MARIO_UNTOUCHABLE_TIME 2500
+#define MARIO_FLY_COOLDOWN_TIME 300
 
 class CMario : public CGameObject
 {
@@ -162,6 +164,7 @@ class CMario : public CGameObject
 	//Only when level is Racoon
 	BOOLEAN isAttack;
 	BOOLEAN isKick;
+	BOOLEAN isFly;
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
@@ -171,6 +174,7 @@ class CMario : public CGameObject
 	ULONGLONG untouchable_start;
 	ULONGLONG attack_start;
 	ULONGLONG kick_start;
+	ULONGLONG fly_cooldown_start;
 	BOOLEAN isOnPlatform;
 	int coin;
 
@@ -191,6 +195,7 @@ class CMario : public CGameObject
 
 public:
 	bool keyRunDown;
+	bool keyJumpDown;
 	CMario(float x, float y) : CGameObject(x, y)
 	{
 		heldKoopas = nullptr;
@@ -198,9 +203,11 @@ public:
 		isSitting = false;
 		isAttack = false;
 		isKick = false;
+		isFly = false;
 		maxVx = 0.0f;
 		ax = 0.0f;
 		keyRunDown = false;
+		keyJumpDown = false;
 		ay = MARIO_GRAVITY;
 
 		level = MARIO_LEVEL_BIG;
@@ -208,6 +215,7 @@ public:
 		untouchable_start = -1;
 		attack_start = -1;
 		kick_start = -1;
+		fly_cooldown_start = -1;
 		isOnPlatform = false;
 		coin = 0;
 	}
@@ -229,6 +237,7 @@ public:
 
 	void DamagedMario();
 	void SetAttack(BOOLEAN isAttack) { this->isAttack = isAttack; }
+	void SetFly(BOOLEAN isFly);
 	void StartAttack();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void AddHitBox();
@@ -236,5 +245,6 @@ public:
 	void CollectCoin() { coin++; }
 	void HoldKoopas();
 	void ReleaseKoopas();
-	LPGAMEOBJECT GetHeldKoopas() { return heldKoopas; }
+	LPGAMEOBJECT GetHeldKoopas() const { return heldKoopas; }
+	BOOLEAN GetIsOnPlatform() const { return isOnPlatform; }
 };

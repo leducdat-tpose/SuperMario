@@ -51,9 +51,15 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			StopKick();
 		}
 	}
-
-	isOnPlatform = false;
-
+	if (isFly)
+	{
+		if (GetTickCount64() - fly_cooldown_start > MARIO_FLY_COOLDOWN_TIME) {
+			isFly = false;
+			fly_cooldown_start = -1;
+			SetState(MARIO_STATE_JUMP);
+		}
+	}
+	if(!isFly) isOnPlatform = false;
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
@@ -378,16 +384,36 @@ int CMario::GetAniIdRaccoon()
 		if (abs(ax) == MARIO_ACCEL_RUN_X)
 		{
 			if (nx >= 0)
+			{
+				if (state == MARIO_STATE_FLY)
+					aniId = ID_ANI_MARIO_RACCOON_FLY_FAST_RIGHT;
+				else
 				aniId = ID_ANI_MARIO_RACCOON_JUMP_RUN_RIGHT;
+			}
 			else
+			{
+				if (state == MARIO_STATE_FLY)
+					aniId = ID_ANI_MARIO_RACCOON_FLY_FAST_LEFT;
+				else
 				aniId = ID_ANI_MARIO_RACCOON_JUMP_RUN_LEFT;
+			}
 		}
 		else
 		{
 			if (nx >= 0)
+			{
+				if (state == MARIO_STATE_FLY)
+					aniId = ID_ANI_MARIO_RACCOON_FLY_RIGHT;
+				else
 				aniId = ID_ANI_MARIO_RACCOON_JUMP_WALK_RIGHT;
+			}
 			else
+			{
+				if (state == MARIO_STATE_FLY)
+					aniId = ID_ANI_MARIO_RACCOON_FLY_LEFT;
+				else
 				aniId = ID_ANI_MARIO_RACCOON_JUMP_WALK_LEFT;
+			}
 		}
 	}
 	else
@@ -508,7 +534,9 @@ void CMario::SetState(int state)
 				vy = -MARIO_JUMP_SPEED_Y;
 		}
 		break;
-
+	case MARIO_STATE_FLY:
+		ay = MARIO_FLY_GRAVITY;
+		break;
 	case MARIO_STATE_RELEASE_JUMP:
 		if (vy < 0) vy += MARIO_JUMP_SPEED_Y / 2;
 		break;
@@ -667,5 +695,16 @@ void CMario::ReleaseKoopas()
 		koopas->SetState(KOOPAS_STATE_HIDE_MOVING);
 	}
 	heldKoopas = nullptr;
+}
+
+void CMario::SetFly(BOOLEAN isFly)
+{
+	if (level != MARIO_LEVEL_RACCOON) return;
+	this->isFly = isFly;
+	if (this->isFly)
+	{
+		SetState(MARIO_STATE_FLY);
+		fly_cooldown_start = GetTickCount64();
+	}
 }
 
