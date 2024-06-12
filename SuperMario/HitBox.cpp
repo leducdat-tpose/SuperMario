@@ -39,12 +39,7 @@ void CHitBox::OnCollisionWith(LPCOLLISIONEVENT e)
 void CHitBox::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-	if (goomba->GetState() == PARAGOOMBA_STATE_WALKING || goomba->GetState() == PARAGOOMBA_STATE_FLY)
-	{
-		goomba->SetSpecialAbility(false);
-		goomba->SetState(GOOMBA_STATE_WALKING);
-	}
-	else if (goomba->GetState() != GOOMBA_STATE_DIE)
+	if (goomba->GetState() != GOOMBA_STATE_DIE)
 	{
 		goomba->SetState(GOOMBA_STATE_DIE);
 	}
@@ -52,17 +47,12 @@ void CHitBox::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 void CHitBox::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 {
 	CKoopas* koopas = dynamic_cast<CKoopas*>(e->obj);
-	if (koopas->GetState() == PARAKOOPAS_STATE_WALKING_RIGHT ||
-		koopas->GetState() == PARAKOOPAS_STATE_WALKING_LEFT ||
-		koopas->GetState() == PARAKOOPAS_STATE_FLY_LEFT ||
-		koopas->GetState() == PARAKOOPAS_STATE_FLY_RIGHT)
+	if ((koopas->GetState() != KOOPAS_STATE_HIDE && koopas->GetState() != KOOPAS_STATE_HIDE_FLIP) || koopas->GetState() == KOOPAS_STATE_HIDE_MOVING)
 	{
-		koopas->SetIsFly(false);
-		koopas->SetSpecialAbility(false);
-		koopas->SetState(KOOPAS_STATE_WALKING_LEFT);
+		koopas->SetState(KOOPAS_STATE_HIDE_FLIP);
 	}
-	else if (koopas->GetState() != KOOPAS_STATE_HIDE || koopas->GetState() == KOOPAS_STATE_HIDE_MOVING)
+	else if (state == KOOPAS_STATE_HIDE_FLIP || state == KOOPAS_STATE_HIDE)
 	{
-		koopas->SetState(KOOPAS_STATE_HIDE);
+		koopas->SetState(KOOPAS_STATE_HIDE_MOVING);
 	}
 }

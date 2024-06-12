@@ -173,12 +173,12 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 			koopas->SetState(KOOPAS_STATE_WALKING_LEFT);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
-		else if (koopas->GetState() != KOOPAS_STATE_HIDE || koopas->GetState() == KOOPAS_STATE_HIDE_MOVING)
+		else if ((koopas->GetState() != KOOPAS_STATE_HIDE && koopas->GetState() != KOOPAS_STATE_HIDE_FLIP) || koopas->GetState() == KOOPAS_STATE_HIDE_MOVING)
 		{
 			koopas->SetState(KOOPAS_STATE_HIDE);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
-		else if (koopas->GetState() == KOOPAS_STATE_HIDE)
+		else if (koopas->GetState() == KOOPAS_STATE_HIDE || koopas->GetState() == KOOPAS_STATE_HIDE_FLIP)
 		{
 			this->SetState(MARIO_STATE_KICK);
 			if (this->nx > 0)koopas->SetDirKicked(1);
@@ -189,7 +189,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 	else
 	{
 		//Mario interact with koopas when his hide
-		if (koopas->GetState() == KOOPAS_STATE_HIDE)
+		if (koopas->GetState() == KOOPAS_STATE_HIDE || koopas->GetState() == KOOPAS_STATE_HIDE_FLIP)
 		{
 			this->SetState(MARIO_STATE_KICK);
 			if (this->nx > 0)koopas->SetDirKicked(1);
