@@ -22,7 +22,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vx += ax * dt;
 
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
-
+	if (heldKoopas != nullptr) HoldKoopas();
 	// reset untouchable timer if untouchable time has passed
 	if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
 	{
@@ -646,12 +646,26 @@ void CMario::HoldKoopas()
 {
 	if (level == MARIO_LEVEL_RACCOON) return;
 	if (keyRunDown == false) return;
-
-	if (heldKoopas->GetState() == KOOPAS_STATE_HELD)
+	CKoopas* koopas = dynamic_cast<CKoopas*>(heldKoopas);
+	if (koopas->GetState() == KOOPAS_STATE_HELD)
 	{
 		if (nx > 0)
-			heldKoopas->SetPosition(this->x + 13, this->y - 2);
-		else heldKoopas->SetPosition(this->x - 13, this->y - 2);
+			koopas->SetPosition(this->x + 13, this->y - 2);
+		else koopas->SetPosition(this->x - 13, this->y - 2);
 	}
+}
+void CMario::ReleaseKoopas()
+{
+	if (level == MARIO_LEVEL_RACCOON) return;
+	if (keyRunDown == true) return;
+	CKoopas* koopas = dynamic_cast<CKoopas*>(heldKoopas);
+	if (heldKoopas->GetState() == KOOPAS_STATE_HELD)
+	{
+		this->SetState(MARIO_STATE_KICK);
+		if (this->nx > 0)koopas->SetDirKicked(1);
+		else koopas->SetDirKicked(-1);
+		koopas->SetState(KOOPAS_STATE_HIDE_MOVING);
+	}
+	heldKoopas = nullptr;
 }
 

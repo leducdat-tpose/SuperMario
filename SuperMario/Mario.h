@@ -230,4 +230,6 @@ public:
 	void StopKick();
 	void CollectCoin() { coin++; }
 	void HoldKoopas();
+	void ReleaseKoopas();
+	LPGAMEOBJECT GetHeldKoopas() { return heldKoopas; }
 };

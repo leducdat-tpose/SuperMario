@@ -192,7 +192,7 @@ void CKoopas::Render()
 	{
 		aniId = KOOPAS_ANI_WALKING_RIGHT;
 	}
-	else if (state == KOOPAS_STATE_HIDE)
+	else if (state == KOOPAS_STATE_HIDE || state == KOOPAS_STATE_HELD)
 	{
 		aniId = KOOPAS_ANI_HIDE;
 	}
