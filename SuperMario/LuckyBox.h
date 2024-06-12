@@ -41,6 +41,8 @@ public:
 	void OnCollisionWith(LPCOLLISIONEVENT e) {};
 	void SpawnObject();
 	void SetIsCollected(bool isCollected);
-	bool GetIsCollected();
 	void SetState(int state);
+	bool GetIsCollected();
+	void SetTypeObjectSpawned(int objectSpawned) { this->objectSpawned = objectSpawned; }
+	int GetTypeObjectSpawned() { return objectSpawned; }
 };

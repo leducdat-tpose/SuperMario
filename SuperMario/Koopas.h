@@ -3,6 +3,7 @@
 #include "PlayScene.h"
 #include "CheckFall.h"
 #include "Goomba.h"
+#include "LuckyBox.h"
 #define KOOPAS_GRAVITY 0.002f
 #define KOOPAS_WALKING_SPEED 0.03f
 #define PARAKOOPAS_FLY_SPEED 0.5f
@@ -63,6 +64,7 @@ protected:
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
+	void OnCollisionWithLuckyBox(LPCOLLISIONEVENT e);
 public:
 	CKoopas(float x, float y, bool specialAbility);
 	virtual void SetState(int state);

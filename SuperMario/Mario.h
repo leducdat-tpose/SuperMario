@@ -222,4 +222,5 @@ public:
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void AddHitBox();
 	void StopKick();
+	void CollectCoin() { coin++; }
 };

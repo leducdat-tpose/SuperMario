@@ -97,7 +97,6 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 }
 
 void CMario::OnCollisionWithLuckybox(LPCOLLISIONEVENT e) {
-	//Need more code here, trigger only when mario hit the bottom
 	CLuckyBox* luckybox = dynamic_cast<CLuckyBox*>(e->obj);
 	if (e->ny <= 0) return;
 	if (!luckybox->GetIsCollected())

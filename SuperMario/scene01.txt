@@ -42,6 +42,8 @@ scene1sim.txt	2816	240	16	16	30	320	96
 #Koopas
 3	550	100
 
+14	650	128
+
 14	600	80
 
 #piranhaPlant

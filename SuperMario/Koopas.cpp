@@ -75,11 +75,13 @@ void CKoopas::OnNoCollision(DWORD dt)
 	x += vx * dt;
 	y += vy * dt;
 }
-//Copy from Goomba
+
 void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (dynamic_cast<CGoomba*>(e->obj))
 		OnCollisionWithGoomba(e);
+	if(dynamic_cast<CLuckyBox*>(e->obj))
+		OnCollisionWithLuckyBox(e);
 	if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CKoopas*>(e->obj)) return;
 	if (e->ny < 0 && (state == PARAKOOPAS_STATE_FLY_LEFT|| state == PARAKOOPAS_STATE_FLY_RIGHT))
@@ -128,6 +130,40 @@ void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		}
 	}
 	
+}
+
+void CKoopas::OnCollisionWithLuckyBox(LPCOLLISIONEVENT e)
+{
+	CLuckyBox* luckybox = dynamic_cast<CLuckyBox*>(e->obj);
+	if (state == KOOPAS_STATE_HIDE_MOVING)
+	{
+		if (!luckybox->GetIsCollected())
+		{
+			CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
+			if (playScene == nullptr)
+			{
+				DebugOut(L"[ERROR] Collect coin in Koopas\n");
+				return;
+			}
+			CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+			switch (luckybox->GetTypeObjectSpawned())
+			{
+			case OBJECT_TYPE_COIN:
+				mario->CollectCoin();
+				break;
+			default:
+				if (mario->GetLevel() == MARIO_LEVEL_SMALL)
+					luckybox->SetTypeObjectSpawned(OBJECT_TYPE_MUSHROOM);
+				else
+				{
+					luckybox->SetTypeObjectSpawned(OBJECT_TYPE_SUPERLEAF);
+				}
+				break;
+			}
+			luckybox->SetIsCollected(true);
+			luckybox->SpawnObject();
+		}
+	}
 }
 
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
