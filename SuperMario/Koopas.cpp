@@ -94,7 +94,7 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 	else if (e->nx != 0)
 	{
 		vx = -vx;
-		if (state != KOOPAS_STATE_HIDE_MOVING)
+		if (state != KOOPAS_STATE_HIDE_MOVING && state != KOOPAS_STATE_HIDE && state != KOOPAS_STATE_HIDE_FLIP)
 		{
 			if (specialAbility == true)
 			{
@@ -216,12 +216,14 @@ void CKoopas::SetState(int state)
 	case KOOPAS_STATE_HIDE_MOVING:
 	{
 		vx = KOOPAS_WALKING_SPEED*7;
+		y -= 2.0f;
 		break;
 	}
 	case KOOPAS_STATE_HIDE:
 	{
 		//Need to code here
 		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_HIDE_BBOX_HEIGHT - 6)/2;
+		y -= 4.0f;
 		vx = 0;
 		vy = 0;
 		break;
