@@ -20,7 +20,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
-
+	DebugOut(L"[INFO] ay:%d\n", ay);
+	DebugOut(L"[INFO] isFly:%d\n", isFly);
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 	if (heldKoopas != nullptr) HoldKoopas();
 	// reset untouchable timer if untouchable time has passed
@@ -484,7 +485,7 @@ void CMario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
 	if (this->state == MARIO_STATE_DIE) return;
-	ay = MARIO_GRAVITY;
+	if (!isFly) ay = MARIO_GRAVITY;
 	switch (state)
 	{
 	case MARIO_STATE_RUNNING_RIGHT:
@@ -688,18 +689,20 @@ void CMario::ReleaseKoopas()
 	heldKoopas = nullptr;
 }
 
+void CMario:: StartFly()
+{
+	if (state != MARIO_STATE_RUNNING_LEFT && state != MARIO_STATE_RUNNING_RIGHT
+		&& state != MARIO_STATE_JUMP && state != MARIO_STATE_RELEASE_JUMP) return;
+	isFly = true;
+	fly_cooldown_start = GetTickCount64();
+}
+
 void CMario::Fly()
 {
 	if (level != MARIO_LEVEL_RACCOON || isFly == false) return;
-	if (state == MARIO_STATE_RUNNING_LEFT || state == MARIO_STATE_RUNNING_RIGHT || state == MARIO_STATE_JUMP || state == MARIO_STATE_RELEASE_JUMP)
-	{
-		StartFly();
-		ay = -MARIO_GRAVITY;
-	}
 	if (GetTickCount64() - fly_cooldown_start > MARIO_FLY_COOLDOWN_TIME)
 	{
 		isFly = false;
-		ay = MARIO_GRAVITY;
 	}
 
 }

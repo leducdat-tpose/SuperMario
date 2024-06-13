@@ -238,7 +238,7 @@ public:
 	void DamagedMario();
 	void SetAttack(BOOLEAN isAttack) { this->isAttack = isAttack; }
 	void SetFly(BOOLEAN isFly) { this->isFly = isFly; }
-	void StartFly() { fly_cooldown_start = GetTickCount64(); }
+	void StartFly();
 	void StartAttack();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void AddHitBox();
