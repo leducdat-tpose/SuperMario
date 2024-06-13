@@ -153,7 +153,7 @@
 
 
 #define MARIO_UNTOUCHABLE_TIME 2500
-#define MARIO_FLY_COOLDOWN_TIME 300
+#define MARIO_FLY_COOLDOWN_TIME 800
 
 class CMario : public CGameObject
 {

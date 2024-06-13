@@ -52,7 +52,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 	Fly();
-	isOnPlatform = false;
+	if (!isFly) isOnPlatform = false;
+	else isOnPlatform = true;
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
@@ -376,33 +377,7 @@ int CMario::GetAniIdBig()
 int CMario::GetAniIdRaccoon()
 {
 	int aniId = -1;
-	if(isFly)
-	{
-		if (abs(ax) == MARIO_ACCEL_RUN_X)
-		{
-			if (nx >= 0)
-			{
-
-				aniId = ID_ANI_MARIO_RACCOON_FLY_FAST_RIGHT;
-			}
-			else
-			{
-				aniId = ID_ANI_MARIO_RACCOON_FLY_FAST_LEFT;
-			}
-		}
-		else
-		{
-			if (nx >= 0)
-			{
-				aniId = ID_ANI_MARIO_RACCOON_FLY_RIGHT;
-			}
-			else
-			{
-				aniId = ID_ANI_MARIO_RACCOON_FLY_LEFT;
-			}
-		}
-	}
-	else if (!isOnPlatform)
+	if (!isOnPlatform)
 	{
 		if (abs(ax) == MARIO_ACCEL_RUN_X)
 		{
@@ -509,7 +484,7 @@ void CMario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
 	if (this->state == MARIO_STATE_DIE) return;
-
+	ay = MARIO_GRAVITY;
 	switch (state)
 	{
 	case MARIO_STATE_RUNNING_RIGHT:
@@ -545,9 +520,13 @@ void CMario::SetState(int state)
 			else
 				vy = -MARIO_JUMP_SPEED_Y;
 		}
+		else if (isFly)
+		{
+			ay = MARIO_FLY_GRAVITY;
+		}
 		break;
 	case MARIO_STATE_FLY:
-		ay = MARIO_FLY_GRAVITY;
+		ay = -MARIO_GRAVITY;
 		break;
 	case MARIO_STATE_RELEASE_JUMP:
 		if (vy < 0) vy += MARIO_JUMP_SPEED_Y / 2;
@@ -711,20 +690,15 @@ void CMario::ReleaseKoopas()
 
 void CMario::Fly()
 {
-	if (level != MARIO_LEVEL_RACCOON) return;
-	if (isOnPlatform)
-	{
-		isFly = false;
-	}
-	if (isFly && (state == MARIO_STATE_RUNNING_LEFT || state == MARIO_STATE_RUNNING_RIGHT))
+	if (level != MARIO_LEVEL_RACCOON || isFly == false) return;
+	if (state == MARIO_STATE_RUNNING_LEFT || state == MARIO_STATE_RUNNING_RIGHT || state == MARIO_STATE_JUMP || state == MARIO_STATE_RELEASE_JUMP)
 	{
 		StartFly();
-		ay = MARIO_FLY_GRAVITY;
-		//turn off isFly, this make player has to spam jump button to fly
-		isFly = false;
+		ay = -MARIO_GRAVITY;
 	}
-	if ((GetTickCount64() - fly_cooldown_start > MARIO_FLY_COOLDOWN_TIME) && isFly == false)
+	if (GetTickCount64() - fly_cooldown_start > MARIO_FLY_COOLDOWN_TIME)
 	{
+		isFly = false;
 		ay = MARIO_GRAVITY;
 	}
 
