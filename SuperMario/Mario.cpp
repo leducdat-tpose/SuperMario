@@ -20,6 +20,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
+	
 	DebugOut(L"[INFO] ay:%d\n", ay);
 	DebugOut(L"[INFO] isFly:%d\n", isFly);
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
@@ -499,7 +500,7 @@ void CMario::Render()
 		aniId = GetAniIdRaccoon();
 
 	animations->Get(aniId)->Render(x, y);
-
+	DebugOut(L"AnimationID: %d", aniId);
 	RenderBoundingBox();
 
 	DebugOutTitle(L"Coins: %d", coin);
@@ -509,7 +510,6 @@ void CMario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
 	if (this->state == MARIO_STATE_DIE) return;
-	if (!isFly) ay = MARIO_GRAVITY;
 	switch (state)
 	{
 	case MARIO_STATE_RUNNING_RIGHT:
@@ -540,14 +540,20 @@ void CMario::SetState(int state)
 		if (isSitting) break;
 		if (isOnPlatform)
 		{
-			if (abs(this->vx) == MARIO_RUNNING_SPEED)
-				vy = -MARIO_JUMP_RUN_SPEED_Y;
-			else
-				vy = -MARIO_JUMP_SPEED_Y;
-		}
-		else if (isFly)
-		{
-			ay = MARIO_FLY_GRAVITY;
+			if (!isFly) {
+				ay = MARIO_GRAVITY;
+				if (abs(this->vx) == MARIO_RUNNING_SPEED)
+					vy = -MARIO_JUMP_RUN_SPEED_Y;
+				else
+					vy = -MARIO_JUMP_SPEED_Y;
+			}
+			else {
+				ay = MARIO_FLY_GRAVITY;
+				if (abs(this->vx) == MARIO_RUNNING_SPEED)
+					vy = -MARIO_JUMP_RUN_SPEED_Y/1.5f;
+				else
+					vy = -MARIO_JUMP_SPEED_Y/2;
+			}
 		}
 		break;
 	case MARIO_STATE_FLY:
@@ -728,6 +734,7 @@ void CMario::Fly()
 	if (GetTickCount64() - fly_cooldown_start > MARIO_FLY_COOLDOWN_TIME)
 	{
 		isFly = false;
+		fly_cooldown_start = -1;
 	}
 
 }
