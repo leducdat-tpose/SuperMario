@@ -62,6 +62,8 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 		{
 			mario->ReleaseKoopas();
 		}
+		if (mario->GetLevel() == MARIO_LEVEL_RACCOON)
+			mario->SetAttackDone(false);
 		break;
 	}
 }
@@ -75,10 +77,9 @@ void CSampleKeyHandler::KeyState(BYTE* states)
 	{
 		if (game->IsKeyDown(DIK_A))
 		{
-			/*if (mario->GetLevel() == MARIO_LEVEL_RACCOON)
+			if (mario->GetAttackDone() == false && mario->GetLevel() == MARIO_LEVEL_RACCOON)
 				mario->StartAttack();
-			else mario->SetState(MARIO_STATE_RUNNING_RIGHT);*/
-			mario->SetState(MARIO_STATE_RUNNING_RIGHT);
+			else mario->SetState(MARIO_STATE_RUNNING_RIGHT);
 		}
 		else
 			mario->SetState(MARIO_STATE_WALKING_RIGHT);

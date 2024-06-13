@@ -163,6 +163,8 @@ class CMario : public CGameObject
 	BOOLEAN isSitting;
 	//Only when level is Racoon
 	BOOLEAN isAttack;
+	//For attack only once when ever click A button
+	BOOLEAN attackDone;
 	BOOLEAN isKick;
 	BOOLEAN isFly;
 	//To render Mario's fly animations
@@ -204,6 +206,7 @@ public:
 		hitbox = nullptr;
 		isSitting = false;
 		isAttack = false;
+		attackDone = false;
 		isKick = false;
 		isFly = false;
 		maxVx = 0.0f;
@@ -242,6 +245,7 @@ public:
 	void SetFly(BOOLEAN isFly) { this->isFly = isFly; }
 	void StartFly();
 	void StartAttack();
+	void SetAttackDone(BOOLEAN attackDone) { this->attackDone = attackDone; }
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void AddHitBox();
 	void StopKick();
@@ -252,4 +256,5 @@ public:
 	LPGAMEOBJECT GetHeldKoopas() const { return heldKoopas; }
 	BOOLEAN GetIsOnPlatform() const { return isOnPlatform; }
 	BOOLEAN GetIsFly() const { return isFly; }
+	BOOLEAN GetAttackDone() const { return attackDone; }
 };

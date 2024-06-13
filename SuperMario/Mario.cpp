@@ -21,7 +21,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 	
-	DebugOut(L"[INFO] ay:%d\n", ay);
+	DebugOut(L"[INFO] onPlatform:%d\n", isOnPlatform);
 	DebugOut(L"[INFO] isFly:%d\n", isFly);
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 	if (heldKoopas != nullptr) HoldKoopas();
@@ -45,6 +45,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			SetAttack(false);
 			hitbox->SetEnable(false);
 			attack_start = -1;
+			if (keyRunDown == false) attackDone = false;
+			else attackDone = true; // prevent hold attack button
 		}
 	}
 	if (isKick)
@@ -69,11 +71,14 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (e->ny != 0 && e->obj->IsBlocking())
 	{
+		
 		vy = 0;
 		if (e->ny < 0)
 		{
 			aniFly = false;
 			isOnPlatform = true;
+			isFly = false;
+			fly_cooldown_start = -1;
 		}
 	}
 	else
@@ -541,14 +546,12 @@ void CMario::SetState(int state)
 		if (isOnPlatform)
 		{
 			if (!isFly) {
-				ay = MARIO_GRAVITY;
 				if (abs(this->vx) == MARIO_RUNNING_SPEED)
 					vy = -MARIO_JUMP_RUN_SPEED_Y;
 				else
 					vy = -MARIO_JUMP_SPEED_Y;
 			}
 			else {
-				ay = MARIO_FLY_GRAVITY;
 				if (abs(this->vx) == MARIO_RUNNING_SPEED)
 					vy = -MARIO_JUMP_RUN_SPEED_Y/1.5f;
 				else
