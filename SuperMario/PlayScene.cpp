@@ -438,13 +438,18 @@ void CPlayScene::LoadObjectsFromMap()
 				objects.push_back(obj);
 				break;
 			}
+			case 77:
+			{
+				LPGAMEOBJECT obj = new CBrick(j * 16.0f, i * 16.0f, TYPE_GOLD_BRICK);
+				objects.push_back(obj);
+				break;
+			}
 			case 8:
 			case 9:
 			case 11:
 			case 12:
 			case 24:
 			case 42:
-			case 77:
 			case 93:
 			case 95:
 			{
