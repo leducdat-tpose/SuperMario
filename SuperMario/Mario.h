@@ -165,6 +165,8 @@ class CMario : public CGameObject
 	BOOLEAN isAttack;
 	BOOLEAN isKick;
 	BOOLEAN isFly;
+	//To render Mario's fly animations
+	bool aniFly;
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
@@ -209,15 +211,15 @@ public:
 		keyRunDown = false;
 		keyJumpDown = false;
 		ay = MARIO_GRAVITY;
-
 		level = MARIO_LEVEL_BIG;
 		untouchable = 0;
 		untouchable_start = -1;
 		attack_start = -1;
 		kick_start = -1;
 		fly_cooldown_start = 0;
-		isOnPlatform = false;
 		coin = 0;
+		isOnPlatform = false;
+		aniFly = false;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();

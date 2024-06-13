@@ -71,7 +71,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		vy = 0;
 		if (e->ny < 0)
 		{
-			isFly = false;
+			aniFly = false;
 			isOnPlatform = true;
 		}
 	}
@@ -378,13 +378,37 @@ int CMario::GetAniIdBig()
 int CMario::GetAniIdRaccoon()
 {
 	int aniId = -1;
-	if (!isOnPlatform)
+	if (aniFly)
 	{
 		if (abs(ax) == MARIO_ACCEL_RUN_X)
 		{
 			if (nx >= 0)
 			{
-				
+				aniId = ID_ANI_MARIO_RACCOON_FLY_FAST_RIGHT;
+			}
+			else
+			{
+				aniId = ID_ANI_MARIO_RACCOON_FLY_FAST_LEFT;
+			}
+		}
+		else
+		{
+			if (nx >= 0)
+			{
+				aniId = ID_ANI_MARIO_RACCOON_FLY_RIGHT;
+			}
+			else
+			{
+				aniId = ID_ANI_MARIO_RACCOON_FLY_LEFT;
+			}
+		}
+	}
+	else if (!isOnPlatform)
+	{
+		if (abs(ax) == MARIO_ACCEL_RUN_X)
+		{
+			if (nx >= 0)
+			{
 				aniId = ID_ANI_MARIO_RACCOON_JUMP_RUN_RIGHT;
 			}
 			else
@@ -694,6 +718,7 @@ void CMario:: StartFly()
 	if (state != MARIO_STATE_RUNNING_LEFT && state != MARIO_STATE_RUNNING_RIGHT
 		&& state != MARIO_STATE_JUMP && state != MARIO_STATE_RELEASE_JUMP) return;
 	isFly = true;
+	aniFly = true;
 	fly_cooldown_start = GetTickCount64();
 }
 
