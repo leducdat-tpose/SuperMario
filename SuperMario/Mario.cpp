@@ -21,8 +21,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 	
-	DebugOut(L"[INFO] onPlatform:%d\n", isOnPlatform);
-	DebugOut(L"[INFO] isFly:%d\n", isFly);
+	DebugOut(L"[INFO] State:%d\n", state);
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 	if (heldKoopas != nullptr) HoldKoopas();
 	// reset untouchable timer if untouchable time has passed
@@ -669,6 +668,7 @@ void CMario::DamagedMario()
 }
 void CMario::StartAttack()
 {
+	if (isSitting) return;
 	//This function is use to avoid attack many times as the same time(spam attack)
 	if (isAttack) return;
 	attack_start = GetTickCount64();
