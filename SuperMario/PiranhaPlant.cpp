@@ -4,8 +4,8 @@ CPiranhaPlant::CPiranhaPlant(float x, float y, LPGAMEOBJECT player, int type) :C
 {
 	this->ax = 0;
 	this->ay = 0;
-	float disXToPlayer = 0;
-	float disYToPlayer = 0;
+	this->disXToPlayer = 0;
+	this->disYToPlayer = 0;
 	this->player = player;
 	shoot_start = -1;
 	this->type = type;

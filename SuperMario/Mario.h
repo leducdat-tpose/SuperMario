@@ -18,7 +18,7 @@
 #define MARIO_JUMP_RUN_SPEED_Y	0.6f
 
 #define MARIO_GRAVITY			0.002f
-#define MARIO_FLY_GRAVITY		0.0012f
+#define MARIO_FLY_GRAVITY		0.0001f
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.4f
 
@@ -215,7 +215,7 @@ public:
 		untouchable_start = -1;
 		attack_start = -1;
 		kick_start = -1;
-		fly_cooldown_start = -1;
+		fly_cooldown_start = 0;
 		isOnPlatform = false;
 		coin = 0;
 	}
@@ -237,7 +237,8 @@ public:
 
 	void DamagedMario();
 	void SetAttack(BOOLEAN isAttack) { this->isAttack = isAttack; }
-	void SetFly(BOOLEAN isFly);
+	void SetFly(BOOLEAN isFly) { this->isFly = isFly; }
+	void StartFly() { fly_cooldown_start = GetTickCount64(); }
 	void StartAttack();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void AddHitBox();
@@ -245,6 +246,8 @@ public:
 	void CollectCoin() { coin++; }
 	void HoldKoopas();
 	void ReleaseKoopas();
+	void Fly();
 	LPGAMEOBJECT GetHeldKoopas() const { return heldKoopas; }
 	BOOLEAN GetIsOnPlatform() const { return isOnPlatform; }
+	BOOLEAN GetIsFly() const { return isFly; }
 };

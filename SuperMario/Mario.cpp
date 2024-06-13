@@ -51,15 +51,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			StopKick();
 		}
 	}
-	if (isFly)
-	{
-		if (GetTickCount64() - fly_cooldown_start > MARIO_FLY_COOLDOWN_TIME) {
-			isFly = false;
-			fly_cooldown_start = -1;
-			SetState(MARIO_STATE_JUMP);
-		}
-	}
-	if(!isFly) isOnPlatform = false;
+	Fly();
+	isOnPlatform = false;
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
@@ -74,7 +67,11 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (e->ny != 0 && e->obj->IsBlocking())
 	{
 		vy = 0;
-		if (e->ny < 0) isOnPlatform = true;
+		if (e->ny < 0)
+		{
+			isFly = false;
+			isOnPlatform = true;
+		}
 	}
 	else
 		if (e->nx != 0 && e->obj->IsBlocking())
@@ -379,22 +376,43 @@ int CMario::GetAniIdBig()
 int CMario::GetAniIdRaccoon()
 {
 	int aniId = -1;
-	if (!isOnPlatform)
+	if(isFly)
 	{
 		if (abs(ax) == MARIO_ACCEL_RUN_X)
 		{
 			if (nx >= 0)
 			{
-				if (state == MARIO_STATE_FLY)
-					aniId = ID_ANI_MARIO_RACCOON_FLY_FAST_RIGHT;
-				else
+
+				aniId = ID_ANI_MARIO_RACCOON_FLY_FAST_RIGHT;
+			}
+			else
+			{
+				aniId = ID_ANI_MARIO_RACCOON_FLY_FAST_LEFT;
+			}
+		}
+		else
+		{
+			if (nx >= 0)
+			{
+				aniId = ID_ANI_MARIO_RACCOON_FLY_RIGHT;
+			}
+			else
+			{
+				aniId = ID_ANI_MARIO_RACCOON_FLY_LEFT;
+			}
+		}
+	}
+	else if (!isOnPlatform)
+	{
+		if (abs(ax) == MARIO_ACCEL_RUN_X)
+		{
+			if (nx >= 0)
+			{
+				
 				aniId = ID_ANI_MARIO_RACCOON_JUMP_RUN_RIGHT;
 			}
 			else
 			{
-				if (state == MARIO_STATE_FLY)
-					aniId = ID_ANI_MARIO_RACCOON_FLY_FAST_LEFT;
-				else
 				aniId = ID_ANI_MARIO_RACCOON_JUMP_RUN_LEFT;
 			}
 		}
@@ -402,16 +420,10 @@ int CMario::GetAniIdRaccoon()
 		{
 			if (nx >= 0)
 			{
-				if (state == MARIO_STATE_FLY)
-					aniId = ID_ANI_MARIO_RACCOON_FLY_RIGHT;
-				else
 				aniId = ID_ANI_MARIO_RACCOON_JUMP_WALK_RIGHT;
 			}
 			else
 			{
-				if (state == MARIO_STATE_FLY)
-					aniId = ID_ANI_MARIO_RACCOON_FLY_LEFT;
-				else
 				aniId = ID_ANI_MARIO_RACCOON_JUMP_WALK_LEFT;
 			}
 		}
@@ -697,14 +709,24 @@ void CMario::ReleaseKoopas()
 	heldKoopas = nullptr;
 }
 
-void CMario::SetFly(BOOLEAN isFly)
+void CMario::Fly()
 {
 	if (level != MARIO_LEVEL_RACCOON) return;
-	this->isFly = isFly;
-	if (this->isFly)
+	if (isOnPlatform)
 	{
-		SetState(MARIO_STATE_FLY);
-		fly_cooldown_start = GetTickCount64();
+		isFly = false;
 	}
+	if (isFly && (state == MARIO_STATE_RUNNING_LEFT || state == MARIO_STATE_RUNNING_RIGHT))
+	{
+		StartFly();
+		ay = MARIO_FLY_GRAVITY;
+		//turn off isFly, this make player has to spam jump button to fly
+		isFly = false;
+	}
+	if ((GetTickCount64() - fly_cooldown_start > MARIO_FLY_COOLDOWN_TIME) && isFly == false)
+	{
+		ay = MARIO_GRAVITY;
+	}
+
 }
 
