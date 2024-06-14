@@ -17,6 +17,7 @@
 #include "PiranhaPlant.h"
 #include "FireBall.h"
 #include "SuperLeaf.h"
+#include "Teleport.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -176,6 +177,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_SUPERLEAF: obj = new CSuperLeaf(x, y); break;
 	case OBJECT_TYPE_LUCKYBOX_MUSHROOM: obj = new CLuckyBox(x, y, OBJECT_TYPE_MUSHROOM); break;
 	case OBJECT_TYPE_PIRANHAPLANT_NOT_SHOOT: obj = new CPiranhaPlant(x, y, player, PIRANHAPLANT_TYPE_NOT_SHOOT); break;
+	case OBJECT_TYPE_TELEPORT: obj = new CTeleport(x, y); break;
 
 	case OBJECT_TYPE_PLATFORM:
 	{

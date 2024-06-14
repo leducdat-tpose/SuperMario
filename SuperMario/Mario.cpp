@@ -13,6 +13,7 @@
 #include "SuperLeaf.h"
 #include "FireBall.h"
 #include "PiranhaPlant.h"
+#include "Teleport.h"
 
 #include "Collision.h"
 
@@ -66,6 +67,9 @@ void CMario::OnNoCollision(DWORD dt)
 
 void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 {
+	if (dynamic_cast<CTeleport*>(e->obj))
+		OnCollisionWithTeleport(e);
+
 	if (e->ny != 0 && e->obj->IsBlocking())
 	{
 		
@@ -102,6 +106,11 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPiranhaPlant(e);
 	else if (dynamic_cast<CSuperLeaf*>(e->obj))
 		OnCollisionWithSuperLeaf(e);
+}
+
+void CMario::OnCollisionWithTeleport(LPCOLLISIONEVENT e)
+{
+
 }
 
 void CMario::OnCollisionWithLuckybox(LPCOLLISIONEVENT e) {
