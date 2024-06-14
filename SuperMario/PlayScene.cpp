@@ -435,8 +435,17 @@ void CPlayScene::LoadObjectsFromMap()
 			}
 			case 10:
 			{
-				LPGAMEOBJECT obj = new CLuckyBox(j * 16.0f, i * 16.0f);
-				objects.push_back(obj);
+				if ((j == 15 && i == 19)
+					|| (j == 41 && i == 24)
+					|| (j == 90 && i == 8)) {
+					LPGAMEOBJECT obj = new CLuckyBox(j * 16.0f, i * 16.0f, OBJECT_TYPE_MUSHROOM);
+					objects.push_back(obj);
+				}
+				else
+				{
+					LPGAMEOBJECT obj = new CLuckyBox(j * 16.0f, i * 16.0f);
+					objects.push_back(obj);
+				}
 				break;
 			}
 			case 77:
@@ -628,7 +637,10 @@ void CPlayScene::UpdateCameraPosition()
 	{
 		if (cx > 2495) cx = 2495;
 		if (cy > 240) cy = 240;
+		if (cy < 0) cy = 0;
 	}
+	CGame::GetInstance()->SetCamPos(cx, cy);
+	/*
 	if (mario->GetAniFly())
 	{
 		if (cy > cameraIndexFollowY)
@@ -640,8 +652,8 @@ void CPlayScene::UpdateCameraPosition()
 	else
 	{
 		cameraIndexFollowY = 0.0f;
-		CGame::GetInstance()->SetCamPos(cx, cy);
-	}
+		
+	}*/
 		
 	
 }

@@ -20,8 +20,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
-	
-	DebugOut(L"[INFO] State:%d\n", state);
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 	if (heldKoopas != nullptr) HoldKoopas();
 	// reset untouchable timer if untouchable time has passed
@@ -504,7 +502,6 @@ void CMario::Render()
 		aniId = GetAniIdRaccoon();
 
 	animations->Get(aniId)->Render(x, y);
-	DebugOut(L"AnimationID: %d", aniId);
 	RenderBoundingBox();
 
 	DebugOutTitle(L"Coins: %d", coin);
