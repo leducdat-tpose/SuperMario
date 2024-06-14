@@ -430,6 +430,13 @@ void CPlayScene::LoadObjectsFromMap()
 			int idSprite = map[i][j]->GetID();
 			switch (idSprite)
 			{
+			case 113:
+			{
+				LPGAMEOBJECT obj = new CCoin(j * 16.0f, i * 16.0f);
+				objects.push_back(obj);
+				map[i][j] = sprites->Get(0);
+				break;
+			}
 			case 7:
 			{
 				LPGAMEOBJECT obj = new CCoin(j * 16.0f, i * 16.0f);
@@ -468,6 +475,13 @@ void CPlayScene::LoadObjectsFromMap()
 			case 42:
 			case 93:
 			case 95:
+			case 97:
+			case 98:
+			case 103:
+			case 109:
+			case 110:
+			case 116:
+			case 117:
 			{
 				LPGAMEOBJECT obj = new CGround(j * 16.0f, i * 16.0f, idSprite);
 				objects.push_back(obj);
@@ -643,7 +657,12 @@ void CPlayScene::UpdateCameraPosition()
 	if (id == SCENE_1)
 	{
 		if (cx > 2495) cx = 2495;
-		if (cy > 150) cy = 240;
+		if (150 < cy && cy < 304) cy = 240;
+		else if (cy > 368) // Secret room
+		{
+			cy = 416;
+			cx = 2048;
+		}
 	}
 	
 	CGame::GetInstance()->SetCamPos(cx, cy);
