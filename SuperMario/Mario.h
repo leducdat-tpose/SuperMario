@@ -257,4 +257,5 @@ public:
 	BOOLEAN GetIsOnPlatform() const { return isOnPlatform; }
 	BOOLEAN GetIsFly() const { return isFly; }
 	BOOLEAN GetAttackDone() const { return attackDone; }
+	bool GetAniFly() const { return aniFly; }
 };

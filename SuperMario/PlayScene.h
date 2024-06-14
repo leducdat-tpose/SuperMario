@@ -24,6 +24,7 @@ class CPlayScene : public CScene
 	vector<vector<LPSPRITE>> map;
 	int numsRowInMap;
 	int numsColInMap;
+	float cameraIndexFollowY;
 
 	//vector<Unit*> listUnits;
 	vector<LPGAMEOBJECT> objects;

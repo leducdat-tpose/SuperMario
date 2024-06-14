@@ -26,6 +26,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	CScene(id, filePath)
 {
 	player = NULL;
+	cameraIndexFollowY = 0;
 	key_handler = new CSampleKeyHandler(this);
 	numsRowInMap = 0;
 	numsColInMap = 0;
@@ -616,68 +617,33 @@ void CPlayScene::UpdateMario(DWORD dt)
 void CPlayScene::UpdateCameraPosition()
 {
 	float cx, cy;
-	player->GetPosition(cx, cy);
+	CMario* mario = (CMario*)player;
+	mario->GetPosition(cx, cy);
 
 	CGame* game = CGame::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
 	cy -= game->GetBackBufferHeight() / 2;
-
 	if (cx < 0) cx = 0;
-
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	if (id == SCENE_1)
+	{
+		if (cx > 2495) cx = 2495;
+	}
+	if (mario->GetAniFly())
+	{
+		if (cy > cameraIndexFollowY)
+			cameraIndexFollowY += 1;
+		else if (cy < cameraIndexFollowY)
+			cameraIndexFollowY -= 1;
+		CGame::GetInstance()->SetCamPos(cx, cameraIndexFollowY);
+	}
+	else
+	{
+		cameraIndexFollowY = 0.0f;
+		CGame::GetInstance()->SetCamPos(cx, 0.0f);
+	}
+		
+	
 }
-//
-//void CPlayScene::GetObjectsFromGrid()
-//{
-//	//clear a units from previous scene
-//
-//	listUnits.clear();
-//	listCanEarnObjectsToRender.clear();
-//	listStaticObjectsToRender.clear();
-//	listMovingObjectsToRender.clear();
-//	listPipeObjectsToRender.clear();
-//	grid->Get(game->GetCameraPositon(), listUnits);
-//
-//	for (UINT i = 0; i < listUnits.size(); i++)
-//	{
-//		LPGAMEOBJECT obj = listUnits[i]->GetObj();
-//		objects.push_back(obj);
-//		listMovingObjectsToRender.push_back(obj);
-//	}
-//}
-//Use when mario jump in a pipe or something else, it will teleport to that position
-//void CPlayScene::SetGameState(int state)
-//{
-//	switch (state)
-//	{
-//	case GAMESTATE_1:
-//		mario->SetState(1);
-//		mario->SetPosition(20,10);
-//		game->SetCamPos(20,10);
-//		tilemaps->Get(SCENE_1)->index = 0;
-//		break;
-//	default:
-//		break;
-//	}
-//}
-
-//void CPlayScene::Init(int id)
-//{
-//	//When the project is quiet complete, I will change this into read file just like professor
-//	this->id = id;
-//	switch (this->id)
-//	{
-//	case SCENE_TITLE:
-//		break;
-//	case SCENE_1:
-//		grid = new Grid(2816, 626);
-//		LoadObjects(L"scenes\\scene_1_objects.txt");
-//		SetGameState(GAMESTATE_1);
-//		break;
-//	case SCENE_2:
-//		break;
-//	}
-//}
 
 void CPlayScene::RenderMap()
 {
