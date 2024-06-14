@@ -657,14 +657,13 @@ void CPlayScene::UpdateCameraPosition()
 	if (id == SCENE_1)
 	{
 		if (cx > 2495) cx = 2495;
-		if (150 < cy && cy < 304) cy = 240;
-		if (mario->GetIsInSecretRoom()) // Secret room
+		if (150 < cy) cy = 240;
+		if (mario->GetIsInSecretRoom())
 		{
 			cy = 416;
 			cx = 2048;
 		}
 	}
-	
 	CGame::GetInstance()->SetCamPos(cx, cy);
 }
 

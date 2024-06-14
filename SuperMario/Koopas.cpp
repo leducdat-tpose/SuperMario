@@ -152,7 +152,7 @@ void CKoopas::OnCollisionWithLuckyBox(LPCOLLISIONEVENT e)
 				mario->CollectCoin();
 				break;
 			default:
-				if (mario->GetLevel() == MARIO_LEVEL_SMALL)
+				if (mario->GetLevel() == MARIO_LEVEL_SMALL || mario->GetLevel() == MARIO_LEVEL_RACCOON)
 					luckybox->SetTypeObjectSpawned(OBJECT_TYPE_MUSHROOM);
 				else
 				{

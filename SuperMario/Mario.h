@@ -217,7 +217,7 @@ public:
 		keyRunDown = false;
 		keyJumpDown = false;
 		ay = MARIO_GRAVITY;
-		level = MARIO_LEVEL_BIG;
+		level = MARIO_LEVEL_SMALL;
 		untouchable = 0;
 		untouchable_start = -1;
 		attack_start = -1;

@@ -128,9 +128,22 @@ void CMario::OnCollisionWithLuckybox(LPCOLLISIONEVENT e) {
 	if (e->ny <= 0) return;
 	if (!luckybox->GetIsCollected())
 	{
+		switch (luckybox->GetTypeObjectSpawned())
+		{
+		case OBJECT_TYPE_COIN:
+			CollectCoin();
+			break;
+		default:
+			if (GetLevel() == MARIO_LEVEL_SMALL || GetLevel() == MARIO_LEVEL_RACCOON)
+				luckybox->SetTypeObjectSpawned(OBJECT_TYPE_MUSHROOM);
+			else
+			{
+				luckybox->SetTypeObjectSpawned(OBJECT_TYPE_SUPERLEAF);
+			}
+			break;
+		}
 		luckybox->SetIsCollected(true);
 		luckybox->SpawnObject();
-		coin++;
 	}
 }
 
