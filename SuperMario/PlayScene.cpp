@@ -627,6 +627,7 @@ void CPlayScene::UpdateCameraPosition()
 	if (id == SCENE_1)
 	{
 		if (cx > 2495) cx = 2495;
+		if (cy > 240) cy = 240;
 	}
 	if (mario->GetAniFly())
 	{
@@ -639,7 +640,7 @@ void CPlayScene::UpdateCameraPosition()
 	else
 	{
 		cameraIndexFollowY = 0.0f;
-		CGame::GetInstance()->SetCamPos(cx, 0.0f);
+		CGame::GetInstance()->SetCamPos(cx, cy);
 	}
 		
 	

@@ -13,8 +13,8 @@ fireball.txt
 superleaf.txt
 #filePath	mapWidth	mapHeight	tileWidth	tileHeight	texID	texWidth	texHeight
 [TILEMAP]
-#scene_1_map.txt	2816	626	16	16	30	320	96
-scene1sim.txt	2816	240	16	16	30	320	96
+scene_1_map.txt	2816	626	16	16	30	320	96
+#scene1sim.txt	2816	240	16	16	30	320	96
 
 
 [OBJECTS]
@@ -23,7 +23,7 @@ scene1sim.txt	2816	240	16	16	30	320	96
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	20	10
+0	48	384
 
 #COIN
 4	100	120
