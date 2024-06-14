@@ -412,6 +412,7 @@ void CPlayScene::LoadMap(LPCWSTR filePath) {
 
 void CPlayScene::LoadObjectsFromMap()
 {
+	CSprites* sprites = CSprites::GetInstance();
 	//This is for platform in map
 	float posXSpriteBegin = 0;
 	float posYSpriteBegin = 0;
@@ -431,6 +432,7 @@ void CPlayScene::LoadObjectsFromMap()
 			{
 				LPGAMEOBJECT obj = new CCoin(j * 16.0f, i * 16.0f);
 				objects.push_back(obj);
+				map[i][j] = sprites->Get(1);
 				break;
 			}
 			case 10:
@@ -446,12 +448,14 @@ void CPlayScene::LoadObjectsFromMap()
 					LPGAMEOBJECT obj = new CLuckyBox(j * 16.0f, i * 16.0f);
 					objects.push_back(obj);
 				}
+				map[i][j] = sprites->Get(1);
 				break;
 			}
 			case 77:
 			{
 				LPGAMEOBJECT obj = new CBrick(j * 16.0f, i * 16.0f, TYPE_GOLD_BRICK);
 				objects.push_back(obj);
+				map[i][j] = sprites->Get(1);
 				break;
 			}
 			case 8:
@@ -626,36 +630,21 @@ void CPlayScene::UpdateMario(DWORD dt)
 void CPlayScene::UpdateCameraPosition()
 {
 	float cx, cy;
+	cameraIndexFollowY = 0;
 	CMario* mario = (CMario*)player;
 	mario->GetPosition(cx, cy);
-
 	CGame* game = CGame::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
 	cy -= game->GetBackBufferHeight() / 2;
 	if (cx < 0) cx = 0;
+	if (cy < 0) cy = 0;
 	if (id == SCENE_1)
 	{
 		if (cx > 2495) cx = 2495;
-		if (cy > 240) cy = 240;
-		if (cy < 0) cy = 0;
+		if (cy > 150) cy = 240;
 	}
-	CGame::GetInstance()->SetCamPos(cx, cy);
-	/*
-	if (mario->GetAniFly())
-	{
-		if (cy > cameraIndexFollowY)
-			cameraIndexFollowY += 1;
-		else if (cy < cameraIndexFollowY)
-			cameraIndexFollowY -= 1;
-		CGame::GetInstance()->SetCamPos(cx, cameraIndexFollowY);
-	}
-	else
-	{
-		cameraIndexFollowY = 0.0f;
-		
-	}*/
-		
 	
+	CGame::GetInstance()->SetCamPos(cx, cy);
 }
 
 void CPlayScene::RenderMap()
@@ -669,7 +658,7 @@ void CPlayScene::RenderMap()
 		for (int j = startColDraw; j <= endColDraw; j++)
 		{
 			float x = (j - startColDraw) * TILE_WIDTH * 1.0f + camPosition.x - (int)camPosition.x % TILE_WIDTH;
-			float y = i * TILE_HEIGHT* 1.0f;
+			float y = i * TILE_HEIGHT * 1.0f;
 			map[i][j]->Draw(x, y);
 		}
 	}
