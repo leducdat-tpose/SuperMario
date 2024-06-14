@@ -423,6 +423,13 @@ void CPlayScene::LoadObjectsFromMap()
 	int idSpriteMiddle = 0;
 	int idSpriteEnd = 0;
 	//
+	
+	
+	if (id == SCENE_1)
+	{
+		LPGAMEOBJECT triggerbutton = new CTriggerButton(2032.0f, 352.0f);
+		objects.push_back(triggerbutton);
+	}
 	for (int i = 0; i < numsRowInMap; i++)
 	{
 		int lengthPlatform = 0;

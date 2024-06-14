@@ -11,9 +11,7 @@
 class CTriggerButton : public CGameObject
 {
 protected:
-	float ax;
 	float ay;
-	ULONGLONG fall_start;
 	bool isClicked = false;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -23,6 +21,6 @@ protected:
 	virtual void OnNoCollision(DWORD dt);
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 public:
-	CTriggerButton(float x, float y): CGameObject(x,y)
-	{}
+	CTriggerButton(float x, float y);
+	bool GetIsClicked() const { return isClicked; }
 };
