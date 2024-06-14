@@ -39,6 +39,10 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_A:
 		mario->keyRunDown = true;
 		break;
+	case DIK_U:
+		//Tele to secret room SCENE_1
+		mario->SetPosition(2264.0f, 64.0f);
+		break;
 	}
 }
 

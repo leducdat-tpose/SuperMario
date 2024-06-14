@@ -29,6 +29,8 @@ void CTeleport::Teleport(float marioPosX, float marioPosY)
 	case SCENE_1:
 		if (2248 < marioPosX && marioPosX < 2280 && 72 < marioPosY && marioPosY < 104)
 			mario->SetPosition(2104.0f, 480.0f);
+		else if(2312 < marioPosX && marioPosX < 2344 && 448 < marioPosY && marioPosY < 472)
+			mario->SetPosition(2328.0f, 352.0f);
 		break;
 	}
 }

@@ -658,7 +658,7 @@ void CPlayScene::UpdateCameraPosition()
 	{
 		if (cx > 2495) cx = 2495;
 		if (150 < cy && cy < 304) cy = 240;
-		else if (cy > 368) // Secret room
+		else if (cy > 320) // Secret room
 		{
 			cy = 416;
 			cx = 2048;
