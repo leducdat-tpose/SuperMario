@@ -423,11 +423,10 @@ void CPlayScene::LoadObjectsFromMap()
 	int idSpriteMiddle = 0;
 	int idSpriteEnd = 0;
 	//
-	
-	
+	LPGAMEOBJECT triggerbutton = nullptr;
 	if (id == SCENE_1)
 	{
-		LPGAMEOBJECT triggerbutton = new CTriggerButton(2032.0f, 352.0f);
+		triggerbutton = new CTriggerButton(2032.0f, 352.0f);
 		objects.push_back(triggerbutton);
 	}
 	for (int i = 0; i < numsRowInMap; i++)
@@ -470,7 +469,7 @@ void CPlayScene::LoadObjectsFromMap()
 			}
 			case 77:
 			{
-				LPGAMEOBJECT obj = new CBrick(j * 16.0f, i * 16.0f, TYPE_GOLD_BRICK);
+				LPGAMEOBJECT obj = new CBrick(j * 16.0f, i * 16.0f, TYPE_GOLD_BRICK, triggerbutton);
 				objects.push_back(obj);
 				map[i][j] = sprites->Get(1);
 				break;
