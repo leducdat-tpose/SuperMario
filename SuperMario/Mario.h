@@ -159,7 +159,8 @@ class CMario : public CGameObject
 {
 	LPGAMEOBJECT hitbox;
 	LPGAMEOBJECT heldKoopas;
-
+	
+	BOOLEAN isInSecret;
 	BOOLEAN isSitting;
 	//Only when level is Racoon
 	BOOLEAN isAttack;
@@ -207,6 +208,7 @@ public:
 		hitbox = nullptr;
 		isSitting = false;
 		isAttack = false;
+		isInSecret = false;
 		attackDone = false;
 		isKick = false;
 		isFly = false;
@@ -259,4 +261,5 @@ public:
 	BOOLEAN GetIsFly() const { return isFly; }
 	BOOLEAN GetAttackDone() const { return attackDone; }
 	bool GetAniFly() const { return aniFly; }
+	BOOLEAN GetIsInSecretRoom() const { return isInSecret; }
 };

@@ -111,7 +111,16 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithTeleport(LPCOLLISIONEVENT e)
 {
 	CTeleport* teleport = dynamic_cast<CTeleport*>(e->obj);
-	teleport->Teleport(this->x, this->y);
+	if (isSitting)
+	{
+		teleport->Teleport(this->x, this->y);
+		isInSecret = true;
+	}
+	else if(isInSecret)
+	{
+		teleport->Teleport(this->x, this->y);
+		isInSecret = false;
+	}
 }
 
 void CMario::OnCollisionWithLuckybox(LPCOLLISIONEVENT e) {
