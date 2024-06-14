@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include "PlayScene.h"
 
 #define TELEPORT_BBOX_WIDTH 32
 #define TELEPORT_BBOX_HEIGHT 16
@@ -16,4 +17,5 @@ protected:
 	int IsBlocking() { return 0; }
 public:
 	CTeleport(float x, float y):CGameObject(x,y){}
+	void Teleport(float marioPosX, float marioPosY);
 };

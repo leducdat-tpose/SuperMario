@@ -19,3 +19,16 @@ void CTeleport::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 
 }
+
+void CTeleport::Teleport(float marioPosX, float marioPosY)
+{
+	int idScene = CGame::GetInstance()->GetCurrentScene()->GetId();
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	switch (idScene)
+	{
+	case SCENE_1:
+		if (2248 < marioPosX && marioPosX < 2280 && 72 < marioPosY && marioPosY < 104)
+			mario->SetPosition(2104.0f, 480.0f);
+		break;
+	}
+}

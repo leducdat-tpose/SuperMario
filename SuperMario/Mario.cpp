@@ -110,7 +110,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithTeleport(LPCOLLISIONEVENT e)
 {
-
+	CTeleport* teleport = dynamic_cast<CTeleport*>(e->obj);
+	teleport->Teleport(this->x, this->y);
 }
 
 void CMario::OnCollisionWithLuckybox(LPCOLLISIONEVENT e) {
