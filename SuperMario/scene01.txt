@@ -11,6 +11,8 @@ luckybox.txt
 piranhaplant.txt
 fireball.txt
 superleaf.txt
+triggerbutton.txt
+
 #filePath	mapWidth	mapHeight	tileWidth	tileHeight	texID	texWidth	texHeight
 [TILEMAP]
 scene_1_map.txt	2816	626	16	16	30	320	96

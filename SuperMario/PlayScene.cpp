@@ -18,6 +18,7 @@
 #include "FireBall.h"
 #include "SuperLeaf.h"
 #include "Teleport.h"
+#include "TriggerButton.h"
 
 #include "SampleKeyEventHandler.h"
 
