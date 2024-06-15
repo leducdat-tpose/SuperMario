@@ -18,7 +18,6 @@
 #include "FireBall.h"
 #include "SuperLeaf.h"
 #include "Teleport.h"
-#include "TriggerButton.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -423,12 +422,6 @@ void CPlayScene::LoadObjectsFromMap()
 	int idSpriteMiddle = 0;
 	int idSpriteEnd = 0;
 	//
-	LPGAMEOBJECT triggerbutton = nullptr;
-	if (id == SCENE_1)
-	{
-		triggerbutton = new CTriggerButton(2032.0f, 352.0f);
-		objects.push_back(triggerbutton);
-	}
 	for (int i = 0; i < numsRowInMap; i++)
 	{
 		int lengthPlatform = 0;
@@ -469,7 +462,7 @@ void CPlayScene::LoadObjectsFromMap()
 			}
 			case 77:
 			{
-				LPGAMEOBJECT obj = new CBrick(j * 16.0f, i * 16.0f, TYPE_GOLD_BRICK, triggerbutton);
+				LPGAMEOBJECT obj = new CBrick(j * 16.0f, i * 16.0f, TYPE_GOLD_BRICK);
 				objects.push_back(obj);
 				map[i][j] = sprites->Get(1);
 				break;
@@ -582,68 +575,6 @@ void CPlayScene::Update(DWORD dt)
 	UpdateCameraPosition();
 
 	PurgeDeletedObjects();
-	/*if (id == SCENE_TITLE)
-	{
-		return;
-	}
-
-	GetObjectsFromGrid();
-
-	vector<LPGAMEOBJECT> coObjects;
-	for (size_t i = 0; i < objects.size(); i++)
-	{
-		coObjects.push_back(objects[i]);
-	}
-	for (size_t i = 0; i < objects.size(); i++)
-	{
-		objects[i]->Update(dt, &coObjects);
-	}
-
-	UpdateCameraPosition();
-
-	UpdateGrid();
-
-	PurgeDeletedObjects();*/
-
-	//vector<LPGAMEOBJECT> coObjects;
-	//for (size_t i = 1; i < objects.size(); i++)
-	//{
-	//	coObjects.push_back(objects[i]);
-	//}
-
-	//for (size_t i = 0; i < objects.size(); i++)
-	//{
-	//	objects[i]->Update(dt, &coObjects);
-	//}
-	//if (id == SCENE_1)
-	//{
-
-	//}
-	//else if(id == SCENE_2)
-	//{
-
-	//}
-	//if (isGameOver == true) return;
-
-
-	//// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	//if (player == NULL) return;
-
-	//// Update camera to follow mario
-	//float cx, cy;
-	//player->GetPosition(cx, cy);
-
-	//GetObjectsFromGrid();
-	//UpdateGrid();
-
-	//cx -= game->GetBackBufferWidth() / 2;
-	//cy -= game->GetBackBufferHeight() / 2;
-
-	//if (cx < 0) cx = 0;
-
-	//CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
-
-	//PurgeDeletedObjects();
 }
 
 void CPlayScene::UpdateMario(DWORD dt)

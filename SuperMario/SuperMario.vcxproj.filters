@@ -233,11 +233,5 @@
     <ClCompile Include="Teleport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TriggerButton.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TriggerButton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

@@ -3,7 +3,6 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
-#include "TriggerButton.h"
 
 #define ID_ANI_BRICK 10000
 #define ID_ANI_GOLD_BRICK 10100
@@ -16,12 +15,10 @@
 
 class CBrick : public CGameObject {
 	int type;
-	CTriggerButton* triggerbutton;
 public:
 	CBrick(float x, float y, int type = TYPE_NORMAL_BRICK, LPGAMEOBJECT triggerbutton = nullptr) : CGameObject(x, y)
 	{
 		this->type = type;
-		this->triggerbutton = (CTriggerButton*)triggerbutton;
 	}
 	void Render();
 	void Update(DWORD dt) {}
