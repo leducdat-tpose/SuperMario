@@ -132,6 +132,9 @@
     <ClInclude Include="Teleport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HiddenButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -231,6 +234,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Teleport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HiddenButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

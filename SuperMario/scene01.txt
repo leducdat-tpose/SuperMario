@@ -11,7 +11,7 @@ luckybox.txt
 piranhaplant.txt
 fireball.txt
 superleaf.txt
-triggerbutton.txt
+hiddenbutton.txt
 
 #filePath	mapWidth	mapHeight	tileWidth	tileHeight	texID	texWidth	texHeight
 [TILEMAP]
@@ -61,6 +61,9 @@ scene_1_map.txt	2816	626	16	16	30	320	96
 #Teleport
 16	2264	112
 16	2328	448
+
+#HiddenButton
+17	2032	352
 
 
 #superleaf
