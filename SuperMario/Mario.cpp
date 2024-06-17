@@ -14,6 +14,7 @@
 #include "FireBall.h"
 #include "PiranhaPlant.h"
 #include "Teleport.h"
+#include "HiddenButton.h"
 
 #include "Collision.h"
 
@@ -106,6 +107,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPiranhaPlant(e);
 	else if (dynamic_cast<CSuperLeaf*>(e->obj))
 		OnCollisionWithSuperLeaf(e);
+	else if (dynamic_cast<CHiddenButton*>(e->obj))
+		OnCollisionWithHiddenButton(e);
 }
 
 void CMario::OnCollisionWithTeleport(LPCOLLISIONEVENT e)
@@ -266,6 +269,14 @@ void CMario::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
 	DamagedMario();
 }
 
+void CMario::OnCollisionWithHiddenButton(LPCOLLISIONEVENT e)
+{
+	CHiddenButton* hiddenbutton = dynamic_cast<CHiddenButton*>(e->obj);
+	if (e->ny < 0)
+	{
+		hiddenbutton->SetIsClicked(true);
+	}
+}
 //
 // Get animation ID for small Mario
 //

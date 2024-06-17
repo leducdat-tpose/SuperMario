@@ -45,6 +45,8 @@ class CPlayScene : public CScene
 protected:
 	// A play scene has to have player, right? 
 	LPGAMEOBJECT player;
+	// A hidden button
+	LPGAMEOBJECT hiddenbutton;
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
 	void _ParseSection_ASSETS(string line);
@@ -63,6 +65,7 @@ public:
 	virtual void Unload();
 
 	LPGAMEOBJECT GetPlayer() const { return player; }
+	LPGAMEOBJECT GetHiddenButton() const { return hiddenbutton; }
 	void Clear();
 	void PurgeDeletedObjects();
 	void UpdateCameraPosition();

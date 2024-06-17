@@ -8,6 +8,7 @@ void CHiddenButton::Render()
 		aniId = ID_ANI_HIDDENBUTTON_CLICKED;
 	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
+	RenderBoundingBox();
 }
 void CHiddenButton::Update(DWORD dt)
 {
@@ -23,6 +24,7 @@ void CHiddenButton::GetBoundingBox(float& l, float& t, float& r, float& b)
 void CHiddenButton::OnCollisionWith(LPCOLLISIONEVENT e) {};
 void CHiddenButton::SetIsClicked(bool isClicked)
 {
+	if (this->isClicked) return;
 	this->isClicked = isClicked;
 }
 bool CHiddenButton::GetIsClicked()

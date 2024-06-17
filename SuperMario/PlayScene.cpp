@@ -28,6 +28,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	CScene(id, filePath)
 {
 	player = NULL;
+	hiddenbutton = NULL;
 	cameraIndexFollowY = 0;
 	key_handler = new CSampleKeyHandler(this);
 	numsRowInMap = 0;
@@ -179,7 +180,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_LUCKYBOX_MUSHROOM: obj = new CLuckyBox(x, y, OBJECT_TYPE_MUSHROOM); break;
 	case OBJECT_TYPE_PIRANHAPLANT_NOT_SHOOT: obj = new CPiranhaPlant(x, y, player, PIRANHAPLANT_TYPE_NOT_SHOOT); break;
 	case OBJECT_TYPE_TELEPORT: obj = new CTeleport(x, y); break;
-	case OBJECT_TYPE_HIDDENBUTTON: obj = new CHiddenButton(x, y); break;
+	case OBJECT_TYPE_HIDDENBUTTON:
+		obj = new CHiddenButton(x, y);
+		hiddenbutton = (CHiddenButton*)obj;
+		break;
+	case OBJECT_TYPE_GOLDBRICK: obj = new CBrick(x, y, TYPE_GOLD_BRICK); break;
 
 	case OBJECT_TYPE_PLATFORM:
 	{
@@ -464,8 +469,6 @@ void CPlayScene::LoadObjectsFromMap()
 			}
 			case 77:
 			{
-				LPGAMEOBJECT obj = new CBrick(j * 16.0f, i * 16.0f, TYPE_GOLD_BRICK);
-				objects.push_back(obj);
 				map[i][j] = sprites->Get(1);
 				break;
 			}
