@@ -5,6 +5,7 @@
 #include "Animations.h"
 #include "HiddenButton.h"
 #include "PlayScene.h"
+#include "Coin.h"
 
 #define ID_ANI_BRICK 10000
 #define ID_ANI_GOLD_BRICK 10100
@@ -20,12 +21,14 @@ class CBrick : public CGameObject {
 	int type;
 	bool isChangeToCoin;
 	ULONGLONG change_to_coin_start;
+	LPGAMEOBJECT coin;
 public:
 	CBrick(float x, float y, int type = TYPE_NORMAL_BRICK) : CGameObject(x, y)
 	{
 		this->type = type;
 		this->change_to_coin_start = -1;
-		this->isChangeToCoin = true;
+		this->isChangeToCoin = false;
+		this->coin = NULL;
 	}
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
