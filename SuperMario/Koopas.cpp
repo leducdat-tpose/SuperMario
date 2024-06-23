@@ -82,6 +82,8 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithGoomba(e);
 	if(dynamic_cast<CLuckyBox*>(e->obj))
 		OnCollisionWithLuckyBox(e);
+	else if(dynamic_cast<CBrick*>(e->obj))
+		OnCollisionWithBrick(e);
 	if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CKoopas*>(e->obj)) return;
 	if (e->ny < 0 && (state == PARAKOOPAS_STATE_FLY_LEFT|| state == PARAKOOPAS_STATE_FLY_RIGHT))
@@ -163,6 +165,16 @@ void CKoopas::OnCollisionWithLuckyBox(LPCOLLISIONEVENT e)
 			luckybox->SetIsCollected(true);
 			luckybox->SpawnObject();
 		}
+	}
+}
+
+void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)
+{
+	CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+	if (brick->GetType() != TYPE_GOLD_BRICK) return;
+	if (state == KOOPAS_STATE_HIDE_MOVING)
+	{
+		if (e->nx != 0) brick->Delete();
 	}
 }
 

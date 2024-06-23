@@ -34,7 +34,7 @@ void CHitBox::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithGoomba(e);
 	else if (dynamic_cast<CKoopas*>(e->obj))
 		OnCollisionWithKoopas(e);
-	else if (dynamic_cast<CBrick*>(e->obj))
+	if (dynamic_cast<CBrick*>(e->obj))
 		OnCollisionWithBrick(e);
 }
 
@@ -61,6 +61,6 @@ void CHitBox::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 void CHitBox::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 {
 	CBrick* brick = dynamic_cast<CBrick*>(e->obj);
-	//if (brick->GetType() != TYPE_GOLD_BRICK) return;
-	brick->Delete();
+	if (brick->GetType() != TYPE_GOLD_BRICK) return;
+	if (e->nx != 0) brick->Delete();
 }
