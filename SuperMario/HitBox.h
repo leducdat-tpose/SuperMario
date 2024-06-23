@@ -6,6 +6,7 @@
 
 #include "Goomba.h"
 #include "Koopas.h"
+#include "Brick.h"
 
 //E.g: When Mario is raccoon, he can attack goomba by click A
 class CHitBox : public CGameObject {
@@ -22,6 +23,7 @@ protected:
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopas(LPCOLLISIONEVENT e);
+	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
 	int IsCollidable() { return 1; }
 	int IsBlocking() { return 0; }
 public:

@@ -13,8 +13,9 @@ void CHiddenButton::Render()
 }
 void CHiddenButton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (!enable) return;
-	if (isClicked == false) return;
+	UpdateCheckFall();
+	//if (!enable) return;
+	//if (isClicked == false) return;
 	if (GetTickCount64() - unenable_start > HIDDENBUTTON_UNENABLE_TIME)
 	{
 		enable = false;
@@ -41,4 +42,28 @@ void CHiddenButton::SetIsClicked(bool isClicked)
 bool CHiddenButton::GetIsClicked()
 {
 	return this->isClicked;
+}
+void CHiddenButton::AddCheckFall()
+{
+	checkfall = new CCheckFall(this, this->x, this->y, HIDDENBUTTON_BBOX_WIDTH, HIDDENBUTTON_BBOX_HEIGHT);
+	CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
+	if (playScene != nullptr)
+	{
+		playScene->AddObject(this->checkfall);
+		checkfall->SetEnable(true);
+	}
+	else {
+		DebugOut(L"[ERROR] Can't spawn check fall from HiddenButton!");
+	}
+}
+
+void CHiddenButton::UpdateCheckFall()
+{
+	if (checkfall == nullptr || checkfall->IsEnable() == false || checkfall->IsDeleted() == true) return;
+	if (checkfall->GetPositionY() - this->y > 10.0f)
+	{
+		checkfall->SetEnable(false);
+		this->SetEnable(true);
+	}
+	
 }

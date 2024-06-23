@@ -17,11 +17,14 @@ class CHiddenButton : public CGameObject {
 private:
 	bool isClicked;
 	ULONGLONG unenable_start;
+	LPGAMEOBJECT checkfall;
 public:
 	CHiddenButton(float x, float y) : CGameObject(x, y) {
-		this->enable = true;
+		this->enable = false;
 		this->isClicked = false;
 		unenable_start = -1;
+		checkfall = nullptr;
+		AddCheckFall();
 	}
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -30,4 +33,6 @@ public:
 	int IsBlocking() { return 0; }
 	void SetIsClicked(bool isClicked);
 	bool GetIsClicked();
+	void AddCheckFall();
+	void UpdateCheckFall();
 };
