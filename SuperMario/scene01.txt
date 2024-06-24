@@ -12,6 +12,7 @@ piranhaplant.txt
 fireball.txt
 superleaf.txt
 hiddenbutton.txt
+effects.txt
 
 #filePath	mapWidth	mapHeight	tileWidth	tileHeight	texID	texWidth	texHeight
 [TILEMAP]
@@ -89,3 +90,6 @@ scene_1_map.txt	2816	626	16	16	30	320	96
 
 #superleaf
 13	230	13
+
+#EFFECT
+19	48	384

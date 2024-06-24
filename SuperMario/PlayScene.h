@@ -14,6 +14,7 @@
 #include "TileMaps.h"
 #include "Grid.h"
 #include "Define.h"
+#include "Effects.h"
 
 class CPlayScene : public CScene
 {

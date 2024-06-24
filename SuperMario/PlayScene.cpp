@@ -185,6 +185,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		hiddenbutton = (CHiddenButton*)obj;
 		break;
 	case OBJECT_TYPE_GOLDBRICK: obj = new CBrick(x, y, TYPE_GOLD_BRICK); break;
+	case OBJECT_TYPE_EFFECTS: obj = new CEffects(x, y, EFFECT_TYPE_POINT, 400); break;
 
 	case OBJECT_TYPE_PLATFORM:
 	{

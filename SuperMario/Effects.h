@@ -4,6 +4,9 @@
 #include "Animation.h"
 #include "Animations.h"
 
+#define EFFECT_TYPE_POINT 100
+#define EFFECT_TYPE_OTHER 200
+
 #define ID_ANI_EFFECT 20000
 
 #define ID_ANI_EFFECT_100_POINT (ID_ANI_EFFECT + 10)
@@ -21,11 +24,15 @@ private:
 protected:
 	float ax;
 	float ay;
+	int type;
+	int point;
 	virtual void OnNoCollision(DWORD dt);
 	virtual int IsCollidable() { return 1; };
 public:
-	CEffects(float x, float y);
+	CEffects(float x, float y, int type, int point = 0);
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	int IsBlocking() { return 0; };
+	void DisplayPoint(int point);
+	void GetBoundingBox(float& l, float& t, float& r, float& b){}
 };
