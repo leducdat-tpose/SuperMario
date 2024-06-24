@@ -3,6 +3,9 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
+#include "ObjectPool.h"
+
+#define EFFECT_EXIST_TIME 500
 
 #define EFFECT_TYPE_NONE 0
 #define EFFECT_TYPE_POINT 100
@@ -27,9 +30,11 @@ protected:
 	float ay;
 	int type;
 	int point;
+	ULONGLONG existStart;
 	virtual void OnNoCollision(DWORD dt);
 	virtual int IsCollidable() { return 1; };
 public:
+	CEffects();
 	CEffects(float x, float y, int type, int point = 0);
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -37,4 +42,17 @@ public:
 	void DisplayPoint(int point);
 	void GetBoundingBox(float& l, float& t, float& r, float& b){}
 	void reset();
+	void SetValue(float x, float y, int type, int point, float ax, float ay)
+	{
+		this->x = x;
+		this->y = y;
+		this->type = type;
+		this->point = point;
+		this->ax = ax;
+		this->ay = ay;
+		if (this->type != EFFECT_TYPE_NONE) 
+		{
+			existStart = GetTickCount64();
+		}
+	}
 };

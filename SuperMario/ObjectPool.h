@@ -3,7 +3,9 @@
 #include <iostream>
 #include <list>
 
+#include "debug.h"
 #include "Effects.h"
+#include "PlayScene.h"
 
 class CObjectPool
 {
@@ -15,8 +17,9 @@ private:
 public:
 	static CObjectPool* getInstance()
 	{
-		if (instance == 0)
+		if (instance == NULL)
 		{
+			DebugOut(L"[INFO]Creating ObjectPool.\n");
 			instance = new CObjectPool;
 		}
 		return instance;
@@ -25,8 +28,14 @@ public:
 	{
 		if (effects.empty())
 		{
-			cout << "Don't have any effect left in ObjectPool" << endl;
-			return nullptr;
+			DebugOut(L"[INFO]Creating new Effect from ObjectPool.\n");
+			CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
+			CEffects* effect = new CEffects;
+			//At this point, PoolObject may crash game when ever this effect is create in the previous scene
+			//This effect still exist in the next scene
+			//To fix, refresh objectPool when change scene, do it later
+			playScene->AddObject(effect);
+			return effect;
 		}
 		else
 		{

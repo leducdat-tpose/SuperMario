@@ -2,6 +2,7 @@
 
 #include "debug.h"
 #include "Game.h"
+#include "ObjectPool.h"
 
 #include "Mario.h"
 #include "PlayScene.h"
@@ -71,6 +72,9 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 		}
 		if (mario->GetLevel() == MARIO_LEVEL_RACCOON)
 			mario->SetAttackDone(false);
+		break;
+	case DIK_O:
+		CObjectPool::getInstance()->getEffect()->SetValue(48.0f, 384.0f, EFFECT_TYPE_POINT, 200, 0.0f, 0.0f);
 		break;
 	}
 }

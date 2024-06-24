@@ -28,6 +28,7 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 
 #include "debug.h"
 #include "Game.h"
+#include "ObjectPool.h"
 #include "PlayScene.h"
 #include "GameObject.h"
 #include "Textures.h"

@@ -1,11 +1,21 @@
 #include "Effects.h"
 
+CEffects::CEffects() : CGameObject(0, 0)
+{
+	this->ax = 0;
+	this->ay = 0;
+	this->type = EFFECT_TYPE_NONE;
+	this->point = 0;
+	this->existStart = -1;
+}
+
 CEffects::CEffects(float x, float y, int type, int point) : CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = 0;
 	this->type = type;
 	this->point = point;
+	this->existStart = -1;
 }
 
 void CEffects::OnNoCollision(DWORD dt)
@@ -43,6 +53,11 @@ void CEffects::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (type == EFFECT_TYPE_NONE) return;
 	vy += ay * dt;
 	vx += ax * dt;
+	if (GetTickCount64() - existStart > EFFECT_EXIST_TIME)
+	{
+		CObjectPool::getInstance()->returnEffect(this);
+		existStart = -1;
+	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -59,4 +74,5 @@ void CEffects::reset()
 	ay = 0;
 	point = 0;
 	type = EFFECT_TYPE_NONE;
+	existStart = -1;
 }

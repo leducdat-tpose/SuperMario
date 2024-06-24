@@ -8,11 +8,12 @@
 #include "Texture.h"
 #include "Animations.h"
 #include "PlayScene.h"
-#include "TileMaps.h"
+#include "ObjectPool.h"
 
 CGame* CGame::__instance = NULL;
 
-CTileMaps* tilemaps = CTileMaps::GetInstance();
+LPOBJECTPOOL objectPool = CObjectPool::getInstance();
+
 /*
 	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for
 	rendering 2D images
@@ -525,16 +526,6 @@ void CGame::Load(LPCWSTR gameFile)
 	SwitchScene();
 }
 
-
-
-
-
-void CGame::Load(LPCWSTR pathTexture, LPCWSTR pathData) {
-	tilemaps->Add(1, pathTexture, pathData, 2816, 626);
-	LPSCENE scene = new CPlayScene(1, pathData);
-	scenes[1] = scene;
-}
-
 void CGame::SwitchScene()
 {
 	if (next_scene < 0 || next_scene == current_scene) return;
@@ -565,11 +556,6 @@ void CGame::LoadResources()
 	textures->Add(ID_TEX_MARIO, L"textures\\mario.png");
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png");
 	textures->Add(ID_TEX_MISC, L"textures\\misc.png");
-
-	//Load texture for object and animation
-
-	//Load map
-	tilemaps->Add(SCENE_1, L"scenes\\scene_1_texture.png", L"scenes\\scene_1_map.txt", 2816, 626);
 
 }
 
