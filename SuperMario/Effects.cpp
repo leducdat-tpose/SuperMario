@@ -10,11 +10,13 @@ CEffects::CEffects(float x, float y, int type, int point) : CGameObject(x, y)
 
 void CEffects::OnNoCollision(DWORD dt)
 {
+	if (type == EFFECT_TYPE_NONE) return;
 	x += vx * dt;
 	y += vy * dt;
 }
 void CEffects::Render()
 {
+	if (type == EFFECT_TYPE_NONE) return;
 	int ainId = ID_ANI_EFFECT_100_POINT;
 	if (type == EFFECT_TYPE_POINT)
 	{
@@ -38,6 +40,7 @@ void CEffects::Render()
 }
 void CEffects::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (type == EFFECT_TYPE_NONE) return;
 	vy += ay * dt;
 	vx += ax * dt;
 	CGameObject::Update(dt, coObjects);
@@ -48,4 +51,12 @@ void CEffects::DisplayPoint(int point)
 {
 	if (type != EFFECT_TYPE_POINT) return;
 	this->point = point;
+}
+
+void CEffects::reset()
+{
+	ax = 0;
+	ay = 0;
+	point = 0;
+	type = EFFECT_TYPE_NONE;
 }

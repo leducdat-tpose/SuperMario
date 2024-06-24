@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "Animations.h"
 
+#define EFFECT_TYPE_NONE 0
 #define EFFECT_TYPE_POINT 100
 #define EFFECT_TYPE_OTHER 200
 
@@ -35,4 +36,5 @@ public:
 	int IsBlocking() { return 0; };
 	void DisplayPoint(int point);
 	void GetBoundingBox(float& l, float& t, float& r, float& b){}
+	void reset();
 };
