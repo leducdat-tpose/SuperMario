@@ -3,7 +3,6 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
-#include "ObjectPool.h"
 
 #define EFFECT_EXIST_TIME 500
 

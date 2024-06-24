@@ -55,8 +55,8 @@ void CEffects::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vx += ax * dt;
 	if (GetTickCount64() - existStart > EFFECT_EXIST_TIME)
 	{
-		CObjectPool::getInstance()->returnEffect(this);
 		existStart = -1;
+		this->reset();
 	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
