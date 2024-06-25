@@ -151,6 +151,7 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="HiddenButton.h" />
     <ClInclude Include="HitBox.h" />
+    <ClInclude Include="IntroScene.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="LuckyBox.h" />
@@ -191,6 +192,7 @@
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="HiddenButton.cpp" />
     <ClCompile Include="HitBox.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="LuckyBox.cpp" />
     <ClCompile Include="main.cpp" />

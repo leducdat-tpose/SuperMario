@@ -1,0 +1,10 @@
+# list of object assets to load in this scene
+[ASSETS]
+mario.txt
+introscene.txt
+
+[OBJECTS]
+
+0	10	10
+
+100	0	0

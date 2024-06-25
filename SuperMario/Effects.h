@@ -6,6 +6,7 @@
 
 #define EFFECT_EXIST_TIME 350
 #define EFFECT_GRAVITY 0.002f//This gravity is use for collecting point
+#define EFFECT_CRUMB_GRAVITY 0.008f
 
 #define EFFECT_TYPE_NONE 0
 #define EFFECT_TYPE_POINT 100
@@ -47,25 +48,5 @@ public:
 	void DisplayPoint(int point);
 	void GetBoundingBox(float& l, float& t, float& r, float& b){}
 	void reset();
-	void SetValue(float x, float y, int type, int point, float ax = 0.0f, float ay = -EFFECT_GRAVITY)
-	{
-		if (type == EFFECT_TYPE_NONE)
-		{
-			this->reset();
-			return;
-		}
-		this->x = x;
-		this->y = y;
-		this->type = type;
-		this->point = point;
-		this->ax = ax;
-		this->ay = ay;
-		existStart = GetTickCount64();
-		if (this->type == EFFECT_TYPE_BREAK_BRICK)
-		{
-			this->vx = (float)(-100 + rand() % 200) / 1000;
-			this->vy = (float)(-100 + rand() % 200) / 1000;
-			this->ay = EFFECT_GRAVITY;
-		}
-	}
+	void SetValue(float x, float y, int type, int point, float ax = 0.0f, float ay = -EFFECT_GRAVITY);
 };

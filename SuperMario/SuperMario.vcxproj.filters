@@ -144,6 +144,9 @@
     <ClInclude Include="ObjectPool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -252,6 +255,9 @@
       <Filter>Effects</Filter>
     </ClCompile>
     <ClCompile Include="ObjectPool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -83,3 +83,25 @@ void CEffects::reset()
 	type = EFFECT_TYPE_NONE;
 	existStart = -1;
 }
+
+void CEffects::SetValue(float x, float y, int type, int point, float ax, float ay)
+{
+	if (type == EFFECT_TYPE_NONE)
+	{
+		this->reset();
+		return;
+	}
+	this->x = x;
+	this->y = y;
+	this->type = type;
+	this->point = point;
+	this->ax = ax;
+	this->ay = ay;
+	existStart = GetTickCount64();
+	if (this->type == EFFECT_TYPE_BREAK_BRICK)
+	{
+		this->vx = (float)(-100 + rand() % 200) / 700;
+		this->vy = (float)(-100 + rand() % 200) / 1000;
+		this->ay = EFFECT_CRUMB_GRAVITY;
+	}
+}

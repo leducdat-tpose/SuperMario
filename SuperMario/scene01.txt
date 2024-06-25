@@ -13,6 +13,7 @@ fireball.txt
 superleaf.txt
 hiddenbutton.txt
 effects.txt
+introscene.txt
 
 #filePath	mapWidth	mapHeight	tileWidth	tileHeight	texID	texWidth	texHeight
 [TILEMAP]
@@ -24,6 +25,8 @@ scene_1_map.txt	2816	626	16	16	30	320	96
 # type	x	y	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas
 # See OBJECT_TYPE constants in AssetIDs.h
+
+100	48	384
 
 #BRICK
 1	-8	320

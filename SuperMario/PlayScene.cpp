@@ -19,6 +19,7 @@
 #include "SuperLeaf.h"
 #include "Teleport.h"
 #include "HiddenButton.h"
+#include "IntroScene.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -212,6 +213,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CPortal(x, y, r, b, scene_id);
 	}
 	break;
+	case OBJECT_TYPE_MAP: obj = new CIntroScene(x, y, 1); break;
 
 
 	default:
@@ -631,7 +633,7 @@ void CPlayScene::Render()
 {
 	if (id == SCENE_1)
 	{
-		RenderMap();
+		//RenderMap();
 	}
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
