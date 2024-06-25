@@ -15,6 +15,7 @@
 #include "PiranhaPlant.h"
 #include "Teleport.h"
 #include "HiddenButton.h"
+#include "ObjectPool.h"
 
 #include "Collision.h"
 
@@ -180,6 +181,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
+	CObjectPool::getInstance()->getEffect()->SetValue(this->x, this->y, EFFECT_TYPE_POINT, 100);
 	e->obj->Delete();
 	coin++;
 }
@@ -192,6 +194,7 @@ void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 		level = MARIO_LEVEL_BIG;
 	}
 	vy = -MARIO_JUMP_DEFLECT_SPEED;
+	CObjectPool::getInstance()->getEffect()->SetValue(this->x, this->y, EFFECT_TYPE_POINT, 1000);
 }
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
@@ -257,6 +260,7 @@ void CMario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
 	if (level == MARIO_LEVEL_BIG) SetLevel(MARIO_LEVEL_RACCOON);
+	CObjectPool::getInstance()->getEffect()->SetValue(this->x, this->y, EFFECT_TYPE_POINT, 1000);
 }
 
 void CMario::OnCollisionWithFireBall(LPCOLLISIONEVENT e)

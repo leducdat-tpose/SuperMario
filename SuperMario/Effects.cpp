@@ -51,8 +51,8 @@ void CEffects::Render()
 void CEffects::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (type == EFFECT_TYPE_NONE) return;
-	vy += ay * dt;
-	vx += ax * dt;
+	vy = ay * dt;
+	vx = ax * dt;
 	if (GetTickCount64() - existStart > EFFECT_EXIST_TIME)
 	{
 		existStart = -1;

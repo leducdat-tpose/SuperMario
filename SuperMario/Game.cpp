@@ -541,6 +541,8 @@ void CGame::SwitchScene()
 	LPSCENE s = scenes[next_scene];
 	this->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();
+	//Need to modify in the future, Clear the previous object, then startInit for the next Scene
+	objectPool->startInit();
 }
 
 void CGame::InitiateSwitchScene(int scene_id)

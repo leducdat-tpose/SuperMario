@@ -45,7 +45,6 @@ public:
 		//	effects.pop_front();
 		//	return effect;
 		//}
-		startInit();
 		//Simply to queue
 		CEffects* effect = effects.front();
 		effects.pop_front();
