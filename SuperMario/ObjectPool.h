@@ -64,7 +64,6 @@ public:
 		for (int i = 0; i < 10; i++)
 		{
 			CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
-			DebugOut(L"[INFO]Creating new Effect from ObjectPool number %d.\n", i);
 			CEffects* effect = new CEffects;
 			effects.push_back(effect);
 			playScene->AddObject(effect);

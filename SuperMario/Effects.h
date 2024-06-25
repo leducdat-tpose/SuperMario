@@ -4,12 +4,13 @@
 #include "Animation.h"
 #include "Animations.h"
 
-#define EFFECT_EXIST_TIME 700
+#define EFFECT_EXIST_TIME 350
 #define EFFECT_GRAVITY 0.002f//This gravity is use for collecting point
 
 #define EFFECT_TYPE_NONE 0
 #define EFFECT_TYPE_POINT 100
-#define EFFECT_TYPE_OTHER 200
+#define EFFECT_TYPE_KABOOM 200
+#define EFFECT_TYPE_OTHER 500
 
 #define ID_ANI_EFFECT 20000
 
@@ -22,6 +23,8 @@
 #define ID_ANI_EFFECT_2000_POINT (ID_ANI_EFFECT + 60)
 #define ID_ANI_EFFECT_4000_POINT (ID_ANI_EFFECT + 70)
 #define ID_ANI_EFFECT_8000_POINT (ID_ANI_EFFECT + 80)
+
+#define ID_ANI_EFFECT_KABOOM (ID_ANI_EFFECT + 90)//e.g koopas hit goomba 
 
 class CEffects : public CGameObject {
 private:

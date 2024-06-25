@@ -1,4 +1,5 @@
 #include "Coin.h"
+#include "ObjectPool.h"
 
 CCoin::CCoin(float x, float y, bool fromLuckyBox) : CGameObject(x, y)
 {
@@ -58,6 +59,7 @@ void CCoin::OnCollisionWithLuckybox(LPCOLLISIONEVENT e)
 {
 	if (e->ny < 0)
 	{
+		CObjectPool::getInstance()->getEffect()->SetValue(this->x, this->y, EFFECT_TYPE_POINT, 100);
 		this->Delete();
 	}
 }

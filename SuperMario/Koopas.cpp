@@ -1,4 +1,5 @@
 #include "Koopas.h"
+#include "ObjectPool.h"
 
 CKoopas::CKoopas(float x, float y, bool specialAbility) :CGameObject(x, y)
 {
@@ -128,6 +129,9 @@ void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		}
 		else if (goomba->GetState() != GOOMBA_STATE_DIE)
 		{
+			float goombaX, goombaY;
+			goomba->GetPosition(goombaX, goombaY);
+			CObjectPool::getInstance()->getEffect()->SetValue(goombaX, goombaY, EFFECT_TYPE_KABOOM, 0, 0.0f, 0.0f);
 			goomba->SetState(GOOMBA_STATE_DIE);
 		}
 	}

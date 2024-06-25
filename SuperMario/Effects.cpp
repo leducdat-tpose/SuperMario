@@ -45,6 +45,10 @@ void CEffects::Render()
 		else if (point == 8000)
 			ainId = ID_ANI_EFFECT_8000_POINT;
 	}
+	else if (type == EFFECT_TYPE_KABOOM)
+	{
+		ainId = ID_ANI_EFFECT_KABOOM;
+	}
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(ainId)->Render(x, y);
 }
