@@ -179,6 +179,7 @@ void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 	if (state == KOOPAS_STATE_HIDE_MOVING)
 	{
 		if (e->nx != 0) brick->Delete();
+		CObjectPool::getInstance()->getEffectBreakBrick(this->x, this->y);
 	}
 }
 

@@ -10,6 +10,7 @@
 #define EFFECT_TYPE_NONE 0
 #define EFFECT_TYPE_POINT 100
 #define EFFECT_TYPE_KABOOM 200
+#define EFFECT_TYPE_BREAK_BRICK 300
 #define EFFECT_TYPE_OTHER 500
 
 #define ID_ANI_EFFECT 20000
@@ -25,6 +26,7 @@
 #define ID_ANI_EFFECT_8000_POINT (ID_ANI_EFFECT + 80)
 
 #define ID_ANI_EFFECT_KABOOM (ID_ANI_EFFECT + 90)//e.g koopas hit goomba 
+#define ID_ANI_EFFECT_BRICK_CRUMB (ID_ANI_EFFECT + 100)
 
 class CEffects : public CGameObject {
 private:
@@ -47,15 +49,23 @@ public:
 	void reset();
 	void SetValue(float x, float y, int type, int point, float ax = 0.0f, float ay = -EFFECT_GRAVITY)
 	{
+		if (type == EFFECT_TYPE_NONE)
+		{
+			this->reset();
+			return;
+		}
 		this->x = x;
 		this->y = y;
 		this->type = type;
 		this->point = point;
 		this->ax = ax;
 		this->ay = ay;
-		if (this->type != EFFECT_TYPE_NONE) 
+		existStart = GetTickCount64();
+		if (this->type == EFFECT_TYPE_BREAK_BRICK)
 		{
-			existStart = GetTickCount64();
+			this->vx = (float)(-100 + rand() % 200) / 1000;
+			this->vy = (float)(-100 + rand() % 200) / 1000;
+			this->ay = EFFECT_GRAVITY;
 		}
 	}
 };

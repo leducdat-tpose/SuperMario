@@ -52,6 +52,17 @@ public:
 		return effect;
 	}
 
+	void getEffectBreakBrick(float objX, float objY)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			CEffects* effect = effects.front();
+			effects.pop_front();
+			effects.push_back(effect);
+			effect->SetValue(objX, objY, EFFECT_TYPE_BREAK_BRICK, 0);
+		}
+	}
+
 	void returnEffect(CEffects* effect)
 	{
 		effect->reset();
@@ -61,7 +72,7 @@ public:
 	void startInit()
 	{
 		if (isInit == true) return;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 12; i++)
 		{
 			CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
 			CEffects* effect = new CEffects;
