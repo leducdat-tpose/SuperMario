@@ -214,6 +214,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 	break;
 	case OBJECT_TYPE_MAP: obj = new CIntroScene(x, y, 1); break;
+	case OBJECT_TYPE_MAP_ENTITY: obj = new CIntroSceneEntity(x, y); break;
 
 
 	default:
@@ -608,6 +609,11 @@ void CPlayScene::UpdateCameraPosition()
 			cy = 416;
 			cx = 2048;
 		}
+	}
+	else if (id == SCENE_INTRO || id == SCENE_2)
+	{
+		cx = 0;
+		cy = 0;
 	}
 	CGame::GetInstance()->SetCamPos(cx, cy);
 }
