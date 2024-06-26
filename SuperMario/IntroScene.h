@@ -26,3 +26,25 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {};
 };
+
+class CPath {
+private:
+	int idPath;
+	float x;
+	float y;
+	int directUp;
+	int directDown;
+	int directRight;
+	int directLeft;
+public:
+	CPath(int idPath, float x, float y, int directUp = -1, int directDown = -1, int directRight = -1, int directLeft = -1)
+	{
+		this->idPath = idPath;
+		this->x = x;
+		this->y = y;
+		this->directUp = directUp;
+		this->directDown = directDown;
+		this->directRight = directRight;
+		this->directLeft = directLeft;
+	}
+};

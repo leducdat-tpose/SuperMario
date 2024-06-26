@@ -19,7 +19,7 @@
 #include "SuperLeaf.h"
 #include "Teleport.h"
 #include "HiddenButton.h"
-#include "IntroScene.h"
+
 
 #include "SampleKeyEventHandler.h"
 
@@ -40,6 +40,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 #define SCENE_SECTION_ASSETS	1
 #define SCENE_SECTION_OBJECTS	2
 #define SCENE_SECTION_TILEMAP 3
+#define SCENE_SECTION_PATHOVERWORLD 4
 
 #define ASSETS_SECTION_UNKNOWN -1
 #define ASSETS_SECTION_SPRITES 1
@@ -138,6 +139,21 @@ void CPlayScene::_ParseSection_TILEMAP(string line)
 	}
 	LoadMap(filePath);
 }
+
+void CPlayScene::_ParseSection_PATHOVERWORLD(string line) {
+	vector<string> tokens = split(line);
+	if (tokens.size() < 7) return;
+	int idPath = atoi(tokens[0].c_str());
+	float pathX = (float)atof(tokens[1].c_str());
+	float pathY = (float)atof(tokens[2].c_str());
+	int directUp = atoi(tokens[3].c_str());
+	int directDown = atoi(tokens[4].c_str());
+	int directRight = atoi(tokens[5].c_str());
+	int directLeft = atoi(tokens[6].c_str());
+	CPath* path = new CPath(idPath, pathX, pathY, directUp, directDown, directRight, directLeft);
+	DebugOut(L"[INFO]%d, %f, %f, %d, %d, %d, %d\n", idPath, pathX, pathY, directUp, directDown, directRight, directLeft);
+	listPaths.push_back(path);
+}
 /*
 	Parse a line in section [OBJECTS]
 */
@@ -162,7 +178,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			DebugOut(L"[ERROR] MARIO object was created before!\n");
 			return;
 		}
-		obj = new CMario(x, y);
+		if (id == 2)
+		{
+			obj = new CMario(x, y, true);
+		}
+		else obj = new CMario(x, y);
+		
 		player = (CMario*)obj;
 
 		DebugOut(L"[INFO] Player object has been created!\n");
@@ -213,7 +234,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CPortal(x, y, r, b, scene_id);
 	}
 	break;
-	case OBJECT_TYPE_MAP: obj = new CIntroScene(x, y, 1); break;
+	case OBJECT_TYPE_MAP: obj = new CIntroScene(1, x, y); break;
 	case OBJECT_TYPE_MAP_ENTITY: obj = new CIntroSceneEntity(x, y); break;
 
 
@@ -372,6 +393,7 @@ void CPlayScene::Load()
 		if (line == "[ASSETS]") { section = SCENE_SECTION_ASSETS; continue; };
 		if (line == "[OBJECTS]") { section = SCENE_SECTION_OBJECTS; continue; };
 		if (line == "[TILEMAP]") { section = SCENE_SECTION_TILEMAP; continue; };
+		if (line == "[PATHOVERWORLD]") { section = SCENE_SECTION_PATHOVERWORLD; continue; };
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
 
 		//
@@ -382,6 +404,7 @@ void CPlayScene::Load()
 		case SCENE_SECTION_ASSETS: _ParseSection_ASSETS(line); break;
 		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 		case SCENE_SECTION_TILEMAP: _ParseSection_TILEMAP(line); break;
+		case SCENE_SECTION_PATHOVERWORLD: _ParseSection_PATHOVERWORLD(line); break;
 		}
 	}
 

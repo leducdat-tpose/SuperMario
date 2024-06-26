@@ -133,6 +133,8 @@
 #define ID_ANI_MARIO_RACCOON_FLY_FAST_RIGHT	2900
 #define ID_ANI_MARIO_RACCOON_FLY_FAST_LEFT	2901
 
+#define ID_ANI_MARIO_INTRO_SCENE_SMALL 3000
+
 #pragma endregion
 
 #define GROUND_Y 160.0f
@@ -182,7 +184,7 @@ class CMario : public CGameObject
 	ULONGLONG fly_cooldown_start;
 	BOOLEAN isOnPlatform;
 	int coin;
-
+	bool isInIntroScene;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -203,7 +205,7 @@ class CMario : public CGameObject
 public:
 	bool keyRunDown;
 	bool keyJumpDown;
-	CMario(float x, float y) : CGameObject(x, y)
+	CMario(float x, float y, bool isInIntroScene = false) : CGameObject(x, y)
 	{
 		heldKoopas = nullptr;
 		hitbox = nullptr;
@@ -227,6 +229,8 @@ public:
 		coin = 0;
 		isOnPlatform = false;
 		aniFly = false;
+		this->isInIntroScene = isInIntroScene;
+		if (this->isInIntroScene == true) this->ay = 0;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
@@ -250,6 +254,10 @@ public:
 	void StartFly();
 	void StartAttack();
 	void SetAttackDone(BOOLEAN attackDone) { this->attackDone = attackDone; }
+	void SetInIntroScene(BOOLEAN isInIntroScene){ 
+		this->isInIntroScene = isInIntroScene;
+		if(this->isInIntroScene == true) this->ay = 0;
+	}
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void AddHitBox();
 	void StopKick();

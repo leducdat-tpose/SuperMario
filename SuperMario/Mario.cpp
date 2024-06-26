@@ -538,6 +538,13 @@ void CMario::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
 	int aniId = -1;
+	DebugOutTitle(L"Coins: %d", coin);
+	if (isInIntroScene == true)
+	{
+		aniId = ID_ANI_MARIO_INTRO_SCENE_SMALL;
+		animations->Get(aniId)->Render(x, y);
+		return;
+	}
 
 	if (state == MARIO_STATE_DIE)
 		aniId = ID_ANI_MARIO_DIE;
@@ -551,7 +558,6 @@ void CMario::Render()
 	animations->Get(aniId)->Render(x, y);
 	RenderBoundingBox();
 
-	DebugOutTitle(L"Coins: %d", coin);
 }
 
 void CMario::SetState(int state)

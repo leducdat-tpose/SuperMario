@@ -15,6 +15,7 @@
 #include "Grid.h"
 #include "Define.h"
 #include "Effects.h"
+#include "IntroScene.h"
 
 class CPlayScene : public CScene
 {
@@ -29,6 +30,7 @@ class CPlayScene : public CScene
 
 	//vector<Unit*> listUnits;
 	vector<LPGAMEOBJECT> objects;
+	vector<CPath*> listPaths;
 	//Unit* unit;
 	//Grid* grid;
 
@@ -53,6 +55,7 @@ protected:
 	void _ParseSection_ASSETS(string line);
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSection_TILEMAP(string line);
+	void _ParseSection_PATHOVERWORLD(string line);
 
 	void LoadAssets(LPCWSTR assetFile);
 	void LoadObjectsFromMap();

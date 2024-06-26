@@ -1,18 +1,6 @@
 # list of object assets to load in this scene
 [ASSETS]
 mario.txt
-brick.txt
-coin.txt
-goomba.txt
-cloud.txt
-mushroom.txt
-koopas.txt
-luckybox.txt
-piranhaplant.txt
-fireball.txt
-superleaf.txt
-hiddenbutton.txt
-effects.txt
 introscene.txt
 
 [OBJECTS]
@@ -25,4 +13,7 @@ introscene.txt
 101	46	20
 
 # MARIO
-0	48	384
+0	62	52
+
+[PATHOVERWORLD]
+0	62	52	1	1	1	1
