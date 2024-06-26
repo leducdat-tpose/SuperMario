@@ -2,7 +2,6 @@
 
 #include "debug.h"
 #include "Game.h"
-#include "ObjectPool.h"
 
 #include "Mario.h"
 #include "PlayScene.h"
@@ -10,10 +9,36 @@
 void CSampleKeyHandler::OnKeyDown(int KeyCode)
 {
 	CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
-	if (playScene->GetId() == SCENE_INTRO || playScene->GetId() == 2) return;
-	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	CMario* mario = (CMario*)playScene->GetPlayer();
-
+	if (playScene->GetId() == SCENE_INTRO || playScene->GetId() == 2)
+	{
+		CPath* currentPath = playScene->GetCurrentPath();
+		switch (KeyCode)
+		{
+		case DIK_UP:
+			playScene->UpdateCurrentIdPath(currentPath->GetDirectUp());
+			currentPath = playScene->GetCurrentPath();
+			mario->SetPosition(currentPath->GetPathX(), currentPath->GetPathY());
+			break;
+		case DIK_DOWN:
+			playScene->UpdateCurrentIdPath(currentPath->GetDirectDown());
+			currentPath = playScene->GetCurrentPath();
+			mario->SetPosition(currentPath->GetPathX(), currentPath->GetPathY());
+			break;
+		case DIK_RIGHT:
+			playScene->UpdateCurrentIdPath(currentPath->GetDirectRight());
+			currentPath = playScene->GetCurrentPath();
+			mario->SetPosition(currentPath->GetPathX(), currentPath->GetPathY());
+			break;
+		case DIK_LEFT:
+			playScene->UpdateCurrentIdPath(currentPath->GetDirectLeft());
+			currentPath = playScene->GetCurrentPath();
+			mario->SetPosition(currentPath->GetPathX(), currentPath->GetPathY());
+			break;
+		}
+		return;
+	}
+	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	switch (KeyCode)
 	{
 	case DIK_DOWN:
@@ -48,9 +73,6 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_U:
 		//Tele to secret room SCENE_1
 		mario->SetPosition(2264.0f, 64.0f);
-		break;
-	case DIK_O:
-		CObjectPool::getInstance()->getEffect()->SetValue(48.0f, 384.0f, EFFECT_TYPE_POINT, 200, 0.0f, 0.0f);
 		break;
 	}
 }

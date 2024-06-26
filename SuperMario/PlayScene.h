@@ -28,11 +28,9 @@ class CPlayScene : public CScene
 	int numsColInMap;
 	float cameraIndexFollowY;
 
-	//vector<Unit*> listUnits;
 	vector<LPGAMEOBJECT> objects;
 	vector<CPath*> listPaths;
-	//Unit* unit;
-	//Grid* grid;
+	int currentIdPath;
 
 	//Take a sample like brick
 	vector<LPGAMEOBJECT> listStaticObjectsToRender;
@@ -75,7 +73,8 @@ public:
 	void UpdateCameraPosition();
 	void UpdateMario(DWORD dt);
 	void AddObject(LPGAMEOBJECT obj);
-
+	void UpdateCurrentIdPath(int index) { this->currentIdPath += index; }
+	CPath* GetCurrentPath();
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
 };
 

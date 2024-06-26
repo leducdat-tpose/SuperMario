@@ -34,6 +34,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	key_handler = new CSampleKeyHandler(this);
 	numsRowInMap = 0;
 	numsColInMap = 0;
+	currentIdPath = 0;
 }
 
 #define SCENE_SECTION_UNKNOWN -1
@@ -723,4 +724,13 @@ void CPlayScene::PurgeDeletedObjects()
 	objects.erase(
 		std::remove_if(objects.begin(), objects.end(), CPlayScene::IsGameObjectDeleted),
 		objects.end());
+}
+
+CPath* CPlayScene::GetCurrentPath()
+{
+	for (auto path : listPaths)
+	{
+		if (path->GetIdPath() == currentIdPath)
+			return path;
+	}
 }

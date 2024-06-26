@@ -14,6 +14,8 @@ introscene.txt
 
 # MARIO
 0	62	52
-
+#1 allow to move, -1 not allow to move
 [PATHOVERWORLD]
-0	62	52	1	1	1	1
+0	62	52	0	0	1	0
+1	94	52	1	0	0	-1
+2	94	20	0	-1	0	0

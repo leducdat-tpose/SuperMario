@@ -37,7 +37,7 @@ private:
 	int directRight;
 	int directLeft;
 public:
-	CPath(int idPath, float x, float y, int directUp = -1, int directDown = -1, int directRight = -1, int directLeft = -1)
+	CPath(int idPath, float x, float y, int directUp = 0, int directDown = 0, int directRight = 0, int directLeft = 0)
 	{
 		this->idPath = idPath;
 		this->x = x;
@@ -47,4 +47,11 @@ public:
 		this->directRight = directRight;
 		this->directLeft = directLeft;
 	}
+	int GetIdPath() const { return this->idPath; }
+	float GetPathX()const { return this->x; }
+	float GetPathY() const { return this->y; }
+	int GetDirectUp() const { return this->directUp; }
+	int GetDirectDown() const { return this->directDown; }
+	int GetDirectRight() const { return this->directRight; }
+	int GetDirectLeft() const { return this->directLeft; }
 };
