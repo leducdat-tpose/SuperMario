@@ -237,6 +237,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	break;
 	case OBJECT_TYPE_MAP: obj = new CIntroScene(1, x, y); break;
 	case OBJECT_TYPE_MAP_ENTITY: obj = new CIntroSceneEntity(x, y); break;
+	case OBJECT_TYPE_HELP_MESSAGE: obj = new CIntroSceneEntity(x, y, ENTITY_TYPE_HELP_MESSAGE); break;
 
 
 	default:

@@ -15,14 +15,19 @@ void CIntroScene::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 }
 
-CIntroSceneEntity::CIntroSceneEntity(float x, float y) :CGameObject(x, y)
+CIntroSceneEntity::CIntroSceneEntity(float x, float y, int type) :CGameObject(x, y)
 {
-
+	this->type = type;
 }
 
 void CIntroSceneEntity::Render()
 {
-	CAnimations::GetInstance()->Get(ID_ANI_INTRO_SCENE_1_ENTITY)->Render(x, y);
+	int aniId = ID_ANI_INTRO_SCENE_1_ENTITY;
+	if (type == ENTITY_TYPE_HELP_MESSAGE)
+	{
+		aniId = ID_ANI_INTRO_SCENE_1_HELP_MESSAGE;
+	}
+	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 }
 
 void CIntroSceneEntity::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

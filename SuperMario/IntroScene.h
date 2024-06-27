@@ -6,6 +6,10 @@
 #include "Textures.h"
 
 #define ID_ANI_INTRO_SCENE_1_ENTITY 31000
+#define ID_ANI_INTRO_SCENE_1_HELP_MESSAGE 32000
+
+#define ENTITY_TYPE_TREE 0
+#define ENTITY_TYPE_HELP_MESSAGE 1
 
 class CIntroScene:public CGameObject
 {
@@ -20,8 +24,9 @@ public:
 
 class CIntroSceneEntity :public CGameObject
 {
+	int type;
 public:
-	CIntroSceneEntity(float x, float y);
+	CIntroSceneEntity(float x, float y, int type = ENTITY_TYPE_TREE);
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {};

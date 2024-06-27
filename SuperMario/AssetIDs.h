@@ -39,6 +39,7 @@
 
 #define OBJECT_TYPE_MAP 100
 #define OBJECT_TYPE_MAP_ENTITY 101
+#define OBJECT_TYPE_HELP_MESSAGE 102//in overworld(introscene)
 
 enum SCENE
 {
@@ -222,3 +223,4 @@ enum SCENE
 
 #define ID_SPRITE_MAP_1 150000
 #define ID_SPRITE_TREE_MAP_1 (ID_SPRITE_MAP_1 + 100)
+#define ID_SPRITE_HELP_MESSAGE (ID_SPRITE_MAP_1 + 200)
