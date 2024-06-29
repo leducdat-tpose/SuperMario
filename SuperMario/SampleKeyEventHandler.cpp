@@ -10,9 +10,10 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 {
 	CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
 	CMario* mario = (CMario*)playScene->GetPlayer();
-	if (playScene->GetId() == SCENE_INTRO || playScene->GetId() == 2)
+	if (playScene->GetId() == 2)
 	{
 		CPath* currentPath = playScene->GetCurrentPath();
+		if (currentPath == nullptr) return;
 		switch (KeyCode)
 		{
 		case DIK_UP:
@@ -34,6 +35,10 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 			playScene->UpdateCurrentIdPath(currentPath->GetDirectLeft());
 			currentPath = playScene->GetCurrentPath();
 			mario->SetPosition(currentPath->GetPathX(), currentPath->GetPathY());
+			break;
+		case DIK_S:
+			if (currentPath->GetSceneId() == 0) return;
+			CGame::GetInstance()->InitiateSwitchScene(currentPath->GetSceneId());
 			break;
 		}
 		return;

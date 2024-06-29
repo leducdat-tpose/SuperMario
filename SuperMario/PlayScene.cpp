@@ -143,7 +143,7 @@ void CPlayScene::_ParseSection_TILEMAP(string line)
 
 void CPlayScene::_ParseSection_PATHOVERWORLD(string line) {
 	vector<string> tokens = split(line);
-	if (tokens.size() < 7) return;
+	if (tokens.size() < 8) return;
 	int idPath = atoi(tokens[0].c_str());
 	float pathX = (float)atof(tokens[1].c_str());
 	float pathY = (float)atof(tokens[2].c_str());
@@ -151,7 +151,8 @@ void CPlayScene::_ParseSection_PATHOVERWORLD(string line) {
 	int directDown = atoi(tokens[4].c_str());
 	int directRight = atoi(tokens[5].c_str());
 	int directLeft = atoi(tokens[6].c_str());
-	CPath* path = new CPath(idPath, pathX, pathY, directUp, directDown, directRight, directLeft);
+	int scene_id = atoi(tokens[7].c_str());
+	CPath* path = new CPath(idPath, pathX, pathY, directUp, directDown, directRight, directLeft, scene_id);
 	DebugOut(L"[INFO]%d, %f, %f, %d, %d, %d, %d\n", idPath, pathX, pathY, directUp, directDown, directRight, directLeft);
 	listPaths.push_back(path);
 }
@@ -729,6 +730,7 @@ void CPlayScene::PurgeDeletedObjects()
 
 CPath* CPlayScene::GetCurrentPath()
 {
+	if (this->id != 2) return nullptr;
 	for (auto path : listPaths)
 	{
 		if (path->GetIdPath() == currentIdPath)

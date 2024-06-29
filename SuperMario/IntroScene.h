@@ -41,8 +41,9 @@ private:
 	int directDown;
 	int directRight;
 	int directLeft;
+	int scene_id;
 public:
-	CPath(int idPath, float x, float y, int directUp = 0, int directDown = 0, int directRight = 0, int directLeft = 0)
+	CPath(int idPath, float x, float y, int directUp = 0, int directDown = 0, int directRight = 0, int directLeft = 0, int scene_id = 0)
 	{
 		this->idPath = idPath;
 		this->x = x;
@@ -51,6 +52,7 @@ public:
 		this->directDown = directDown;
 		this->directRight = directRight;
 		this->directLeft = directLeft;
+		this->scene_id = scene_id;
 	}
 	int GetIdPath() const { return this->idPath; }
 	float GetPathX()const { return this->x; }
@@ -59,4 +61,5 @@ public:
 	int GetDirectDown() const { return this->directDown; }
 	int GetDirectRight() const { return this->directRight; }
 	int GetDirectLeft() const { return this->directLeft; }
+	int GetSceneId() const { return this->scene_id; }
 };

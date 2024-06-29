@@ -4,7 +4,6 @@ width	320
 height	240
 
 #id	type	file
-# type: 0: intro, 1: play scene 
 [SCENES]
 0	sceneintro.txt
 1	scene01.txt

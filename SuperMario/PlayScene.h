@@ -73,7 +73,10 @@ public:
 	void UpdateCameraPosition();
 	void UpdateMario(DWORD dt);
 	void AddObject(LPGAMEOBJECT obj);
-	void UpdateCurrentIdPath(int index) { this->currentIdPath += index; }
+	void UpdateCurrentIdPath(int index) { 
+		if (this->id != 2) return;
+		this->currentIdPath += index; 
+	}
 	CPath* GetCurrentPath();
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
 };
