@@ -81,5 +81,11 @@ public:
 		}
 		isInit = true;
 	}
+
+	void Unload()
+	{
+		isInit = false;
+		effects.clear();
+	}
 };
 typedef CObjectPool* LPOBJECTPOOL;
