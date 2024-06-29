@@ -233,8 +233,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 	}
 	else
 	{
-		//this->level != MARIO_LEVEL_RACCOON for present, future will develop at this point
-		if (this->keyRunDown && this->level != MARIO_LEVEL_RACCOON)
+		if (this->keyRunDown && this->level != MARIO_LEVEL_RACCOON && (koopas->GetState() == KOOPAS_STATE_HIDE || koopas->GetState() == KOOPAS_STATE_HIDE_FLIP))
 		{
 			koopas->SetState(KOOPAS_STATE_HELD);
 			heldKoopas = koopas;

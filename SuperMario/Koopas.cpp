@@ -9,6 +9,7 @@ CKoopas::CKoopas(float x, float y, bool specialAbility) :CGameObject(x, y)
 	this->isFly = false;
 	this->fly_start = -1;
 	this->dirKicked = 1;
+	this->comeback_start = -1;
 	checkfall = nullptr;
 	AddCheckFall();
 	if (this->specialAbility == true) SetState(PARAKOOPAS_STATE_WALKING_LEFT);
@@ -132,6 +133,7 @@ void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 			float goombaX, goombaY;
 			goomba->GetPosition(goombaX, goombaY);
 			CObjectPool::getInstance()->getEffect()->SetValue(goombaX, goombaY, EFFECT_TYPE_KABOOM, 0, 0.0f, 0.0f);
+			CObjectPool::getInstance()->getEffect()->SetValue(goombaX, goombaY, EFFECT_TYPE_POINT, 100);
 			goomba->SetState(GOOMBA_STATE_DIE);
 		}
 	}
@@ -193,6 +195,12 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		isFly = true;
 		if (state == PARAKOOPAS_STATE_WALKING_LEFT)	SetState(PARAKOOPAS_STATE_FLY_LEFT);
 		else SetState(PARAKOOPAS_STATE_FLY_RIGHT);
+	}
+	if ((state == KOOPAS_STATE_HIDE || state == KOOPAS_STATE_HIDE_FLIP || state == KOOPAS_STATE_HELD) && (GetTickCount64() - comeback_start > KOOPAS_COMEBACK_TIME))
+	{
+		comeback_start = -1;
+		SetState(KOOPAS_STATE_WALKING_LEFT);
+		y -= (KOOPAS_BBOX_HEIGHT) / 2;
 	}
 	UpdateCheckFall();
 	CGameObject::Update(dt, coObjects);
@@ -275,8 +283,8 @@ void CKoopas::SetState(int state)
 	}
 	case KOOPAS_STATE_HIDE:
 	{
-		//Need to code here
 		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_HIDE_BBOX_HEIGHT - 6)/2;
+		comeback_start = GetTickCount64();
 		y -= 4.0f;
 		vx = 0;
 		vy = 0;
@@ -284,7 +292,9 @@ void CKoopas::SetState(int state)
 	}
 	case KOOPAS_STATE_HIDE_FLIP:
 	{
-		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_HIDE_BBOX_HEIGHT - 2)/2;
+		y += (KOOPAS_BBOX_HEIGHT - KOOPAS_HIDE_BBOX_HEIGHT - 6) / 2;
+		comeback_start = GetTickCount64();
+		y -= 4.0f;
 		vx = 0;
 		vy = 0;
 		break;

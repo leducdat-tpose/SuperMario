@@ -629,7 +629,7 @@ void CPlayScene::UpdateCameraPosition()
 	if (id == SCENE_1)
 	{
 		if (cx > 2495) cx = 2495;
-		if (150 < cy) cy = 240;
+		if (150 < cy) cy = 216;
 		if (mario->GetIsInSecretRoom())
 		{
 			cy = 416;
@@ -665,7 +665,7 @@ void CPlayScene::Render()
 {
 	if (id == SCENE_1)
 	{
-		//RenderMap();
+		RenderMap();
 	}
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();

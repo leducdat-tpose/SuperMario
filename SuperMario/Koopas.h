@@ -9,6 +9,9 @@
 #define KOOPAS_GRAVITY 0.002f
 #define KOOPAS_WALKING_SPEED 0.03f
 #define PARAKOOPAS_FLY_SPEED 0.5f
+
+#define KOOPAS_COMEBACK_TIME 7000
+
 #define PARAKOOPAS_FLY_DELAY_TIME 2500
 
 #pragma region BBOX
@@ -55,6 +58,7 @@ protected:
 	bool specialAbility;
 	bool isFly;
 	ULONGLONG fly_start;
+	ULONGLONG comeback_start;
 	LPGAMEOBJECT checkfall;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
