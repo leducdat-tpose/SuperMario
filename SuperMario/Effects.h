@@ -12,6 +12,7 @@
 #define EFFECT_TYPE_POINT 100
 #define EFFECT_TYPE_KABOOM 200
 #define EFFECT_TYPE_BREAK_BRICK 300
+#define EFFECT_TYPE_1UP 400
 #define EFFECT_TYPE_OTHER 500
 
 #define ID_ANI_EFFECT 20000
@@ -28,6 +29,8 @@
 
 #define ID_ANI_EFFECT_KABOOM (ID_ANI_EFFECT + 90)//e.g koopas hit goomba 
 #define ID_ANI_EFFECT_BRICK_CRUMB (ID_ANI_EFFECT + 100)
+
+#define ID_ANI_EFFECT_1UP (ID_ANI_EFFECT + 110)
 
 class CEffects : public CGameObject {
 private:

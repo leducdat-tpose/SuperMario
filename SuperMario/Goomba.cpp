@@ -9,7 +9,11 @@ CGoomba::CGoomba(float x, float y, bool specialAbility) :CGameObject(x, y)
 	die_start = -1;
 	fly_start = -1;
 	isFly = false;
-	if (this->specialAbility == true) SetState(PARAGOOMBA_STATE_WALKING);
+	if (this->specialAbility == true) 
+	{
+		this->vx = -1;// init
+		SetState(PARAGOOMBA_STATE_WALKING);
+	}
 	else SetState(GOOMBA_STATE_WALKING);
 }
 
@@ -133,7 +137,11 @@ void CGoomba::SetState(int state)
 		break;
 	case PARAGOOMBA_STATE_WALKING:
 		fly_start = GetTickCount64();
-		vx = -GOOMBA_WALKING_SPEED;
+		if (vx == -1 || nx <= 0)
+		{
+			vx = -GOOMBA_WALKING_SPEED;
+		}
+		else vx = GOOMBA_WALKING_SPEED;
 		//Later
 		break;
 	case PARAGOOMBA_STATE_FLY:

@@ -53,6 +53,10 @@ void CEffects::Render()
 	{
 		aniId = ID_ANI_EFFECT_BRICK_CRUMB;
 	}
+	else if (type == EFFECT_TYPE_1UP)
+	{
+		aniId = ID_ANI_EFFECT_1UP;
+	}
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(aniId)->Render(x, y);
 }

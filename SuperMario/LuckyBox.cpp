@@ -79,6 +79,19 @@ void CLuckyBox::SpawnObject()
 		}
 		break;
 	}
+	case OBJECT_TYPE_MUSHROOM_GREEN:
+	{
+		LPGAMEOBJECT mushroom = new CMushroom(x, y - 16, true);
+		CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
+		if (playScene != nullptr)
+		{
+			playScene->AddObject(mushroom);
+		}
+		else {
+			DebugOut(L"[ERROR] Can't spawn mushroom in LuckyBox\n");
+		}
+		break;
+	}
 	case OBJECT_TYPE_SUPERLEAF:
 	{
 		LPGAMEOBJECT superleaf = new CSuperLeaf(x, y - 16);

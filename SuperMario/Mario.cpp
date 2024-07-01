@@ -138,11 +138,15 @@ void CMario::OnCollisionWithLuckybox(LPCOLLISIONEVENT e) {
 			CollectCoin();
 			break;
 		default:
-			if (GetLevel() == MARIO_LEVEL_SMALL || GetLevel() == MARIO_LEVEL_RACCOON)
+			if (GetLevel() == MARIO_LEVEL_SMALL)
 				luckybox->SetTypeObjectSpawned(OBJECT_TYPE_MUSHROOM);
-			else
+			else if(GetLevel() == MARIO_LEVEL_BIG)
 			{
 				luckybox->SetTypeObjectSpawned(OBJECT_TYPE_SUPERLEAF);
+			}
+			else if (GetLevel() == MARIO_LEVEL_RACCOON)
+			{
+				luckybox->SetTypeObjectSpawned(OBJECT_TYPE_MUSHROOM_GREEN);
 			}
 			break;
 		}
@@ -192,9 +196,14 @@ void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 	if (level == MARIO_LEVEL_SMALL)
 	{
 		level = MARIO_LEVEL_BIG;
+		CObjectPool::getInstance()->getEffect()->SetValue(this->x, this->y, EFFECT_TYPE_POINT, 1000);
+	}
+	else if (level == MARIO_LEVEL_RACCOON)
+	{
+		CObjectPool::getInstance()->getEffect()->SetValue(this->x, this->y, EFFECT_TYPE_1UP, 0);
 	}
 	vy = -MARIO_JUMP_DEFLECT_SPEED;
-	CObjectPool::getInstance()->getEffect()->SetValue(this->x, this->y, EFFECT_TYPE_POINT, 1000);
+	
 }
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
