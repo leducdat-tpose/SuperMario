@@ -564,6 +564,8 @@ void CGame::LoadResources()
 
 CGame::~CGame()
 {
+	objectPool->Unload();
+	objectPool->Release();
 	pBlendStateAlpha->Release();
 	spriteObject->Release();
 	pRenderTargetView->Release();

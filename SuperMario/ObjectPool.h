@@ -16,6 +16,9 @@ private:
 	CObjectPool(){
 		isInit = false;
 	}
+	~CObjectPool()
+	{
+	}
 public:
 	static CObjectPool* getInstance()
 	{
@@ -26,6 +29,16 @@ public:
 		}
 		return instance;
 	}
+
+	static void Release()
+	{
+		if (instance != nullptr)
+		{
+			delete instance;
+			instance = nullptr;
+		}
+	}
+
 	CEffects* getEffect()
 	{
 		//if (effects.empty())

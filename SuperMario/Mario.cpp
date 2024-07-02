@@ -23,6 +23,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
+	MarioDecelerate();
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 	if (heldKoopas != nullptr) HoldKoopas();
 	// reset untouchable timer if untouchable time has passed
@@ -55,6 +56,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			StopKick();
 		}
 	}
+	if (!allowFly){
+		AllowToFly();
+	}
 	Fly();
 	if (!isFly) isOnPlatform = false;
 	else isOnPlatform = true;
@@ -81,7 +85,9 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 			aniFly = false;
 			isOnPlatform = true;
 			isFly = false;
+			allowFly = false;
 			fly_cooldown_start = -1;
+			allow_fly_start = -1;
 		}
 	}
 	else
@@ -297,7 +303,7 @@ int CMario::GetAniIdSmall()
 	int aniId = -1;
 	if (!isOnPlatform)
 	{
-		if (abs(ax) == MARIO_ACCEL_RUN_X)
+		if (abs(vx) == MARIO_RUNNING_SPEED)
 		{
 			if (nx >= 0)
 				aniId = ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT;
@@ -335,9 +341,9 @@ int CMario::GetAniIdSmall()
 				}
 				else if (isKick)
 					aniId = ID_ANI_MARIO_SMALL_KICK_RIGHT;
-				else if (ax == MARIO_ACCEL_RUN_X)
+				else if (vx == MARIO_RUNNING_SPEED)
 					aniId = ID_ANI_MARIO_SMALL_RUNNING_RIGHT;
-				else if (ax == MARIO_ACCEL_WALK_X)
+				else if (vx > 0 && vx < MARIO_RUNNING_SPEED)
 					aniId = ID_ANI_MARIO_SMALL_WALKING_RIGHT;
 			}
 			else // vx < 0
@@ -349,9 +355,9 @@ int CMario::GetAniIdSmall()
 				}
 				else if (isKick)
 					aniId = ID_ANI_MARIO_SMALL_KICK_LEFT;
-				else if (ax == -MARIO_ACCEL_RUN_X)
+				else if (vx == -MARIO_RUNNING_SPEED)
 					aniId = ID_ANI_MARIO_SMALL_RUNNING_LEFT;
-				else if (ax == -MARIO_ACCEL_WALK_X)
+				else if (-MARIO_RUNNING_SPEED < vx && vx < 0)
 					aniId = ID_ANI_MARIO_SMALL_WALKING_LEFT;
 			}
 
@@ -368,7 +374,7 @@ int CMario::GetAniIdBig()
 	int aniId = -1;
 	if (!isOnPlatform)
 	{
-		if (abs(ax) == MARIO_ACCEL_RUN_X)
+		if (abs(vx) == MARIO_RUNNING_SPEED)
 		{
 			if (nx >= 0)
 				aniId = ID_ANI_MARIO_JUMP_RUN_RIGHT;
@@ -406,9 +412,9 @@ int CMario::GetAniIdBig()
 				}
 				else if (isKick)
 					aniId = ID_ANI_MARIO_KICK_RIGHT;
-				else if (ax == MARIO_ACCEL_RUN_X)
+				else if (vx == MARIO_RUNNING_SPEED)
 					aniId = ID_ANI_MARIO_RUNNING_RIGHT;
-				else if (ax == MARIO_ACCEL_WALK_X)
+				else if (vx > 0 && vx < MARIO_RUNNING_SPEED)
 					aniId = ID_ANI_MARIO_WALKING_RIGHT;
 			}
 			else // vx < 0
@@ -420,9 +426,9 @@ int CMario::GetAniIdBig()
 				}
 				else if (isKick)
 					aniId = ID_ANI_MARIO_KICK_LEFT;
-				else if (ax == -MARIO_ACCEL_RUN_X)
+				else if (vx == -MARIO_RUNNING_SPEED)
 					aniId = ID_ANI_MARIO_RUNNING_LEFT;
-				else if (ax == -MARIO_ACCEL_WALK_X)
+				else if (-MARIO_RUNNING_SPEED < vx && vx < 0)
 					aniId = ID_ANI_MARIO_WALKING_LEFT;
 			}
 
@@ -438,7 +444,7 @@ int CMario::GetAniIdRaccoon()
 	int aniId = -1;
 	if (aniFly)
 	{
-		if (abs(ax) == MARIO_ACCEL_RUN_X)
+		if (abs(vx) == MARIO_RUNNING_SPEED)
 		{
 			if (nx >= 0)
 			{
@@ -513,9 +519,9 @@ int CMario::GetAniIdRaccoon()
 				}
 				else if (isKick)
 					aniId = ID_ANI_MARIO_RACCOON_KICK_RIGHT;
-				else if (ax == MARIO_ACCEL_RUN_X)
+				else if (vx == MARIO_RUNNING_SPEED)
 					aniId = ID_ANI_MARIO_RACCOON_RUNNING_RIGHT;
-				else if (ax == MARIO_ACCEL_WALK_X)
+				else if (vx > 0 && vx < MARIO_RUNNING_SPEED)
 					aniId = ID_ANI_MARIO_RACCOON_WALKING_RIGHT;
 				if(isAttack && aniId == ID_ANI_MARIO_RACCOON_WALKING_RIGHT)
 					aniId = ID_ANI_MARIO_RACCOON_ATTACK_RIGHT;
@@ -529,15 +535,17 @@ int CMario::GetAniIdRaccoon()
 				}
 				else if (isKick)
 					aniId = ID_ANI_MARIO_RACCOON_KICK_LEFT;
-				else if (ax == -MARIO_ACCEL_RUN_X)
+				else if (vx == -MARIO_RUNNING_SPEED)
 					aniId = ID_ANI_MARIO_RACCOON_RUNNING_LEFT;
-				else if (ax == -MARIO_ACCEL_WALK_X)
+				else if (-MARIO_RUNNING_SPEED < vx && vx < 0)
 					aniId = ID_ANI_MARIO_RACCOON_WALKING_LEFT;
 				if (isAttack && aniId == ID_ANI_MARIO_RACCOON_WALKING_LEFT)
 					aniId = ID_ANI_MARIO_RACCOON_ATTACK_LEFT;
 			}
 
 	if (aniId == -1) aniId = ID_ANI_MARIO_RACCOON_IDLE_RIGHT;
+
+	//DebugOut(L"[INFO] aniId: %d\n", aniId);
 
 	return aniId;
 }
@@ -607,12 +615,14 @@ void CMario::SetState(int state)
 					vy = -MARIO_JUMP_RUN_SPEED_Y;
 				else
 					vy = -MARIO_JUMP_SPEED_Y;
+				if (GetLevel() == MARIO_LEVEL_RACCOON) AllowToFly();
 			}
 			else {
 				if (abs(this->vx) == MARIO_RUNNING_SPEED)
-					vy = -MARIO_JUMP_RUN_SPEED_Y/1.5f;
+					vy = -MARIO_FLY_SPEED_Y;
 				else
-					vy = -MARIO_JUMP_SPEED_Y/2;
+					vy = -MARIO_FLY_SPEED_Y / 2;
+				ay = MARIO_FLY_GRAVITY;
 			}
 		}
 		break;
@@ -643,8 +653,6 @@ void CMario::SetState(int state)
 		break;
 
 	case MARIO_STATE_IDLE:
-		ax = 0.0f;
-		vx = 0.0f;
 		break;
 
 	case MARIO_STATE_DIE:
@@ -792,11 +800,56 @@ void CMario:: StartFly()
 void CMario::Fly()
 {
 	if (level != MARIO_LEVEL_RACCOON || isFly == false) return;
+	if (GetTickCount64() - allow_fly_start > MARIO_ALLOW_FLY_TIME)
+	{
+		allowFly = true;
+		allow_fly_start = -1;
+	}
+	DebugOut(L"[INFO]allowFly:%d\n", allowFly);
+	if (allowFly == false) return;
 	if (GetTickCount64() - fly_cooldown_start > MARIO_FLY_COOLDOWN_TIME)
 	{
 		isFly = false;
 		fly_cooldown_start = -1;
+		ay = MARIO_GRAVITY;
 	}
+}
 
+void CMario::AllowToFly()
+{
+	if (GetLevel() != MARIO_LEVEL_RACCOON) return;
+	if (GetTickCount64() - allow_fly_start > MARIO_ALLOW_FLY_TIME)
+	{
+		allow_fly_start = -1;
+		allowFly = true;
+	}
+}
+
+void CMario::StartAllowFly()
+{
+	allow_fly_start = GetTickCount64();
+}
+
+void CMario::MarioDecelerate()
+{
+	if (vx == 0 || state != MARIO_STATE_IDLE) return;
+	if (vx > 0)
+	{ 
+		vx -= abs(ax) * MARIO_DECEL_RUN_X;
+		if (vx < 0)
+		{
+			vx = 0;
+			ax = 0;
+		}
+	}
+	else if (vx < 0)
+	{
+		vx += abs(ax) * MARIO_DECEL_RUN_X;
+		if (vx > 0)
+		{
+			vx = 0;
+			ax = 0;
+		}
+	}
 }
 

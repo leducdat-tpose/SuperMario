@@ -13,9 +13,11 @@
 
 #define MARIO_ACCEL_WALK_X	0.0002f
 #define MARIO_ACCEL_RUN_X	0.00025f
+#define MARIO_DECEL_RUN_X	36.0f // deceleration on x
 
 #define MARIO_JUMP_SPEED_Y		0.5f
 #define MARIO_JUMP_RUN_SPEED_Y	0.6f
+#define MARIO_FLY_SPEED_Y 0.4f
 
 #define MARIO_GRAVITY			0.002f
 #define MARIO_FLY_GRAVITY		0.001f
@@ -155,7 +157,8 @@
 
 
 #define MARIO_UNTOUCHABLE_TIME 2500
-#define MARIO_FLY_COOLDOWN_TIME 800
+#define MARIO_FLY_COOLDOWN_TIME 800 //Difference with allow fly time, use to make player has to spam Jump button to continue fly
+#define MARIO_ALLOW_FLY_TIME 100 //Time to allow Mario can get in his fly form
 
 class CMario : public CGameObject
 {
@@ -170,6 +173,7 @@ class CMario : public CGameObject
 	BOOLEAN attackDone;
 	BOOLEAN isKick;
 	BOOLEAN isFly;
+	BOOLEAN allowFly;
 	//To render Mario's fly animations
 	bool aniFly;
 	float maxVx;
@@ -181,7 +185,9 @@ class CMario : public CGameObject
 	ULONGLONG untouchable_start;
 	ULONGLONG attack_start;
 	ULONGLONG kick_start;
+	ULONGLONG allow_fly_start;
 	ULONGLONG fly_cooldown_start;
+
 	BOOLEAN isOnPlatform;
 	int coin;
 	bool isInIntroScene;
@@ -215,6 +221,7 @@ public:
 		attackDone = false;
 		isKick = false;
 		isFly = false;
+		allowFly = false;
 		maxVx = 0.0f;
 		ax = 0.0f;
 		keyRunDown = false;
@@ -225,6 +232,7 @@ public:
 		untouchable_start = -1;
 		attack_start = -1;
 		kick_start = -1;
+		allow_fly_start = -1;
 		fly_cooldown_start = 0;
 		coin = 0;
 		isOnPlatform = false;
@@ -253,6 +261,7 @@ public:
 	void SetFly(BOOLEAN isFly) { this->isFly = isFly; }
 	void StartFly();
 	void StartAttack();
+	void MarioDecelerate();
 	void SetAttackDone(BOOLEAN attackDone) { this->attackDone = attackDone; }
 	void SetInIntroScene(BOOLEAN isInIntroScene){ 
 		this->isInIntroScene = isInIntroScene;
@@ -264,10 +273,13 @@ public:
 	void CollectCoin() { coin++; }
 	void HoldKoopas();
 	void ReleaseKoopas();
+	void StartAllowFly();
+	void AllowToFly();
 	void Fly();
 	LPGAMEOBJECT GetHeldKoopas() const { return heldKoopas; }
 	BOOLEAN GetIsOnPlatform() const { return isOnPlatform; }
 	BOOLEAN GetIsFly() const { return isFly; }
+	BOOLEAN GetAllowFly() const { return allowFly; }
 	BOOLEAN GetAttackDone() const { return attackDone; }
 	bool GetAniFly() const { return aniFly; }
 	BOOLEAN GetIsInSecretRoom() const { return isInSecret; }

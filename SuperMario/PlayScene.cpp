@@ -636,7 +636,7 @@ void CPlayScene::UpdateCameraPosition()
 			cx = 2048;
 		}
 	}
-	else if (id == SCENE_INTRO || id == SCENE_2)
+	else if (id == SCENE_INTRO)
 	{
 		cx = 0;
 		cy = 0;
@@ -730,10 +730,12 @@ void CPlayScene::PurgeDeletedObjects()
 
 CPath* CPlayScene::GetCurrentPath()
 {
-	if (this->id != 2) return nullptr;
+	if (this->id != SCENE_INTRO) return nullptr;
 	for (auto path : listPaths)
 	{
+		if (path == nullptr) continue;
 		if (path->GetIdPath() == currentIdPath)
 			return path;
 	}
+	return nullptr;
 }

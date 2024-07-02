@@ -10,7 +10,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 {
 	CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
 	CMario* mario = (CMario*)playScene->GetPlayer();
-	if (playScene->GetId() == 2)
+	if (playScene->GetId() == SCENE_INTRO)
 	{
 		CPath* currentPath = playScene->GetCurrentPath();
 		if (currentPath == nullptr) return;
@@ -53,7 +53,9 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		mario->keyJumpDown = true;
 		if (mario->GetLevel() == MARIO_LEVEL_RACCOON)
 		{
-			if (mario->GetIsFly() == false) mario->StartFly();
+			mario->StartAllowFly();
+			if (!mario->GetIsFly() && mario->GetAllowFly()) 
+				mario->StartFly();
 		}
 		mario->SetState(MARIO_STATE_JUMP);
 		break;
@@ -86,7 +88,7 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 	CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
-	if (playScene->GetId() == SCENE_INTRO || playScene->GetId() == 2) return;
+	if (playScene->GetId() == SCENE_INTRO) return;
 
 	CMario* mario = (CMario*)playScene->GetPlayer();
 	switch (KeyCode)
@@ -113,7 +115,7 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 void CSampleKeyHandler::KeyState(BYTE* states)
 {
 	CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
-	if (playScene->GetId() == SCENE_INTRO || playScene->GetId() == 2) return;
+	if (playScene->GetId() == SCENE_INTRO) return;
 	LPGAME game = CGame::GetInstance();
 	CMario* mario = (CMario*)playScene->GetPlayer();
 
