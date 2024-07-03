@@ -18,6 +18,10 @@ private:
 	}
 	~CObjectPool()
 	{
+		for (auto it = effects.begin(); it != effects.end(); ++it) {
+			delete* it;
+		}
+		Unload();
 	}
 public:
 	static CObjectPool* getInstance()

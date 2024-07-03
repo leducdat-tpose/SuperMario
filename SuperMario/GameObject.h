@@ -38,6 +38,7 @@ public:
 	void SetPositionY(float y) { this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void SetEnable(bool enable) { this->enable = enable; }
+	void SetDirection(int nx) { this->nx = nx; }
 	void GetPosition(float& x, float& y) const { x = this->x; y = this->y; }
 	float GetPositionY() const { return this->y; }
 	void GetSpeed(float& vx, float& vy) const { vx = this->vx; vy = this->vy; }
@@ -61,6 +62,8 @@ public:
 	// Collision ON or OFF ? This can change depending on object's state. For example: die
 	//
 	virtual int IsCollidable() { return 0; };
+
+	virtual int IsCollidableInside() { return 0; };
 
 	// When no collision has been detected (triggered by CCollision::Process)
 	virtual void OnNoCollision(DWORD dt) {};

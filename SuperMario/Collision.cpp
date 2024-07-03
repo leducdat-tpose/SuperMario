@@ -13,6 +13,20 @@ CCollision* CCollision::GetInstance()
 	return __instance;
 }
 
+bool CCollision::AABB(
+	float al,
+	float at,
+	float ar,
+	float ab,
+	float bl,
+	float bt,
+	float br,
+	float bb
+)
+{
+	return al < br && ar > bl && at < bb && ab > bt;
+}
+
 /*
 	SweptAABB
 */
@@ -225,7 +239,8 @@ void CCollision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* co
 	LPCOLLISIONEVENT colY = NULL;
 
 	coEvents.clear();
-
+	//Need modify at here
+	//Have to Scan other object not base on IsCollidable or make them can collider
 	if (objSrc->IsCollidable())
 	{
 		Scan(objSrc, dt, coObjects, coEvents);
@@ -345,7 +360,7 @@ void CCollision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* co
 	{
 		LPCOLLISIONEVENT e = coEvents[i];
 		if (e->isDeleted) continue;
-		if (e->obj->IsBlocking()) continue;  // blocking collisions were handled already, skip them
+		if (e->obj->IsBlocking() && e->obj->IsCollidableInside() == 0) continue;  // blocking collisions were handled already, skip them
 
 		objSrc->OnCollisionWith(e);
 	}
@@ -356,6 +371,9 @@ void CCollision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* co
 
 int CCollisionEvent::WasCollided()
 {
-	//return t >= 0.0f && t <= 1.0f;
+	if (src_obj->IsCollidableInside() == 1 && t == -0.5f)
+	{
+		return 1;
+	}
 	return t >= 0.0f && t <= 1.0f && obj->IsDirectionColliable(nx, ny) == 1;
 }

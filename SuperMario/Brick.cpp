@@ -3,15 +3,14 @@
 void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (type != TYPE_GOLD_BRICK) return;
-	ChangeToCoin();
-	if (isChangeToCoin)
+	CHiddenButton* hiddenbutton = (CHiddenButton*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetHiddenButton();
+	if (hiddenbutton->GetIsClicked() && hiddenbutton->IsEnable() && !isChangeToCoin)
 	{
-		if (GetTickCount64() - change_to_coin_start > BRICK_CHANGE_TO_COIN_TIME)
-		{
-			isChangeToCoin = false;
-			if (coin->IsDeleted()) this->Delete();
-			change_to_coin_start = -1;
-		}
+		ChangeToCoin();
+	}
+	if ((GetTickCount64() - change_to_coin_start > BRICK_CHANGE_TO_COIN_TIME) && isChangeToCoin)
+	{
+		ChangeBackToBrick();
 	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -19,23 +18,28 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CBrick::ChangeToCoin()
 {
-	if (isChangeToCoin == true) return;
-	CHiddenButton* hiddenbutton = (CHiddenButton*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetHiddenButton();
-	if (hiddenbutton->GetIsClicked() && hiddenbutton->IsEnable())
+	change_to_coin_start = GetTickCount64();
+	isChangeToCoin = true;
+	this->coin = new CCoin(this->x, this->y);
+	CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
+	if (playScene != nullptr)
 	{
-		isChangeToCoin = true;
-		change_to_coin_start = GetTickCount64();
-		LPGAMEOBJECT coin = new CCoin(this->x, this->y);
-		this->coin = coin;
-		CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
-		if (playScene != nullptr)
-		{
-			playScene->AddObject(coin);
-		}
-		else {
-			DebugOut(L"[ERROR] Can't spawn coin in GoldBrick!\n");
-		}
+		playScene->AddObject(this->coin);
 	}
+	else {
+		DebugOut(L"[ERROR] Can't spawn coin in GoldBrick!\n");
+	}
+}
+
+void CBrick::ChangeBackToBrick()
+{
+	if (!coin->IsDeleted())
+	{
+		coin->Delete();
+	}
+	else this->Delete();
+	isChangeToCoin = false;
+	change_to_coin_start = -1;
 }
 
 void CBrick::Render()

@@ -47,6 +47,18 @@ class CCollision
 {
 	static CCollision* __instance;
 public:
+
+	static bool AABB(
+		float al,
+		float at,
+		float ar,
+		float ab,
+		float bl,
+		float bt,
+		float br,
+		float bb
+	);
+
 	static void SweptAABB(
 		float ml,			// move left 
 		float mt,			// move top

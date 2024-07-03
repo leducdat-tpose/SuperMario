@@ -177,7 +177,8 @@ void CKoopas::OnCollisionWithLuckyBox(LPCOLLISIONEVENT e)
 void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 {
 	CBrick* brick = dynamic_cast<CBrick*>(e->obj);
-	if (brick->GetType() != TYPE_GOLD_BRICK) return;
+	if (brick->GetType() != TYPE_GOLD_BRICK) 
+		return;
 	if (state == KOOPAS_STATE_HIDE_MOVING)
 	{
 		if (e->nx != 0) brick->Delete();

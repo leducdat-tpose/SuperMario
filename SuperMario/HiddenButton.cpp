@@ -16,10 +16,13 @@ void CHiddenButton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	UpdateCheckFall();
 	//if (!enable) return;
 	//if (isClicked == false) return;
-	if (GetTickCount64() - unenable_start > HIDDENBUTTON_UNENABLE_TIME)
+	if (enable && isClicked)
 	{
-		enable = false;
-		unenable_start = -1;
+		if (GetTickCount64() - unenable_start > HIDDENBUTTON_UNENABLE_TIME)
+		{
+			enable = false;
+			unenable_start = -1;
+		}
 	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -45,7 +48,7 @@ bool CHiddenButton::GetIsClicked()
 }
 void CHiddenButton::AddCheckFall()
 {
-	checkfall = new CCheckFall(this, this->x, this->y, HIDDENBUTTON_BBOX_WIDTH, HIDDENBUTTON_BBOX_HEIGHT);
+	checkfall = new CCheckFall(this, this->x, this->y, HIDDENBUTTON_BBOX_WIDTH/2, HIDDENBUTTON_BBOX_HEIGHT/2);
 	CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
 	if (playScene != nullptr)
 	{
