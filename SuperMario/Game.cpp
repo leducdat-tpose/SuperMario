@@ -155,6 +155,20 @@ void CGame::Init(HWND hWnd, HINSTANCE hInstance)
 	StateDesc.RenderTargetWriteMask[0] = D3D10_COLOR_WRITE_ENABLE_ALL;
 	pD3DDevice->CreateBlendState(&StateDesc, &this->pBlendStateAlpha);
 
+	//Font
+	font = NULL;
+	AddFontResourceEx(FILEPATH_FONT, FR_PRIVATE, NULL);
+
+	hr = D3DX10CreateFont(
+		GetDirect3DDevice(), 16, 0, FW_NORMAL, 1, false,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
+		ANTIALIASED_QUALITY, FF_DONTCARE, L"Press Start", &font);
+
+	if (hr != DI_OK)
+	{
+		DebugOut(L"[ERROR] Create font failed!\n");
+	}
+
 	DebugOut((wchar_t*)L"[INFO] InitDirectX has been successful\n");
 
 	return;

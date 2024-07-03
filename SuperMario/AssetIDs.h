@@ -7,6 +7,8 @@
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
+#define FILEPATH_FONT L"font\\Super-Mario-Bros--3.ttf"
+
 #define ID_TEX_MARIO 0
 #define ID_TEX_ENEMY 10
 #define ID_TEX_MISC 20
@@ -41,6 +43,8 @@
 #define OBJECT_TYPE_MAP 100
 #define OBJECT_TYPE_MAP_ENTITY 101
 #define OBJECT_TYPE_HELP_MESSAGE 102//in overworld(introscene)
+
+#define OBJECT_TYPE_PLAYER_INFORMATION 200
 
 enum SCENE
 {

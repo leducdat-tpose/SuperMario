@@ -140,6 +140,7 @@
     <ClInclude Include="CheckFall.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="DataManager.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Effects.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="CheckFall.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Effects.cpp" />
     <ClCompile Include="FireBall.cpp" />

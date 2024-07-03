@@ -147,6 +147,9 @@
     <ClInclude Include="IntroScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DataManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -258,6 +261,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IntroScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
