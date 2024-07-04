@@ -11,7 +11,7 @@ private:
 	bool isInit;
 	static CDataManager* instance;
 
-	int id_scene;
+	int id_world;
 	int coin;
 	int life;
 	int point;
@@ -52,6 +52,8 @@ public:
 		isInit = false;
 	}
 
-	void GetData(int& id_scene, int& coin, int& life, int& point, int& time);
+	void GetData(int& id_world, int& coin, int& life, int& point, int& time);
+	void SaveData(int coin, int life, int point, int time);
+	void UpdateIdWorld(int id_world) { this->id_world = id_world; }
 };
 typedef CDataManager* LPDATAMANAGER;

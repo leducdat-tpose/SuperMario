@@ -40,6 +40,7 @@ public:
 	void SetEnable(bool enable) { this->enable = enable; }
 	void SetDirection(int nx) { this->nx = nx; }
 	void GetPosition(float& x, float& y) const { x = this->x; y = this->y; }
+	float GetPositionX() const { return this->x; }
 	float GetPositionY() const { return this->y; }
 	void GetSpeed(float& vx, float& vy) const { vx = this->vx; vy = this->vy; }
 	bool IsEnable() const { return enable; }

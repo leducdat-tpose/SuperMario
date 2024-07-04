@@ -31,6 +31,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 {
 	player = NULL;
 	hiddenbutton = NULL;
+	playerInformation = NULL;
 	cameraIndexFollowY = 0;
 	key_handler = new CSampleKeyHandler(this);
 	numsRowInMap = 0;
@@ -600,6 +601,7 @@ void CPlayScene::Update(DWORD dt)
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
+		if(abs(objects[i]->GetPositionX() - player->GetPositionX()) <= 300)
 		objects[i]->Update(dt, &coObjects);
 	}
 
@@ -630,7 +632,7 @@ void CPlayScene::UpdateCameraPosition()
 	if (id == SCENE_1)
 	{
 		if (cx > 2495) cx = 2495;
-		if (150 < cy) cy = 216;
+		if (150 < cy) cy = 255;
 		if (mario->GetIsInSecretRoom())
 		{
 			cy = 416;

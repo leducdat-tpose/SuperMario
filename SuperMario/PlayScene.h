@@ -48,6 +48,9 @@ protected:
 	LPGAMEOBJECT player;
 	// A hidden button
 	LPGAMEOBJECT hiddenbutton;
+	//Player information or player status
+	LPGAMEOBJECT playerInformation;
+
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
 	void _ParseSection_ASSETS(string line);

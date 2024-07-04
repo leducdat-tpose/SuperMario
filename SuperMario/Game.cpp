@@ -29,7 +29,7 @@ void CGame::Init(HWND hWnd, HINSTANCE hInstance)
 	RECT r;
 	GetClientRect(hWnd, &r);
 	r.right = SCREEN_WIDTH + 1 - 20;
-	r.bottom = SCREEN_HEIGHT + 1;
+	r.bottom = SCREEN_HEIGHT + 1 - 40;
 	backBufferWidth = r.right + 1;
 	backBufferHeight = r.bottom + 1;
 	
@@ -123,13 +123,15 @@ void CGame::Init(HWND hWnd, HINSTANCE hInstance)
 
 	// create the sprite object to handle sprite drawing 
 	hr = D3DX10CreateSprite(pD3DDevice, 0, &spriteObject);
-
+	spriteObject->Begin(D3DX10_SPRITE_SORT_TEXTURE);
+	D3DXVECTOR2 hudPosition(150, 185);
+	D3DXVECTOR2 hudSize(230, 28);
 	if (hr != S_OK)
 	{
 		DebugOut((wchar_t*)L"[ERROR] D3DX10CreateSprite has failed %s %d", _W(__FILE__), __LINE__);
 		return;
 	}
-
+	
 	D3DXMATRIX matProjection;
 
 	// Create the projection matrix using the values in the viewport
