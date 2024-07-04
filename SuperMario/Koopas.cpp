@@ -134,6 +134,7 @@ void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 			goomba->GetPosition(goombaX, goombaY);
 			CObjectPool::getInstance()->getEffect()->SetValue(goombaX, goombaY, EFFECT_TYPE_KABOOM, 0, 0.0f, 0.0f);
 			CObjectPool::getInstance()->getEffect()->SetValue(goombaX, goombaY, EFFECT_TYPE_POINT, 100);
+			goomba->SetDieFlip(true);
 			goomba->SetState(GOOMBA_STATE_DIE);
 		}
 	}

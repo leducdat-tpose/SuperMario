@@ -9,6 +9,8 @@ CGoomba::CGoomba(float x, float y, bool specialAbility) :CGameObject(x, y)
 	die_start = -1;
 	fly_start = -1;
 	isFly = false;
+	isDieFlip = false;
+	isCollidable = 1;
 	if (this->specialAbility == true) 
 	{
 		this->vx = -1;// init
@@ -114,6 +116,10 @@ void CGoomba::Render()
 	if (state == GOOMBA_STATE_DIE)
 	{
 		aniId = ID_ANI_GOOMBA_DIE;
+		if(isDieFlip)
+		{
+			aniId = ID_ANI_GOOMBA_DIE_FLIP;
+		}
 	}
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
@@ -127,10 +133,17 @@ void CGoomba::SetState(int state)
 	{
 	case GOOMBA_STATE_DIE:
 		die_start = GetTickCount64();
-		y += (GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE) / 2;
+		if (!isDieFlip)
+		{
+			y += (GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE) / 2;
+			vx = 0;
+			vy = 0;
+			ay = 0;
+			break;
+		}
+		vy = -GOOMBA_DIE_DEFLECT_SPEED;
 		vx = 0;
-		vy = 0;
-		ay = 0;
+		isCollidable = 0;
 		break;
 	case GOOMBA_STATE_WALKING:
 		vx = -GOOMBA_WALKING_SPEED;

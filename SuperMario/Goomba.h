@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 #define GOOMBA_GRAVITY 0.002f
+#define GOOMBA_DIE_DEFLECT_SPEED 0.4f
 #define GOOMBA_WALKING_SPEED 0.05f
 #define PARAGOOMBA_FLY_SPEED 0.5f
 
@@ -26,6 +27,7 @@
 //Normal
 #define ID_ANI_GOOMBA_WALKING 5000
 #define ID_ANI_GOOMBA_DIE 5001
+#define ID_ANI_GOOMBA_DIE_FLIP 5002
 //Special
 #define ID_ANI_PARAGOOMBA_WALKING 14000
 #define ID_ANI_PARAGOOMBA_FLY 14001
@@ -38,6 +40,8 @@ protected:
 	float ay;
 	bool specialAbility;
 	bool isFly;
+	bool isDieFlip;
+	int isCollidable;
 	ULONGLONG die_start;
 	ULONGLONG fly_start;
 
@@ -45,7 +49,7 @@ protected:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 
-	virtual int IsCollidable() { return 1; };
+	virtual int IsCollidable() { return isCollidable; };
 	virtual int IsBlocking() { return 0; }
 	virtual void OnNoCollision(DWORD dt);
 
@@ -56,4 +60,5 @@ public:
 	virtual void SetState(int state);
 	virtual void SetSpecialAbility(bool specialAbility);
 	void StartFly() { isFly = true; fly_start = GetTickCount64(); }
+	void SetDieFlip(bool isDieFlip) { this->isDieFlip = isDieFlip; }
 };
