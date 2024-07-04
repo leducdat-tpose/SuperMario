@@ -1,22 +1,26 @@
 #pragma once
-
-#include <vector>
 #include <string>
 #include <iostream>
 
 #include "debug.h"
+#include "PlayScene.h"
 
 class CDataManager
 {
+private:
+	bool isInit;
 	static CDataManager* instance;
-	/*int id_scene;
+
+	int id_scene;
 	int coin;
 	int life;
 	int point;
-	int time;*/
+	int time;
 
-	CDataManager() {}
-	~CDataManager() {}
+	CDataManager();
+	~CDataManager()
+	{
+	}
 public:
 	static CDataManager* getInstance()
 	{
@@ -36,5 +40,18 @@ public:
 			instance = nullptr;
 		}
 	}
+
+	void startInit()
+	{
+		if (isInit == true) return;
+		isInit = true;
+	}
+
+	void Unload()
+	{
+		isInit = false;
+	}
+
+	void GetData(int& id_scene, int& coin, int& life, int& point, int& time);
 };
 typedef CDataManager* LPDATAMANAGER;

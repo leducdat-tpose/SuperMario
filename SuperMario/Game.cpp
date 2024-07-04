@@ -9,10 +9,12 @@
 #include "Animations.h"
 #include "PlayScene.h"
 #include "ObjectPool.h"
+#include "DataManager.h"
 
 CGame* CGame::__instance = NULL;
 
 LPOBJECTPOOL objectPool = CObjectPool::getInstance();
+LPDATAMANAGER dataManager = CDataManager::getInstance();
 /*
 	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for
 	rendering 2D images
@@ -159,7 +161,7 @@ void CGame::Init(HWND hWnd, HINSTANCE hInstance)
 	AddFontResourceEx(FILEPATH_FONT, FR_PRIVATE, NULL);
 
 	hr = D3DX10CreateFont(
-		GetDirect3DDevice(), 8, 6, FW_NORMAL, 1, false,
+		GetDirect3DDevice(), 10, 0, FW_NORMAL, 1, false,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
 		ANTIALIASED_QUALITY, FF_DONTCARE, L"Super Mario Bros. 3", &font);
 	if (hr != DI_OK)
@@ -578,7 +580,7 @@ CGame::~CGame()
 {
 	objectPool->Unload();
 	objectPool->Release();
-	//dataManager->Release();
+	dataManager->Release();
 	pBlendStateAlpha->Release();
 	spriteObject->Release();
 	pRenderTargetView->Release();

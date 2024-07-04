@@ -140,7 +140,6 @@
     <ClInclude Include="CheckFall.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
-    <ClInclude Include="DataManager.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Effects.h" />
@@ -162,6 +161,7 @@
     <ClInclude Include="PiranhaPlant.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="DataManager.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="SampleKeyEventHandler.h" />
@@ -183,7 +183,6 @@
     <ClCompile Include="CheckFall.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Effects.cpp" />
     <ClCompile Include="FireBall.cpp" />
@@ -204,6 +203,7 @@
     <ClCompile Include="PiranhaPlant.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="SampleKeyEventHandler.cpp" />
