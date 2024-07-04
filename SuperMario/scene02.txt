@@ -2,6 +2,7 @@
 [ASSETS]
 mario.txt
 introscene.txt
+player.txt
 
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -71,6 +72,10 @@ introscene.txt
 
 # MARIO
 0	62	52
+
+200	150	226
+
+
 [PATHOVERWORLD]
 0	62	52	0	0	1	0	0
 1	94	52	1	0	0	-1	0

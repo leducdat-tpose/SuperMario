@@ -13,7 +13,6 @@
 CGame* CGame::__instance = NULL;
 
 LPOBJECTPOOL objectPool = CObjectPool::getInstance();
-
 /*
 	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for
 	rendering 2D images
@@ -580,6 +579,7 @@ CGame::~CGame()
 {
 	objectPool->Unload();
 	objectPool->Release();
+	//dataManager->Release();
 	pBlendStateAlpha->Release();
 	spriteObject->Release();
 	pRenderTargetView->Release();

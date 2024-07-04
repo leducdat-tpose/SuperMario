@@ -19,6 +19,7 @@
 #include "SuperLeaf.h"
 #include "Teleport.h"
 #include "HiddenButton.h"
+#include "Player.h"
 
 
 #include "SampleKeyEventHandler.h"
@@ -239,7 +240,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_MAP: obj = new CIntroScene(1, x, y); break;
 	case OBJECT_TYPE_MAP_ENTITY: obj = new CIntroSceneEntity(x, y); break;
 	case OBJECT_TYPE_HELP_MESSAGE: obj = new CIntroSceneEntity(x, y, ENTITY_TYPE_HELP_MESSAGE); break;
-
+	case OBJECT_TYPE_PLAYER_INFORMATION: obj = new CPlayer(x, y); break;
 
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);

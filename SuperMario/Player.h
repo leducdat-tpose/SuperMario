@@ -1,23 +1,29 @@
 #pragma once
 #include <vector>
-#include "PlayScene.h"
+#include <string>
+
+#include "Game.h"
+#include "GameObject.h"
+#include "Animation.h"
+#include "Animations.h"
 
 using namespace std;
 
-class CPlayer
+class CPlayer: public CGameObject
 {
-	LPGAME game;
-	LPSCENE scene;
-	CMario* mario;
-
-	//information of player such as point, gadget own or archive
+	CGame* game = CGame::GetInstance();
+	LPSPRITE sprite;
 	string information;
-	int score;
-	int time;
-	vector<LPGAMEOBJECT> gadget;
-public:
-	CPlayer(LPGAME game, LPSCENE scene);
-	~CPlayer();
 
-	void Update(DWORD dt);
+	int id_scene;
+	int coin;
+	int life;
+	int point;
+	int time;
+public:
+	CPlayer(float x, float y);
+	~CPlayer();
+	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
+	void Render();
+	void GetBoundingBox(float& left, float& top, float& right, float& bottom){}
 };
