@@ -159,10 +159,9 @@ void CGame::Init(HWND hWnd, HINSTANCE hInstance)
 	AddFontResourceEx(FILEPATH_FONT, FR_PRIVATE, NULL);
 
 	hr = D3DX10CreateFont(
-		GetDirect3DDevice(), 16, 0, FW_NORMAL, 1, false,
+		GetDirect3DDevice(), 8, 6, FW_NORMAL, 1, false,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
-		ANTIALIASED_QUALITY, FF_DONTCARE, L"Press Start", &font);
-
+		ANTIALIASED_QUALITY, FF_DONTCARE, L"Super Mario Bros. 3", &font);
 	if (hr != DI_OK)
 	{
 		DebugOut(L"[ERROR] Create font failed!\n");

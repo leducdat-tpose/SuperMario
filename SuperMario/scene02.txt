@@ -73,7 +73,7 @@ player.txt
 # MARIO
 0	62	52
 
-200	150	226
+200	150	185
 
 
 [PATHOVERWORLD]

@@ -22,25 +22,22 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	while (time_str.length() < 3) time_str = "0" + time_str;
 
 	string scene_str = to_string(id_scene);
-	while (scene_str.length() < 2) scene_str = "0" + scene_str;
 
 	string life_str = to_string(life);
-	while (life_str.length() < 2) life_str = "0" + life_str;
 
 	string coin_str = to_string(coin);
 	while (coin_str.length() < 2) coin_str = "0" + coin_str;
 
-	information = scene_str + coin_str + "\n";
-	information += life_str + point_str + time_str + "\n";
+	information = "                         "+scene_str +"                             " + coin_str + "\n";
+	information += "                         "+life_str +" " + point_str + "      " + time_str + "\n";
 	CGameObject::Update(dt, coObjects);
 }
 
 void CPlayer::Render()
 {
+	sprite->Draw(x, y);
 	RECT rect;
-	//SetRect(&rect, 74, 212, 226, 240);
-	SetRect(&rect, 0, 212, SCREEN_WIDTH, 240);
+	SetRect(&rect, 0, 177, SCREEN_WIDTH, 240);
 	if (game->GetFont() != NULL)
-		game->GetFont()->DrawTextA(NULL, information.c_str(), -1, &rect, DT_LEFT, D3DXCOLOR(255 / 255, 255 / 255, 255 / 255, 100));
-	//sprite->Draw(x, y);
+		game->GetFont()->DrawTextA(game->GetSpriteHandler(), information.c_str(), -1, &rect, DT_LEFT, D3DXCOLOR(255 / 255, 255 / 255, 255 / 255, 100));
 }

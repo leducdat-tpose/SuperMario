@@ -7,7 +7,7 @@
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
-#define FILEPATH_FONT L"font\\Super-Mario-Bros--3.ttf"
+#define FILEPATH_FONT L"font\\SuperMarioBros.ttf"
 
 #define ID_TEX_MARIO 0
 #define ID_TEX_ENEMY 10
