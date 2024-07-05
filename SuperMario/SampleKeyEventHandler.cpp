@@ -81,6 +81,9 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		//Tele to secret room SCENE_1
 		mario->SetPosition(2264.0f, 64.0f);
 		break;
+	case DIK_I:
+		CGame::GetInstance()->OnOffDisplayBoundingBox();
+		break;
 	}
 }
 

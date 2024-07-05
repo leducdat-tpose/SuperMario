@@ -54,6 +54,8 @@ class CGame
 	float cam_x = 0.0f;
 	float cam_y = 0.0f;
 
+	int isDisplayBoundingBox = -1;
+
 	D3DXVECTOR3 cameraPosition;
 
 	HINSTANCE hInstance;
@@ -112,6 +114,14 @@ public:
 	void SetPointSamplerState();
 
 	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
+
+	void OnOffDisplayBoundingBox()
+	{
+		isDisplayBoundingBox *= -1;
+	}
+
+	int GetIsDisplayBoundingBox() const { return isDisplayBoundingBox; }
+
 	void GetCamPos(float& x, float& y) { x = cam_x; y = cam_y; }
 
 	ID3DX10Font* GetFont() { return this->font; }
