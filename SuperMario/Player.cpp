@@ -4,7 +4,7 @@
 CPlayer::CPlayer(float x, float y):CGameObject(x,y)
 {
 	information = "";
-	sprite = CSprites::GetInstance()->Get(ID_SPRITE_PLAYER_STATUS);
+	sprite = sprites->Get(ID_SPRITE_PLAYER_STATUS);
 	id_world = 0;
 	coin = 0;
 	life = 0;
@@ -12,6 +12,12 @@ CPlayer::CPlayer(float x, float y):CGameObject(x,y)
 	time = 0;
 	posHudX = x;
 	posHudY = y;
+	marioSpeed_sub = (float)(MARIO_RUNNING_SPEED - MARIO_WALKING_SPEED) / 8;
+	for (int i = 1; i < 9; i++)
+	{
+		int idMarioSpeed = ID_SPRITE_MARIO_SPEED + i * 10;
+		marioSpeed.push_back(sprites->Get(idMarioSpeed));
+	}
 }
 
 CPlayer::~CPlayer(){}
@@ -49,6 +55,10 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CPlayer::Render()
 {
 	sprite->Draw(posHudX, posHudY, 1.0f);
+	int speedIndex = 0;
+	speedIndex = (int)((mario->GetSpeed() - MARIO_WALKING_SPEED) / marioSpeed_sub) - 1;
+	if (speedIndex < 0) speedIndex = 0;
+	marioSpeed[speedIndex]->Draw(posHudX - 4*8 + 1, posHudY - 4, 1.0f);
 	RECT rect;
 	SetRect(&rect, 0, 175, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (game->GetFont() != NULL)

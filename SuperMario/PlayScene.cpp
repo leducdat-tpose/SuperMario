@@ -155,7 +155,6 @@ void CPlayScene::_ParseSection_PATHOVERWORLD(string line) {
 	int directLeft = atoi(tokens[6].c_str());
 	int scene_id = atoi(tokens[7].c_str());
 	CPath* path = new CPath(idPath, pathX, pathY, directUp, directDown, directRight, directLeft, scene_id);
-	DebugOut(L"[INFO]%d, %f, %f, %d, %d, %d, %d\n", idPath, pathX, pathY, directUp, directDown, directRight, directLeft);
 	listPaths.push_back(path);
 }
 /*

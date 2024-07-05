@@ -834,7 +834,6 @@ void CMario::Fly()
 		allowFly = true;
 		allow_fly_start = -1;
 	}
-	DebugOut(L"[INFO]allowFly:%d\n", allowFly);
 	if (allowFly == false) return;
 	if (GetTickCount64() - fly_cooldown_start > MARIO_FLY_COOLDOWN_TIME)
 	{

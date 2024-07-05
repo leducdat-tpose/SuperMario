@@ -289,4 +289,5 @@ public:
 	BOOLEAN GetAttackDone() const { return attackDone; }
 	bool GetAniFly() const { return aniFly; }
 	BOOLEAN GetIsInSecretRoom() const { return isInSecret; }
+	float GetSpeed() const { return vx; }
 };

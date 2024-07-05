@@ -467,8 +467,6 @@ void CGame::_ParseSection_SETTINGS(string line)
 	if (tokens.size() < 2) return;
 	if (tokens[0] == "start")
 		next_scene = atoi(tokens[1].c_str());
-	else
-		DebugOut(L"[ERROR] Unknown game setting: %s\n", ToWSTR(tokens[0]).c_str());
 }
 
 void CGame::_ParseSection_TEXTURES(string line)

@@ -15,9 +15,10 @@ class CPlayer: public CGameObject
 	CGame* game = CGame::GetInstance();
 	CPlayScene* playScene = (LPPLAYSCENE)game->GetInstance()->GetCurrentScene();
 	CMario* mario = (CMario*)playScene->GetPlayer();
+	CSprites* sprites = CSprites::GetInstance();
 	LPSPRITE sprite;
 	string information;
-
+	float marioSpeed_sub;
 	float posHudX;
 	float posHudY;
 
@@ -26,6 +27,10 @@ class CPlayer: public CGameObject
 	int life;
 	int point;
 	int time;
+
+	vector<LPSPRITE> marioSpeed;
+	vector<LPSPRITE> gadget;
+
 public:
 	CPlayer(float x, float y);
 	~CPlayer();
