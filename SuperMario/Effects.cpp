@@ -57,6 +57,10 @@ void CEffects::Render()
 	{
 		aniId = ID_ANI_EFFECT_1UP;
 	}
+	else if (type == EFFECT_TYPE_TRANSFORM)
+	{
+		aniId = ID_ANI_EFFECT_TRANSFORM;
+	}
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(aniId)->Render(x, y);
 }

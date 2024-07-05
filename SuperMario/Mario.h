@@ -46,6 +46,7 @@
 
 #define MARIO_ATTACK_TIME			600
 #define MARIO_KICK_ANIMATION_TIME	300
+#define MARIO_TRANSFORM_TIME		350
 
 #pragma region ANIMATION_ID
 
@@ -174,6 +175,7 @@ class CMario : public CGameObject
 	BOOLEAN isKick;
 	BOOLEAN isFly;
 	BOOLEAN allowFly;
+	BOOLEAN inTransform;
 	//To render Mario's fly animations
 	bool aniFly;
 	float maxVx;
@@ -187,6 +189,7 @@ class CMario : public CGameObject
 	ULONGLONG kick_start;
 	ULONGLONG allow_fly_start;
 	ULONGLONG fly_cooldown_start;
+	ULONGLONG transform_start;
 
 	BOOLEAN isOnPlatform;
 	int coin;
@@ -234,8 +237,10 @@ public:
 		kick_start = -1;
 		allow_fly_start = -1;
 		fly_cooldown_start = 0;
+		transform_start = -1;
 		coin = 0;
 		isOnPlatform = false;
+		inTransform = false;
 		aniFly = false;
 		this->isInIntroScene = isInIntroScene;
 		if (this->isInIntroScene == true) this->ay = 0;
@@ -274,6 +279,7 @@ public:
 	void HoldKoopas();
 	void ReleaseKoopas();
 	void StartAllowFly();
+	void StartTransform();
 	void AllowToFly();
 	void Fly();
 	LPGAMEOBJECT GetHeldKoopas() const { return heldKoopas; }

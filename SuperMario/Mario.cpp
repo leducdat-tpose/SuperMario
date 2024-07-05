@@ -22,39 +22,51 @@
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	vy += ay * dt;
-	vx += ax * dt;
-	MarioDecelerate();
-	if (abs(vx) > abs(maxVx)) vx = maxVx;
-	if (heldKoopas != nullptr) HoldKoopas();
-	// reset untouchable timer if untouchable time has passed
-	if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
+	if (inTransform)
 	{
-		untouchable_start = 0;
-		untouchable = 0;
-	}
-	if (isAttack)
-	{
-		if (GetTickCount64() - attack_start > MARIO_ATTACK_TIME) {
-			SetAttack(false);
-			hitbox->SetEnable(false);
-			attack_start = -1;
-			if (keyRunDown == false) attackDone = false;
-			else attackDone = true; // prevent hold attack button
+		vx = 0;
+		vy = 0;
+		if (GetTickCount64() - transform_start > MARIO_TRANSFORM_TIME)
+		{
+			inTransform = false;
 		}
 	}
-	if (isKick)
+	else
 	{
-		if (GetTickCount64() - kick_start > MARIO_KICK_ANIMATION_TIME) {
-			StopKick();
+		vy += ay * dt;
+		vx += ax * dt;
+		MarioDecelerate();
+		if (abs(vx) > abs(maxVx)) vx = maxVx;
+		if (heldKoopas != nullptr) HoldKoopas();
+		// reset untouchable timer if untouchable time has passed
+		if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
+		{
+			untouchable_start = 0;
+			untouchable = 0;
 		}
+		if (isAttack)
+		{
+			if (GetTickCount64() - attack_start > MARIO_ATTACK_TIME) {
+				SetAttack(false);
+				hitbox->SetEnable(false);
+				attack_start = -1;
+				if (keyRunDown == false) attackDone = false;
+				else attackDone = true; // prevent hold attack button
+			}
+		}
+		if (isKick)
+		{
+			if (GetTickCount64() - kick_start > MARIO_KICK_ANIMATION_TIME) {
+				StopKick();
+			}
+		}
+		if (!allowFly) {
+			AllowToFly();
+		}
+		Fly();
+		if (!isFly) isOnPlatform = false;
+		else isOnPlatform = true;
 	}
-	if (!allowFly){
-		AllowToFly();
-	}
-	Fly();
-	if (!isFly) isOnPlatform = false;
-	else isOnPlatform = true;
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
@@ -555,6 +567,7 @@ int CMario::GetAniIdRaccoon()
 
 void CMario::Render()
 {
+	if (inTransform) return;
 	CAnimations* animations = CAnimations::GetInstance();
 	int aniId = -1;
 	DebugOutTitle(L"Coins: %d", coin);
@@ -675,6 +688,7 @@ void CMario::SetState(int state)
 
 void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
+	if (inTransform) return;
 	if (level == MARIO_LEVEL_BIG || level == MARIO_LEVEL_RACCOON)
 	{
 		if (isSitting)
@@ -711,8 +725,18 @@ void CMario::SetLevel(int l)
 	if (this->level == MARIO_LEVEL_BIG)
 	{
 	}
+	if (level == MARIO_LEVEL_RACCOON && l == MARIO_LEVEL_BIG)
+	{
+		StartTransform();
+		CObjectPool::getInstance()->getEffect()->SetValue(this->x, this->y, EFFECT_TYPE_TRANSFORM, 0, 0, 0);
+	}
 	level = l;
-	if (l == MARIO_LEVEL_RACCOON) AddHitBox();
+	if (level == MARIO_LEVEL_RACCOON)
+	{
+		StartTransform();
+		CObjectPool::getInstance()->getEffect()->SetValue(this->x, this->y, EFFECT_TYPE_TRANSFORM, 0, 0,0);
+		AddHitBox();
+	}
 }
 
 void CMario::DamagedMario()
@@ -721,7 +745,7 @@ void CMario::DamagedMario()
 	{
 		if (level == MARIO_LEVEL_RACCOON)
 		{
-			level = MARIO_LEVEL_BIG;
+			SetLevel(MARIO_LEVEL_BIG);
 			StartUntouchable();
 		}
 		else if (level == MARIO_LEVEL_BIG)
@@ -857,5 +881,11 @@ void CMario::MarioDecelerate()
 			ax = 0;
 		}
 	}
+}
+
+void CMario::StartTransform()
+{
+	inTransform = true;
+	transform_start = GetTickCount64();
 }
 
