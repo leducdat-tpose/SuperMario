@@ -1,16 +1,22 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <vector>
 
 #include "debug.h"
 #include "PlayScene.h"
+
+#define GADGET_NONE 0
+#define GADGET_MUSHROOM 10
+#define GADGET_FLOWER 20
+#define GADGET_STAR 30
 
 class CDataManager
 {
 private:
 	bool isInit;
 	static CDataManager* instance;
-
+	vector<int> gadgets;
 	int id_world;
 	int coin;
 	int life;
@@ -52,7 +58,7 @@ public:
 		isInit = false;
 	}
 
-	void GetData(int& id_world, int& coin, int& life, int& point);
+	void GetData(int& id_world, int& coin, int& life, int& point, vector<int>& gadgets);
 	void SaveData(int coin, int life, int point, int time);
 	void UpdateIdWorld(int id_world) { this->id_world = id_world; }
 	void AddPoint(int point) { this->point += point; }

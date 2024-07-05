@@ -7,6 +7,7 @@
 
 void CPlatform::RenderBoundingBox()
 {
+	if (CGame::GetInstance()->GetIsDisplayBoundingBox() == -1) return;
 	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
 

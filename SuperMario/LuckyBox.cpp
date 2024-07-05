@@ -81,7 +81,7 @@ void CLuckyBox::SpawnObject()
 	}
 	case OBJECT_TYPE_MUSHROOM:
 	{
-		LPGAMEOBJECT mushroom = new CMushroom(x, y - 16);
+		LPGAMEOBJECT mushroom = new CMushroom(x, y - 24);
 		CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
 		if (playScene != nullptr)
 		{

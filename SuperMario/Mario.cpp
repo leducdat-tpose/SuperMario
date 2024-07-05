@@ -66,6 +66,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		Fly();
 		if (!isFly) isOnPlatform = false;
 		else isOnPlatform = true;
+		if (y > 624) SetState(MARIO_STATE_DIE);
 	}
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }

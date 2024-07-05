@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <list>
 
 #include "Game.h"
 #include "PlayScene.h"
@@ -27,9 +28,9 @@ class CPlayer: public CGameObject
 	int life;
 	int point;
 	int time;
-
+	vector<int> gadgetsList;
 	vector<LPSPRITE> marioSpeed;
-	vector<LPSPRITE> gadget;
+	vector<LPSPRITE> gadgetsSprite;
 
 public:
 	CPlayer(float x, float y);

@@ -18,6 +18,12 @@ CPlayer::CPlayer(float x, float y):CGameObject(x,y)
 		int idMarioSpeed = ID_SPRITE_MARIO_SPEED + i * 10;
 		marioSpeed.push_back(sprites->Get(idMarioSpeed));
 	}
+	UpdateIndex();
+	for (int i = 0; i < 3; i++)
+	{
+		int idGadget = gadgetsList[i];
+		gadgetsSprite.push_back(sprites->Get(ID_SPRITE_GADGET + idGadget));
+	}
 }
 
 CPlayer::~CPlayer(){}
@@ -58,7 +64,11 @@ void CPlayer::Render()
 	int speedIndex = 0;
 	speedIndex = (int)((mario->GetSpeed() - MARIO_WALKING_SPEED) / marioSpeed_sub) - 1;
 	if (speedIndex < 0) speedIndex = 0;
-	marioSpeed[speedIndex]->Draw(posHudX - 4*8 + 1, posHudY - 4, 1.0f);
+	marioSpeed[speedIndex]->Draw(posHudX - 31, posHudY - 4, 1.0f);
+	for (int i = 0; i < 3; i++)
+	{
+		gadgetsSprite[i]->Draw(posHudX + 52 + i * 26, posHudY, 1.0f);
+	}
 	RECT rect;
 	SetRect(&rect, 0, 175, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (game->GetFont() != NULL)
@@ -67,5 +77,5 @@ void CPlayer::Render()
 
 void CPlayer::UpdateIndex()
 {
-	CDataManager::getInstance()->GetData(id_world, coin, life, point);
+	CDataManager::getInstance()->GetData(id_world, coin, life, point, gadgetsList);
 }
