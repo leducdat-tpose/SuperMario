@@ -3,12 +3,14 @@
 CPiranhaPlant::CPiranhaPlant(float x, float y, LPGAMEOBJECT player, int type) :CGameObject(x, y)
 {
 	this->ax = 0;
-	this->ay = 0;
+	this->ay = -PIRANHAPLANT_GRAVITY;
 	this->disXToPlayer = 0;
 	this->disYToPlayer = 0;
 	this->player = player;
 	shoot_start = -1;
 	this->type = type;
+	this->hibernate = false;
+	this->initY = y;
 	isFlip = 0;
 	if (type == PIRANHAPLANT_TYPE_SHOOT)
 	{
@@ -26,6 +28,7 @@ void CPiranhaPlant::GetBoundingBox(float& left, float& top, float& right, float&
 
 void CPiranhaPlant::OnNoCollision(DWORD dt)
 {
+	
 };
 
 void CPiranhaPlant::OnCollisionWith(LPCOLLISIONEVENT e)
@@ -36,17 +39,26 @@ void CPiranhaPlant::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	vy += ay * dt;
-	vx += ax * dt;
-	if (type == PIRANHAPLANT_TYPE_SHOOT)
+	vy = ay * dt;
+	y += vy * dt;
+
+	CalPosPlayer();
+	if (hibernate == false && (initY - y > PIRANHAPLANT_BBOX_HEIGHT))
 	{
-		CalPosPlayer();
+		ay = 0;
 		if (shoot_start == -1) shoot_start = GetTickCount64();
 		if (GetTickCount64() - shoot_start > PIRANHAPLANT_SHOOT_DELAY_TIME)
 		{
 			shoot_start = -1;
-			Shoot();
+			if(type == PIRANHAPLANT_TYPE_SHOOT) Shoot();
+			SetState(PIRANHAPLANT_STATE_DOWN);
 		}
+	}
+	if (hibernate == true && (y - initY > PIRANHAPLANT_BBOX_HEIGHT/2))
+	{
+		y = initY + PIRANHAPLANT_BBOX_HEIGHT / 2;
+		ay = 0;
+		SetState(PIRANHAPLANT_STATE_UP);
 	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -88,22 +100,22 @@ void CPiranhaPlant::Render()
 	{
 		if (isFlip)
 		{
-			if (state == PIRANHAPLANT_STATE_HEAD_UP)
+			if (state == PIRANHAPLANT_STATE_HEAD_UP || state == PIRANHAPLANT_STATE_UP || state == PIRANHAPLANT_STATE_DOWN)
 			{
 				aniId = ID_ANI_PIRANHAPLANT_HEAD_UP_FLIP;
 			}
-			else if (state == PIRANHAPLANT_STATE_HEAD_DOWN)
+			else if (state == PIRANHAPLANT_STATE_HEAD_DOWN || state == PIRANHAPLANT_STATE_UP || state == PIRANHAPLANT_STATE_DOWN)
 			{
 				aniId = ID_ANI_PIRANHAPLANT_HEAD_DOWN_FLIP;
 			}
 		}
 		else {
 
-			if (state == PIRANHAPLANT_STATE_HEAD_UP)
+			if (state == PIRANHAPLANT_STATE_HEAD_UP || state == PIRANHAPLANT_STATE_UP || state == PIRANHAPLANT_STATE_DOWN)
 			{
 				aniId = ID_ANI_PIRANHAPLANT_HEAD_UP;
 			}
-			else if (state == PIRANHAPLANT_STATE_HEAD_DOWN)
+			else if (state == PIRANHAPLANT_STATE_HEAD_DOWN || state == PIRANHAPLANT_STATE_UP || state == PIRANHAPLANT_STATE_DOWN)
 			{
 				aniId = ID_ANI_PIRANHAPLANT_HEAD_DOWN;
 			}
@@ -122,7 +134,13 @@ void CPiranhaPlant::SetState(int state)
 		break;
 	case PIRANHAPLANT_STATE_HEAD_DOWN:
 		break;
-	default:
+	case PIRANHAPLANT_STATE_UP:
+		ay = -PIRANHAPLANT_GRAVITY;
+		hibernate = false;
+		break;
+	case PIRANHAPLANT_STATE_DOWN:
+		ay = PIRANHAPLANT_GRAVITY;
+		hibernate = true;
 		break;
 	}
 }
