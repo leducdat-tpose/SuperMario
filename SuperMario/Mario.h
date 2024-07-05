@@ -270,7 +270,7 @@ public:
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void AddHitBox();
 	void StopKick();
-	void CollectCoin() { coin++; }
+	void CollectCoin();
 	void HoldKoopas();
 	void ReleaseKoopas();
 	void StartAllowFly();

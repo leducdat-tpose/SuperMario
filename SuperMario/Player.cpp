@@ -17,10 +17,18 @@ CPlayer::~CPlayer(){}
 void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	UpdateIndex();
+	if (mario->GetState() != MARIO_STATE_DIE) time += dt;
+	int remainTime = DEFAULT_TIME_PLAY - time / CLOCKS_PER_SEC;
+	CDataManager::getInstance()->UpdatePlayTime(time / CLOCKS_PER_SEC);
+	if (remainTime <= 0)
+	{
+		remainTime = 0;
+		mario->SetState(MARIO_STATE_DIE);
+	}
 	string point_str = to_string(point);
 	while (point_str.length() < 7) point_str = "0" + point_str;
 
-	string time_str = to_string(time);
+	string time_str = to_string(remainTime);
 	while (time_str.length() < 3) time_str = "0" + time_str;
 
 	string world_str = to_string(id_world);
@@ -46,5 +54,5 @@ void CPlayer::Render()
 
 void CPlayer::UpdateIndex()
 {
-	CDataManager::getInstance()->GetData(id_world, coin, life, point, time);
+	CDataManager::getInstance()->GetData(id_world, coin, life, point);
 }

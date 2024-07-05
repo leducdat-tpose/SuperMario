@@ -1,4 +1,5 @@
 #include "HitBox.h"
+#include "ObjectPool.h"
 
 void CHitBox::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
@@ -44,6 +45,11 @@ void CHitBox::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 	if (goomba->GetState() != GOOMBA_STATE_DIE)
 	{
+		float goombaX, goombaY;
+		goomba->GetPosition(goombaX, goombaY);
+		CObjectPool::getInstance()->getEffect()->SetValue(goombaX, goombaY, EFFECT_TYPE_KABOOM, 0, 0.0f, 0.0f);
+		CObjectPool::getInstance()->getEffect()->SetValue(goombaX, goombaY, EFFECT_TYPE_POINT, 100);
+		goomba->SetDieFlip(true);
 		goomba->SetState(GOOMBA_STATE_DIE);
 	}
 }

@@ -1,5 +1,6 @@
 #include "Coin.h"
 #include "ObjectPool.h"
+#include "DataManager.h"
 
 CCoin::CCoin(float x, float y, bool fromLuckyBox) : CGameObject(x, y)
 {

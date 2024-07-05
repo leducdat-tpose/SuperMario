@@ -16,6 +16,7 @@
 #include "Teleport.h"
 #include "HiddenButton.h"
 #include "ObjectPool.h"
+#include "DataManager.h"
 
 #include "Collision.h"
 
@@ -184,11 +185,17 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	}
 }
 
+void CMario::CollectCoin()
+{
+	coin++;
+	CDataManager::getInstance()->AddCoin(1);
+}
+
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
-	CObjectPool::getInstance()->getEffect()->SetValue(this->x, this->y, EFFECT_TYPE_POINT, 100);
 	e->obj->Delete();
-	coin++;
+	CollectCoin();
+	
 }
 
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
@@ -655,6 +662,7 @@ void CMario::SetState(int state)
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 		vx = 0;
 		ax = 0;
+		CDataManager::getInstance()->AddLife(-1);
 		break;
 	case MARIO_STATE_KICK:
 		isKick = true;

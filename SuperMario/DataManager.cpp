@@ -9,16 +9,15 @@ CDataManager::CDataManager()
 	coin = 0;
 	life = 4;
 	point = 0;
-	time = 157;
+	time = 300;
 }
 
-void CDataManager::GetData(int& id_world, int& coin, int& life, int& point, int& time)
+void CDataManager::GetData(int& id_world, int& coin, int& life, int& point)
 {
 	id_world = this->id_world;
 	coin = this->coin;
 	life = this->life;
 	point = this->point;
-	time = this->time;
 }
 
 void CDataManager::SaveData(int coin, int life, int point, int time)

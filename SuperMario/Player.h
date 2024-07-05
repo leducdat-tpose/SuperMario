@@ -14,6 +14,7 @@ class CPlayer: public CGameObject
 {
 	CGame* game = CGame::GetInstance();
 	CPlayScene* playScene = (LPPLAYSCENE)game->GetInstance()->GetCurrentScene();
+	CMario* mario = (CMario*)playScene->GetPlayer();
 	LPSPRITE sprite;
 	string information;
 
