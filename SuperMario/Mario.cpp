@@ -207,7 +207,6 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
 	CollectCoin();
-	
 }
 
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)

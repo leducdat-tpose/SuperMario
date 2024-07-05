@@ -116,4 +116,8 @@ void CEffects::SetValue(float x, float y, int type, int point, float ax, float a
 	{
 		CDataManager::getInstance()->AddPoint(point);
 	}
+	else if (type == EFFECT_TYPE_1UP)
+	{
+		CDataManager::getInstance()->AddLife(1);
+	}
 }

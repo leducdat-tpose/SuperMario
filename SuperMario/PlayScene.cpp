@@ -449,7 +449,8 @@ void CPlayScene::LoadMap(LPCWSTR filePath) {
 	LoadObjectsFromMap();
 	return;
 }
-
+//This function only use to load static object, which has dynamic sprite e.g: ground, platform,... base on big picture(map)
+//Not use for specific object has only 1 sprite such as coin, luckybox, goldbrick,...
 void CPlayScene::LoadObjectsFromMap()
 {
 	CSprites* sprites = CSprites::GetInstance();
@@ -468,41 +469,6 @@ void CPlayScene::LoadObjectsFromMap()
 			int idSprite = map[i][j]->GetID();
 			switch (idSprite)
 			{
-			case 113:
-			{
-				LPGAMEOBJECT obj = new CCoin(j * 16.0f, i * 16.0f);
-				objects.push_back(obj);
-				map[i][j] = sprites->Get(0);
-				break;
-			}
-			case 7:
-			{
-				LPGAMEOBJECT obj = new CCoin(j * 16.0f, i * 16.0f);
-				objects.push_back(obj);
-				map[i][j] = sprites->Get(1);
-				break;
-			}
-			case 10:
-			{
-				if ((j == 15 && i == 19)
-					|| (j == 41 && i == 24)
-					|| (j == 90 && i == 8)) {
-					LPGAMEOBJECT obj = new CLuckyBox(j * 16.0f, i * 16.0f, OBJECT_TYPE_MUSHROOM);
-					objects.push_back(obj);
-				}
-				else
-				{
-					LPGAMEOBJECT obj = new CLuckyBox(j * 16.0f, i * 16.0f);
-					objects.push_back(obj);
-				}
-				map[i][j] = sprites->Get(1);
-				break;
-			}
-			case 77:
-			{
-				map[i][j] = sprites->Get(1);
-				break;
-			}
 			case 8:
 			case 9:
 			case 11:
@@ -578,22 +544,16 @@ void CPlayScene::LoadObjectsFromMap()
 		}
 	}
 }
-//void CPlayScene::UpdateGrid() {
-//	for (int i = 0; i < listUnits.size(); i++)
-//	{
-//		LPGAMEOBJECT obj = listUnits[i]->GetObj();
-//
-//		if (obj->IsEnable() == false) continue;
-//
-//		float newPosX, newPosY;
-//		obj->GetPosition(newPosX, newPosY);
-//		listUnits[i]->Move(newPosX, newPosY);
-//	}
-//}
 
 void CPlayScene::Update(DWORD dt)
 {
+	/*CMario* mario = (CMario*)player;*/
 	vector<LPGAMEOBJECT> coObjects;
+	/*if (mario->GetState() == MARIO_STATE_DIE)
+	{
+		mario->Update(dt, &coObjects);
+		return;
+	}*/
 	for (size_t i = 1; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
@@ -601,8 +561,8 @@ void CPlayScene::Update(DWORD dt)
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
-		if(abs(objects[i]->GetPositionX() - player->GetPositionX()) <= 300)
-		objects[i]->Update(dt, &coObjects);
+		if (abs(objects[i]->GetPositionX() - player->GetPositionX()) <= 300)
+			objects[i]->Update(dt, &coObjects);
 	}
 
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
