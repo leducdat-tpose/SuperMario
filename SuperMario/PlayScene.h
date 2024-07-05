@@ -49,7 +49,7 @@ protected:
 	// A hidden button
 	LPGAMEOBJECT hiddenbutton;
 	//Player information or player status
-	LPGAMEOBJECT playerInformation;
+	LPGAMEOBJECT hud;
 
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);

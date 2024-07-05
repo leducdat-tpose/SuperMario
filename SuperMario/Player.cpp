@@ -10,6 +10,8 @@ CPlayer::CPlayer(float x, float y):CGameObject(x,y)
 	life = 0;
 	point = 0;
 	time = 0;
+	posHudX = x;
+	posHudY = y;
 }
 
 CPlayer::~CPlayer(){}
@@ -46,7 +48,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CPlayer::Render()
 {
-	sprite->Draw(x, y, 1.0f);
+	sprite->Draw(posHudX, posHudY, 1.0f);
 	RECT rect;
 	SetRect(&rect, 0, 175, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (game->GetFont() != NULL)

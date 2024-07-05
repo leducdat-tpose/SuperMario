@@ -18,6 +18,9 @@ class CPlayer: public CGameObject
 	LPSPRITE sprite;
 	string information;
 
+	float posHudX;
+	float posHudY;
+
 	int id_world;
 	int coin;
 	int life;

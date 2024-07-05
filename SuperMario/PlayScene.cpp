@@ -31,7 +31,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 {
 	player = NULL;
 	hiddenbutton = NULL;
-	playerInformation = NULL;
+	hud = NULL;
 	cameraIndexFollowY = 0;
 	key_handler = new CSampleKeyHandler(this);
 	numsRowInMap = 0;
@@ -241,8 +241,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_MAP: obj = new CIntroScene(1, x, y); break;
 	case OBJECT_TYPE_MAP_ENTITY: obj = new CIntroSceneEntity(x, y); break;
 	case OBJECT_TYPE_HELP_MESSAGE: obj = new CIntroSceneEntity(x, y, ENTITY_TYPE_HELP_MESSAGE); break;
-	case OBJECT_TYPE_PLAYER_INFORMATION: obj = new CPlayer(x, y); break;
-
+	case OBJECT_TYPE_PLAYER_INFORMATION: 
+	{
+		obj = new CPlayer(x, y);
+		hud = (CPlayer*)obj;
+		break;
+	}
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;
@@ -564,6 +568,7 @@ void CPlayScene::Update(DWORD dt)
 		if (abs(objects[i]->GetPositionX() - player->GetPositionX()) <= 300)
 			objects[i]->Update(dt, &coObjects);
 	}
+	hud->Update(dt);
 
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
