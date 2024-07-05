@@ -168,6 +168,9 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		}
 		else if (goomba->GetState() != GOOMBA_STATE_DIE)
 		{
+			float goombaX, goombaY;
+			goomba->GetPosition(goombaX, goombaY);
+			CObjectPool::getInstance()->getEffect()->SetValue(goombaX, goombaY, EFFECT_TYPE_POINT, 100);
 			goomba->SetState(GOOMBA_STATE_DIE);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
@@ -228,6 +231,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 		else if ((koopas->GetState() != KOOPAS_STATE_HIDE && koopas->GetState() != KOOPAS_STATE_HIDE_FLIP) || koopas->GetState() == KOOPAS_STATE_HIDE_MOVING)
 		{
 			koopas->SetState(KOOPAS_STATE_HIDE);
+			CObjectPool::getInstance()->getEffect()->SetValue(koopas->GetPositionX(), koopas->GetPositionY(), EFFECT_TYPE_POINT, 100);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
 		else if (koopas->GetState() == KOOPAS_STATE_HIDE || koopas->GetState() == KOOPAS_STATE_HIDE_FLIP)

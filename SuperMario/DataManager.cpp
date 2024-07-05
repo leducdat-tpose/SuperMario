@@ -6,9 +6,9 @@ CDataManager::CDataManager()
 {
 	isInit = false;
 	id_world = 1;
-	coin = 1;
+	coin = 0;
 	life = 4;
-	point = 78;
+	point = 0;
 	time = 157;
 }
 

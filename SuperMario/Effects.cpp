@@ -1,5 +1,5 @@
 #include "Effects.h"
-
+#include "DataManager.h"
 CEffects::CEffects() : CGameObject(0, 0)
 {
 	this->ax = 0;
@@ -107,5 +107,9 @@ void CEffects::SetValue(float x, float y, int type, int point, float ax, float a
 		this->vx = (float)(-100 + rand() % 200) / 700;
 		this->vy = (float)(-100 + rand() % 200) / 1000;
 		this->ay = EFFECT_CRUMB_GRAVITY;
+	}
+	if (type == EFFECT_TYPE_POINT && point != 0)
+	{
+		CDataManager::getInstance()->AddPoint(point);
 	}
 }

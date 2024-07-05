@@ -51,3 +51,9 @@ void CSprite::Draw(float x, float y)
 	g->GetSpriteHandler()->DrawSpritesImmediate(&sprite, 1, 0, 0);
 }
 
+void CSprite::Draw(float x, float y,float alpha)
+
+{
+	CGame::GetInstance()->Draw(x, y, this->texture, this->left, this->top, this->right, this->bottom, alpha);
+}
+

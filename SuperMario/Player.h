@@ -27,7 +27,6 @@ public:
 	~CPlayer();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	void UpdateIndex();
-	void UpdatePosition();
 	void Render();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom){}
 };
