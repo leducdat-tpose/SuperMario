@@ -11,24 +11,36 @@ void CLuckyBox::Render()
 	//RenderBoundingBox();
 }
 
-void CLuckyBox::Update(DWORD dt)
+void CLuckyBox::OnNoCollision(DWORD dt)
 {
+	y += vy * dt;
 }
+
+void CLuckyBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	vy += ay * dt;
+	if ((state == LUCKYBOX_STATE_DEFLECT) && (GetTickCount64() - fall_start > 100) && (y - initY >= 0))
+	{
+		SetState(LUCKYBOX_STATE_NORMAL);
+	}
+	CGameObject::Update(dt, coObjects);
+	CCollision::GetInstance()->Process(this, dt, coObjects);
+}
+
 
 void CLuckyBox::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case LUCKYBOX_NORNMAL_STATE:
+	case LUCKYBOX_STATE_NORMAL:
+		ay = 0;
+		vy = 0;
 		break;
-	case LUCKYBOX_COLLECTED_STATE_UP:
-		y -= LUCKYBOX_MOVING_Y;
-		break;
-	case LUCKYBOX_COLLECTED_STATE_DOWN:
-		y += LUCKYBOX_MOVING_Y;
-		break;
-	default:
+	case LUCKYBOX_STATE_DEFLECT:
+		ay = LUCKYBOX_DEFLECT_GRAVITY;
+		vy = -LUCKYBOX_DEFLECT_SPEED;
+		fall_start = GetTickCount64();
 		break;
 	}
 }
@@ -46,6 +58,7 @@ void CLuckyBox::SetIsCollected(bool isCollected) {
 
 bool CLuckyBox::GetIsCollected()
 {
+	SetState(LUCKYBOX_STATE_DEFLECT);
 	return isCollected;
 }
 
