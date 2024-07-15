@@ -15,6 +15,7 @@ hiddenbutton.txt
 effects.txt
 introscene.txt
 player.txt
+randomgadget.txt
 
 #filePath	mapWidth	mapHeight	tileWidth	tileHeight	texID	texWidth	texHeight
 [TILEMAP]
@@ -152,5 +153,7 @@ scene_1_map.txt	2816	626	16	16	30	320	96
 18	2048	400
 18	2096	400
 18	2112	400
+
+22	2688	336
 
 21	0	0

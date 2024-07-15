@@ -20,6 +20,7 @@
 #include "Teleport.h"
 #include "HiddenButton.h"
 #include "Player.h"
+#include "RandomGadget.h"
 
 
 #include "SampleKeyEventHandler.h"
@@ -218,7 +219,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		}
 		return;
 	}
-
+	case OBJECT_TYPE_RANDOMGADGET: obj = new CRandomGadget(x, y); break;
 	case OBJECT_TYPE_PLATFORM:
 	{
 		float cell_width = (float)atof(tokens[3].c_str());
