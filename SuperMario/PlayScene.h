@@ -33,13 +33,13 @@ class CPlayScene : public CScene
 	int currentIdPath;
 
 	//Take a sample like brick
-	vector<LPGAMEOBJECT> listStaticObjectsToRender;
+	vector<LPGAMEOBJECT> listStaticObjects;
 	//Take a sample such as mario, koopas
-	vector<LPGAMEOBJECT> listMovingObjectsToRender;
+	vector<LPGAMEOBJECT> listMovingObjects;
 	//For instance is mushroom, leaf, coin
-	vector< LPGAMEOBJECT> listCanEarnObjectsToRender;
+	vector<LPGAMEOBJECT> listCanEarnObjects;
 	//Mario jump into it
-	vector< LPGAMEOBJECT> listPipeObjectsToRender;
+	vector<LPGAMEOBJECT> listPipeObjects;
 
 	bool isGameOver = false;
 

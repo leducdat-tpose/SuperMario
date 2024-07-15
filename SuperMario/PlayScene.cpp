@@ -210,6 +210,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		hiddenbutton = (CHiddenButton*)obj;
 		break;
 	case OBJECT_TYPE_GOLDBRICK: obj = new CBrick(x, y, TYPE_GOLD_BRICK); break;
+	case OBJECT_TYPE_PIPE:
+	{
+		for (int i = 0; i < listPipeObjects.size(); i++)
+		{
+			objects.push_back(listPipeObjects[i]);
+		}
+		return;
+	}
 
 	case OBJECT_TYPE_PLATFORM:
 	{
@@ -476,6 +484,11 @@ void CPlayScene::LoadObjectsFromMap()
 			case 9:
 			case 11:
 			case 12:
+			{
+				LPGAMEOBJECT obj = new CGround(j * 16.0f, i * 16.0f, idSprite);
+				listPipeObjects.push_back(obj);
+				break;
+			}
 			case 24:
 			case 42:
 			case 93:
@@ -550,13 +563,7 @@ void CPlayScene::LoadObjectsFromMap()
 
 void CPlayScene::Update(DWORD dt)
 {
-	/*CMario* mario = (CMario*)player;*/
 	vector<LPGAMEOBJECT> coObjects;
-	/*if (mario->GetState() == MARIO_STATE_DIE)
-	{
-		mario->Update(dt, &coObjects);
-		return;
-	}*/
 	for (size_t i = 1; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
@@ -666,8 +673,10 @@ void CPlayScene::Unload()
 {
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
-
+	for (int i = 0; i < listPipeObjects.size(); i++)
+		delete listPipeObjects[i];
 	objects.clear();
+	listPipeObjects.clear();
 	player = NULL;
 
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);
