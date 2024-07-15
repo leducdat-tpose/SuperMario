@@ -28,6 +28,7 @@ class CPlayer: public CGameObject
 	int life;
 	int point;
 	int time;
+	int changeAlert;
 	vector<int> gadgetsList;
 	vector<LPSPRITE> marioSpeed;
 	vector<LPSPRITE> gadgetsSprite;

@@ -1,4 +1,6 @@
 #include "RandomGadget.h"
+#include "DataManager.h"
+#include <random>
 
 CRandomGadget::CRandomGadget(float x, float y):CGameObject(x,y)
 {
@@ -23,4 +25,13 @@ void CRandomGadget::GetBoundingBox(float& l, float& t, float& r, float& b)
 void CRandomGadget::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 
+}
+
+void CRandomGadget::CollectGadget()
+{
+	random_device rd;
+	mt19937 generator(rd());
+	uniform_int_distribution<int> distribution(1, 3);
+	CDataManager::getInstance()->UpdateGadget(distribution(generator) * 10);
+	this->Delete();
 }

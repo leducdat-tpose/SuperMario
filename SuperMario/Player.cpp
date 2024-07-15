@@ -78,4 +78,15 @@ void CPlayer::Render()
 void CPlayer::UpdateIndex()
 {
 	CDataManager::getInstance()->GetData(id_world, coin, life, point, gadgetsList);
+	this->changeAlert = CDataManager::getInstance()->changeAlert;
+	if (changeAlert == 1)
+	{
+		gadgetsSprite.clear();
+		for (int i = 0; i < 3; i++)
+		{
+			int idGadget = gadgetsList[i];
+			gadgetsSprite.push_back(sprites->Get(ID_SPRITE_GADGET + idGadget));
+		}
+		CDataManager::getInstance()->changeAlert = 0;
+	}
 }

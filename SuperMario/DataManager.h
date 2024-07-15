@@ -28,6 +28,7 @@ private:
 	{
 	}
 public:
+	int changeAlert;
 	static CDataManager* getInstance()
 	{
 		if (instance == NULL)
@@ -65,6 +66,6 @@ public:
 	void AddCoin(int coin) { this->coin += coin; }
 	void AddLife(int life) { this->life += life; }
 	void UpdatePlayTime(int time) { this->time = time; }
-
+	void UpdateGadget(int index);
 };
 typedef CDataManager* LPDATAMANAGER;

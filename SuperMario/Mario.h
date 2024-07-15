@@ -206,6 +206,7 @@ class CMario : public CGameObject
 	void OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e);
 	void OnCollisionWithTeleport(LPCOLLISIONEVENT e);
 	void OnCollisionWithHiddenButton(LPCOLLISIONEVENT e);
+	void OnCollisionWithRandomGadget(LPCOLLISIONEVENT e);
 
 	int GetAniIdBig();
 	int GetAniIdSmall();

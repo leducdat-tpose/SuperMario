@@ -17,6 +17,7 @@
 #include "HiddenButton.h"
 #include "ObjectPool.h"
 #include "DataManager.h"
+#include "RandomGadget.h"
 
 #include "Collision.h"
 
@@ -122,6 +123,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithSuperLeaf(e);
 	else if (dynamic_cast<CHiddenButton*>(e->obj))
 		OnCollisionWithHiddenButton(e);
+	else if (dynamic_cast<CRandomGadget*>(e->obj))
+		OnCollisionWithRandomGadget(e);
 }
 
 void CMario::OnCollisionWithTeleport(LPCOLLISIONEVENT e)
@@ -309,6 +312,12 @@ void CMario::OnCollisionWithHiddenButton(LPCOLLISIONEVENT e)
 	{
 		hiddenbutton->SetIsClicked(true);
 	}
+}
+
+void CMario::OnCollisionWithRandomGadget(LPCOLLISIONEVENT e)
+{
+	CRandomGadget* randomGadget = dynamic_cast<CRandomGadget*>(e->obj);
+	randomGadget->CollectGadget();
 }
 //
 // Get animation ID for small Mario

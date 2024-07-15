@@ -10,9 +10,10 @@ CDataManager::CDataManager()
 	life = 3;
 	point = 0;
 	time = 300;
-	gadgets.push_back(GADGET_MUSHROOM);
-	gadgets.push_back(GADGET_FLOWER);
-	gadgets.push_back(GADGET_STAR);
+	gadgets.push_back(GADGET_NONE);
+	gadgets.push_back(GADGET_NONE);
+	gadgets.push_back(GADGET_NONE);
+	changeAlert = 0;
 }
 
 void CDataManager::GetData(int& id_world, int& coin, int& life, int& point, vector<int>& gadgets)
@@ -30,4 +31,17 @@ void CDataManager::SaveData(int coin, int life, int point, int time)
 	this->life = life;
 	this->point = point;
 	this->time = time;
+}
+
+void CDataManager::UpdateGadget(int index)
+{
+	for (int i = 0; i < gadgets.size(); i++)
+	{
+		if (gadgets[i] == GADGET_NONE)
+		{
+			gadgets[i] = index;
+			changeAlert = 1;
+			return;
+		}
+	}
 }
