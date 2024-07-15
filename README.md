@@ -1,5 +1,6 @@
 # SuperMario
 <p align="center">Đồ án môn học Nhập môn phát triển Game - Trường Đại học Công nghệ thông tin - DHQG HCM.</p>
+<p align="center">Code này mình đạt 8đ, các bạn thấy hay và hữu ích nhớ tặng mình 1 Star nha.</p>
 
 ### GIẢNG VIÊN HƯỚNG DẪN:
 - Đinh Nguyễn Anh Dũng
