@@ -7,18 +7,21 @@ CRandomGadget::CRandomGadget(float x, float y):CGameObject(x,y)
 {
 	isCollected = 0;
 	ay = 0;
+	delete_start = -1;
 }
 void CRandomGadget::Render()
 {
-	if (isCollected == 0)
-		CAnimations::GetInstance()->Get(ID_ANI_RANDOMGADGET)->Render(x, y);
-	else
-		CSprites::GetInstance()->Get(ID_SPRITE_RANDOMGADGET + isCollected)->Draw(x, y);
+	CAnimations::GetInstance()->Get(ID_ANI_RANDOMGADGET + isCollected)->Render(x, y);
 	RenderBoundingBox();
 }
 void CRandomGadget::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
+	if (isCollected != 0 && GetTickCount64() - delete_start > RANDOMGADGET_EXIST_TIME)
+	{
+		CDataManager::getInstance()->UpdateGadget(isCollected);
+		this->Delete();
+	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -45,6 +48,6 @@ void CRandomGadget::CollectGadget()
 	mt19937 generator(rd());
 	uniform_int_distribution<int> distribution(1, 3);
 	isCollected = distribution(generator) * 10;
-	CDataManager::getInstance()->UpdateGadget(isCollected);
 	ay = RANDOMGADGET_GRAVITY;
+	delete_start = GetTickCount64();
 }
