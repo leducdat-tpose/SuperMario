@@ -46,7 +46,8 @@
 
 #define MARIO_ATTACK_TIME			600
 #define MARIO_KICK_ANIMATION_TIME	300
-#define MARIO_TRANSFORM_TIME		350
+#define MARIO_TRANSFORM_RACCOON_TIME 350
+#define MARIO_TRANSFORM_TIME		1200
 
 #pragma region ANIMATION_ID
 
@@ -138,9 +139,14 @@
 
 #define ID_ANI_MARIO_INTRO_SCENE_SMALL 3000
 
-#pragma endregion
+#define ID_ANI_MARIO_TRANSFORM_SMALL_BIG_RIGHT 3100
+#define ID_ANI_MARIO_TRANSFORM_SMALL_BIG_LEFT 3101
 
-#define GROUND_Y 160.0f
+#define ID_ANI_MARIO_TRANSFORM_BIG_SMALL_RIGHT 3200
+#define ID_ANI_MARIO_TRANSFORM_BIG_SMALL_LEFT 3201
+
+
+#pragma endregion
 
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
@@ -177,6 +183,7 @@ class CMario : public CGameObject
 	BOOLEAN allowFly;
 	BOOLEAN inTransform;
 	//To render Mario's fly animations
+	int transformSmallToBig;
 	bool aniFly;
 	float maxVx;
 	float ax;				// acceleration on x 
@@ -239,6 +246,7 @@ public:
 		allow_fly_start = -1;
 		fly_cooldown_start = 0;
 		transform_start = -1;
+		transformSmallToBig = 0;
 		coin = 0;
 		isOnPlatform = false;
 		inTransform = false;

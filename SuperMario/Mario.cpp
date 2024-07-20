@@ -27,9 +27,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		vx = 0;
 		vy = 0;
-		if (GetTickCount64() - transform_start > MARIO_TRANSFORM_TIME)
+		int transform_time = 0;
+		if (transformSmallToBig != 0) transform_time = MARIO_TRANSFORM_TIME;
+		else transform_time = MARIO_TRANSFORM_RACCOON_TIME;
+		if (GetTickCount64() - transform_start > transform_time)
 		{
 			inTransform = false;
+			transformSmallToBig = 0;
 		}
 	}
 	else
@@ -216,9 +220,10 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
+
 	if (level == MARIO_LEVEL_SMALL)
 	{
-		level = MARIO_LEVEL_BIG;
+		SetLevel(MARIO_LEVEL_BIG);
 		CObjectPool::getInstance()->getEffect()->SetValue(this->x, this->y, EFFECT_TYPE_POINT, 1000);
 	}
 	else if (level == MARIO_LEVEL_RACCOON)
@@ -576,7 +581,21 @@ int CMario::GetAniIdRaccoon()
 
 void CMario::Render()
 {
-	if (inTransform) return;
+	if (inTransform)
+	{
+		if (transformSmallToBig == 0) return;
+		CAnimations* animations = CAnimations::GetInstance();
+		if (transformSmallToBig == -1)
+		{
+			if(nx > 0)	animations->Get(ID_ANI_MARIO_TRANSFORM_BIG_SMALL_RIGHT)->Render(x, y);
+			else animations->Get(ID_ANI_MARIO_TRANSFORM_BIG_SMALL_LEFT)->Render(x, y);
+		}
+		else 
+			if (nx > 0)	animations->Get(ID_ANI_MARIO_TRANSFORM_SMALL_BIG_RIGHT)->Render(x, y);
+			else animations->Get(ID_ANI_MARIO_TRANSFORM_SMALL_BIG_LEFT)->Render(x, y);
+		return;
+	}
+	
 	CAnimations* animations = CAnimations::GetInstance();
 	int aniId = -1;
 	DebugOutTitle(L"Coins: %d", coin);
@@ -731,8 +750,15 @@ void CMario::SetLevel(int l)
 	{
 		y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
 	}
-	if (this->level == MARIO_LEVEL_BIG)
+	if (this->level == MARIO_LEVEL_SMALL && l == MARIO_LEVEL_BIG)
 	{
+		StartTransform();
+		transformSmallToBig = 1;
+	}
+	else if (this->level == MARIO_LEVEL_BIG && l == MARIO_LEVEL_SMALL)
+	{
+		StartTransform();
+		transformSmallToBig = -1;
 	}
 	if (level == MARIO_LEVEL_RACCOON && l == MARIO_LEVEL_BIG)
 	{
