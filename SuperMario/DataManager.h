@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 
 #include "debug.h"
 #include "PlayScene.h"
@@ -22,6 +23,7 @@ private:
 	int life;
 	int point;
 	int time;
+	unordered_map<int, bool> finishStageOverWorld_1;
 
 	CDataManager();
 	~CDataManager()
@@ -67,5 +69,13 @@ public:
 	void AddLife(int life) { this->life += life; }
 	void UpdatePlayTime(int time) { this->time = time; }
 	void UpdateGadget(int index);
+	bool getIsFinishStage(int idScene)
+	{
+		return finishStageOverWorld_1[idScene];
+	}
+	void SetIsFinishStage(int idScene, bool isFinish)
+	{
+		finishStageOverWorld_1[idScene] = isFinish;
+	}
 };
 typedef CDataManager* LPDATAMANAGER;

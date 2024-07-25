@@ -16,6 +16,7 @@
 #include "Define.h"
 #include "Effects.h"
 #include "IntroScene.h"
+#include "DataManager.h"
 
 class CPlayScene : public CScene
 {

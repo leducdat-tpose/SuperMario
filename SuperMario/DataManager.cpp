@@ -14,6 +14,7 @@ CDataManager::CDataManager()
 	gadgets.push_back(GADGET_NONE);
 	gadgets.push_back(GADGET_NONE);
 	changeAlert = 0;
+	finishStageOverWorld_1[1] = false;
 }
 
 void CDataManager::GetData(int& id_world, int& coin, int& life, int& point, vector<int>& gadgets)

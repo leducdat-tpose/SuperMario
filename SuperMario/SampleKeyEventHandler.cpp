@@ -85,6 +85,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		CGame::GetInstance()->OnOffDisplayBoundingBox();
 		break;
 	case DIK_P:
+		CDataManager::getInstance()->SetIsFinishStage(playScene->GetId(), true);
 		CGame::GetInstance()->InitiateSwitchScene(SCENE_INTRO);
 		break;
 	}

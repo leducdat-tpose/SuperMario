@@ -156,6 +156,12 @@ void CPlayScene::_ParseSection_PATHOVERWORLD(string line) {
 	int directLeft = atoi(tokens[6].c_str());
 	int scene_id = atoi(tokens[7].c_str());
 	CPath* path = new CPath(idPath, pathX, pathY, directUp, directDown, directRight, directLeft, scene_id);
+	if (CDataManager::getInstance()->getIsFinishStage(scene_id))
+	{
+		CGameObject* obj = new CIntroSceneEntity(pathX, pathY, ENTITY_TYPE_FINISH_MARK);
+		obj->SetPosition(pathX, pathY);
+		objects.push_back(obj);
+	}
 	listPaths.push_back(path);
 }
 /*

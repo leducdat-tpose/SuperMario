@@ -27,6 +27,11 @@ void CIntroSceneEntity::Render()
 	{
 		aniId = ID_ANI_INTRO_SCENE_1_HELP_MESSAGE;
 	}
+	else if (type == ENTITY_TYPE_FINISH_MARK)
+	{
+		CSprites::GetInstance()->Get(ID_SPRITE_FINISH_SCENE)->Draw(x, y);
+		return;
+	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 }
 

@@ -10,6 +10,7 @@
 
 #define ENTITY_TYPE_TREE 0
 #define ENTITY_TYPE_HELP_MESSAGE 1
+#define ENTITY_TYPE_FINISH_MARK 2
 
 class CIntroScene:public CGameObject
 {
@@ -42,6 +43,7 @@ private:
 	int directRight;
 	int directLeft;
 	int scene_id;
+	int isFinish;
 public:
 	CPath(int idPath, float x, float y, int directUp = 0, int directDown = 0, int directRight = 0, int directLeft = 0, int scene_id = 0)
 	{
@@ -53,6 +55,7 @@ public:
 		this->directRight = directRight;
 		this->directLeft = directLeft;
 		this->scene_id = scene_id;
+		this->isFinish = 0;
 	}
 	int GetIdPath() const { return this->idPath; }
 	float GetPathX()const { return this->x; }
@@ -62,4 +65,5 @@ public:
 	int GetDirectRight() const { return this->directRight; }
 	int GetDirectLeft() const { return this->directLeft; }
 	int GetSceneId() const { return this->scene_id; }
+	void SetFinish(int isFinish) { this->isFinish = isFinish; }
 };
