@@ -182,8 +182,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			DebugOut(L"[ERROR] MARIO object was created before!\n");
 			return;
 		}
-		if (id == 2)
+		if (id == SCENE_INTRO)
 		{
+			x = GetCurrentPath()->GetPathX();
+			y = GetCurrentPath()->GetPathY();
 			obj = new CMario(x, y, true);
 		}
 		else obj = new CMario(x, y);
@@ -426,10 +428,6 @@ void CPlayScene::Load()
 	}
 
 	f.close();
-	for (auto path : listPaths)
-	{
-		DebugOut(L"[INFO]Path ID:%d\n", path->GetIdPath());
-	}
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 }
 
@@ -675,14 +673,8 @@ void CPlayScene::Clear()
 */
 void CPlayScene::Unload()
 {
-	
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
-	/*for (int i = 0; i < listPipeObjects.size(); i++)
-	{
-		if (listPipeObjects[i]->IsDeleted()) continue;
-		delete listPipeObjects[i];
-	}*/
 	objects.clear();
 	listPipeObjects.clear();
 	map.clear();

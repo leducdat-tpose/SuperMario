@@ -4,6 +4,12 @@ mario.txt
 introscene.txt
 player.txt
 
+
+[PATHOVERWORLD]
+0	62	52	0	0	1	0	0
+1	94	52	1	0	0	-1	0
+2	94	20	0	-1	0	0	1
+
 [OBJECTS]
 # type	x	y	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas
@@ -74,9 +80,3 @@ player.txt
 0	62	52
 
 200	150	185
-
-
-[PATHOVERWORLD]
-0	62	52	0	0	1	0	0
-1	94	52	1	0	0	-1	0
-2	94	20	0	-1	0	0	1
