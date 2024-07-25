@@ -20,7 +20,6 @@
 class CPlayScene : public CScene
 {
 	CGame* game = CGame::GetInstance();
-	//CTileMaps* tilemaps = CTileMaps::GetInstance();
 	CTextures* textures = CTextures::GetInstance();
 	CAnimations* animations = CAnimations::GetInstance();
 	vector<vector<LPSPRITE>> map;
@@ -77,7 +76,7 @@ public:
 	void UpdateMario(DWORD dt);
 	void AddObject(LPGAMEOBJECT obj);
 	void UpdateCurrentIdPath(int index) { 
-		if (this->id != 2) return;
+		if (this->id != SCENE_INTRO) return;
 		this->currentIdPath += index; 
 	}
 	CPath* GetCurrentPath();

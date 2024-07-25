@@ -8,8 +8,6 @@ height	240
 0	sceneintro.txt
 1	scene01.txt
 2	scene02.txt
-5	scene0005.txt
-10	scenetitle.txt
 
 # id	file 
 [TEXTURES]

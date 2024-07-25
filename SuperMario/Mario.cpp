@@ -33,6 +33,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (GetTickCount64() - transform_start > transform_time)
 		{
 			inTransform = false;
+			//This line code is for mario changes from big to small
+			if(transformSmallToBig == -1) y += (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
 			transformSmallToBig = 0;
 		}
 	}
@@ -776,23 +778,21 @@ void CMario::SetLevel(int l)
 
 void CMario::DamagedMario()
 {
-	if (untouchable == 0)
+	if (untouchable != 0) return;
+	if (level == MARIO_LEVEL_RACCOON)
 	{
-		if (level == MARIO_LEVEL_RACCOON)
-		{
-			SetLevel(MARIO_LEVEL_BIG);
-			StartUntouchable();
-		}
-		else if (level == MARIO_LEVEL_BIG)
-		{
-			level = MARIO_LEVEL_SMALL;
-			StartUntouchable();
-		}
-		else if (level == MARIO_LEVEL_SMALL)
-		{
-			DebugOut(L">>> Mario DIE >>> \n");
-			SetState(MARIO_STATE_DIE);
-		}
+		SetLevel(MARIO_LEVEL_BIG);
+		StartUntouchable();
+	}
+	else if (level == MARIO_LEVEL_BIG)
+	{
+		SetLevel(MARIO_LEVEL_SMALL);
+		StartUntouchable();
+	}
+	else if (level == MARIO_LEVEL_SMALL)
+	{
+		DebugOut(L">>> Mario DIE >>> \n");
+		SetState(MARIO_STATE_DIE);
 	}
 }
 void CMario::StartAttack()

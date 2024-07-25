@@ -124,8 +124,6 @@ void CGame::Init(HWND hWnd, HINSTANCE hInstance)
 	// create the sprite object to handle sprite drawing 
 	hr = D3DX10CreateSprite(pD3DDevice, 0, &spriteObject);
 	spriteObject->Begin(D3DX10_SPRITE_SORT_TEXTURE);
-	D3DXVECTOR2 hudPosition(150, 185);
-	D3DXVECTOR2 hudSize(230, 28);
 	if (hr != S_OK)
 	{
 		DebugOut((wchar_t*)L"[ERROR] D3DX10CreateSprite has failed %s %d", _W(__FILE__), __LINE__);
@@ -546,7 +544,6 @@ void CGame::SwitchScene()
 	if (next_scene < 0 || next_scene == current_scene) return;
 
 	DebugOut(L"[INFO] Switching to scene %d\n", next_scene);
-
 	scenes[current_scene]->Unload();
 	objectPool->Unload();
 	CSprites::GetInstance()->Clear();
@@ -556,24 +553,12 @@ void CGame::SwitchScene()
 	LPSCENE s = scenes[next_scene];
 	this->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();
-	//Need to modify in the future, Clear the previous object, then startInit for the next Scene
 	objectPool->startInit();
 }
 
 void CGame::InitiateSwitchScene(int scene_id)
 {
 	next_scene = scene_id;
-}
-
-//This function will use to run all resources, instead of using those function professor give
-void CGame::LoadResources()
-{
-	//Load this instead of read mario-sample.txt
-	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png");
-	textures->Add(ID_TEX_MARIO, L"textures\\mario.png");
-	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png");
-	textures->Add(ID_TEX_MISC, L"textures\\misc.png");
-
 }
 
 CGame::~CGame()

@@ -211,14 +211,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		hiddenbutton = (CHiddenButton*)obj;
 		break;
 	case OBJECT_TYPE_GOLDBRICK: obj = new CBrick(x, y, TYPE_GOLD_BRICK); break;
-	case OBJECT_TYPE_PIPE:
+	/*case OBJECT_TYPE_PIPE:
 	{
 		for (int i = 0; i < listPipeObjects.size(); i++)
 		{
 			objects.push_back(listPipeObjects[i]);
 		}
 		return;
-	}
+	}*/
 	case OBJECT_TYPE_RANDOMGADGET: obj = new CRandomGadget(x, y); break;
 	case OBJECT_TYPE_PLATFORM:
 	{
@@ -426,7 +426,10 @@ void CPlayScene::Load()
 	}
 
 	f.close();
-
+	for (auto path : listPaths)
+	{
+		DebugOut(L"[INFO]Path ID:%d\n", path->GetIdPath());
+	}
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 }
 
@@ -487,7 +490,7 @@ void CPlayScene::LoadObjectsFromMap()
 			case 12:
 			{
 				LPGAMEOBJECT obj = new CGround(j * 16.0f, i * 16.0f, idSprite);
-				listPipeObjects.push_back(obj);
+				objects.push_back(obj);
 				break;
 			}
 			case 24:
@@ -672,14 +675,19 @@ void CPlayScene::Clear()
 */
 void CPlayScene::Unload()
 {
+	
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
-	for (int i = 0; i < listPipeObjects.size(); i++)
+	/*for (int i = 0; i < listPipeObjects.size(); i++)
+	{
+		if (listPipeObjects[i]->IsDeleted()) continue;
 		delete listPipeObjects[i];
+	}*/
 	objects.clear();
 	listPipeObjects.clear();
+	map.clear();
+	listPaths.clear();
 	player = NULL;
-
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);
 }
 
