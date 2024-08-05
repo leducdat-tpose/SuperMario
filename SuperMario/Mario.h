@@ -171,7 +171,7 @@ class CMario : public CGameObject
 {
 	LPGAMEOBJECT hitbox;
 	LPGAMEOBJECT heldKoopas;
-	
+	BOOLEAN isFinishScene;
 	BOOLEAN isInSecret;
 	BOOLEAN isSitting;
 	//Only when level is Racoon
@@ -230,6 +230,7 @@ public:
 		isAttack = false;
 		isInSecret = false;
 		attackDone = false;
+		isFinishScene = false;
 		isKick = false;
 		isFly = false;
 		allowFly = false;

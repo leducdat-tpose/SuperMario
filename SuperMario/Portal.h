@@ -20,4 +20,8 @@ public:
 
 	int GetSceneId() { return scene_id; }
 	int IsBlocking() { return 0; }
+	void SwitchScene(int index)
+	{
+		CGame::GetInstance()->InitiateSwitchScene(SCENE_INTRO);
+	}
 };

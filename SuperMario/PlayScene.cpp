@@ -251,9 +251,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		float r = (float)atof(tokens[3].c_str());
 		float b = (float)atof(tokens[4].c_str());
 		int scene_id = atoi(tokens[5].c_str());
-		obj = new CPortal(x, y, r, b, scene_id);
+		obj = new CPortal(x, y, r, b, 0);
+		break;
 	}
-	break;
 	case OBJECT_TYPE_MAP: obj = new CIntroScene(1, x, y); break;
 	case OBJECT_TYPE_MAP_ENTITY: obj = new CIntroSceneEntity(x, y); break;
 	case OBJECT_TYPE_HELP_MESSAGE: obj = new CIntroSceneEntity(x, y, ENTITY_TYPE_HELP_MESSAGE); break;

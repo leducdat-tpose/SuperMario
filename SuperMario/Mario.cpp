@@ -238,8 +238,9 @@ void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
+	if (!isFinishScene) return;
 	CPortal* p = (CPortal*)e->obj;
-	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
+	p->SwitchScene(SCENE_INTRO);
 }
 
 void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
@@ -325,6 +326,7 @@ void CMario::OnCollisionWithRandomGadget(LPCOLLISIONEVENT e)
 {
 	CRandomGadget* randomGadget = dynamic_cast<CRandomGadget*>(e->obj);
 	randomGadget->CollectGadget();
+	this->isFinishScene = true;
 }
 //
 // Get animation ID for small Mario

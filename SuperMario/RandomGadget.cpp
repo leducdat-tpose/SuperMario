@@ -44,10 +44,13 @@ void CRandomGadget::OnCollisionWith(LPCOLLISIONEVENT e)
 void CRandomGadget::CollectGadget()
 {
 	if (isCollected != 0) return;
+	/////////////////Random 1 to 3
 	random_device rd;
 	mt19937 generator(rd());
 	uniform_int_distribution<int> distribution(1, 3);
 	isCollected = distribution(generator) * 10;
+	////////////////
 	ay = RANDOMGADGET_GRAVITY;
 	delete_start = GetTickCount64();
+	CDataManager::getInstance()->SetIsFinishStage(CGame::GetInstance()->GetCurrentScene()->GetId(), true);
 }

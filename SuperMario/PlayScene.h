@@ -31,17 +31,10 @@ class CPlayScene : public CScene
 	vector<LPGAMEOBJECT> objects;
 	vector<CPath*> listPaths;
 	int currentIdPath;
-
-	//Take a sample like brick
-	vector<LPGAMEOBJECT> listStaticObjects;
-	//Take a sample such as mario, koopas
-	vector<LPGAMEOBJECT> listMovingObjects;
-	//For instance is mushroom, leaf, coin
-	vector<LPGAMEOBJECT> listCanEarnObjects;
 	//Mario jump into it
 	vector<LPGAMEOBJECT> listPipeObjects;
 
-	bool isGameOver = false;
+	bool isDoneScene = false;
 
 protected:
 	// A play scene has to have player, right? 
@@ -71,6 +64,8 @@ public:
 
 	LPGAMEOBJECT GetPlayer() const { return player; }
 	LPGAMEOBJECT GetHiddenButton() const { return hiddenbutton; }
+	void SetIsDone(bool isDoneScene) { this->isDoneScene = isDoneScene; }
+	bool GetIsDone() const { return isDoneScene; }
 	void Clear();
 	void PurgeDeletedObjects();
 	void UpdateCameraPosition();
