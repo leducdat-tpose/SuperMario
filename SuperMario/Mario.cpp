@@ -327,6 +327,7 @@ void CMario::OnCollisionWithRandomGadget(LPCOLLISIONEVENT e)
 	CRandomGadget* randomGadget = dynamic_cast<CRandomGadget*>(e->obj);
 	randomGadget->CollectGadget();
 	this->isFinishScene = true;
+	this->autoMoving = 1;
 }
 //
 // Get animation ID for small Mario
@@ -628,6 +629,15 @@ void CMario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
 	if (this->state == MARIO_STATE_DIE) return;
+	switch (autoMoving)
+	{
+	case 0: break;
+	case 1:
+	{
+		state = MARIO_STATE_WALKING_RIGHT;
+		break;
+	}
+	}
 	switch (state)
 	{
 	case MARIO_STATE_RUNNING_RIGHT:
@@ -800,6 +810,7 @@ void CMario::DamagedMario()
 void CMario::StartAttack()
 {
 	if (isSitting) return;
+	if (autoMoving != 0) return;
 	//This function is use to avoid attack many times as the same time(spam attack)
 	if (isAttack) return;
 	attack_start = GetTickCount64();

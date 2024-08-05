@@ -188,7 +188,7 @@ class CMario : public CGameObject
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
-
+	int autoMoving;
 	int level;
 	int untouchable;
 	ULONGLONG untouchable_start;
@@ -236,6 +236,7 @@ public:
 		allowFly = false;
 		maxVx = 0.0f;
 		ax = 0.0f;
+		autoMoving = 0;
 		keyRunDown = false;
 		keyJumpDown = false;
 		ay = MARIO_GRAVITY;
