@@ -35,6 +35,7 @@ class CPlayScene : public CScene
 	vector<LPGAMEOBJECT> listPipeObjects;
 
 	bool isDoneScene = false;
+	bool isGameOver = false;
 
 protected:
 	// A play scene has to have player, right? 
@@ -66,6 +67,9 @@ public:
 	LPGAMEOBJECT GetHiddenButton() const { return hiddenbutton; }
 	void SetIsDone(bool isDoneScene) { this->isDoneScene = isDoneScene; }
 	bool GetIsDone() const { return isDoneScene; }
+	void SetIsGameOver(bool isGameOver) { this->isGameOver = isGameOver; }
+	bool GetIsGameOver() const { return isGameOver; }
+
 	void Clear();
 	void PurgeDeletedObjects();
 	void UpdateCameraPosition();

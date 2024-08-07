@@ -55,6 +55,7 @@ class CGame
 	float cam_y = 0.0f;
 
 	int isDisplayBoundingBox = -1;
+	int isPauseGame = -1;
 
 	D3DXVECTOR3 cameraPosition;
 
@@ -114,6 +115,13 @@ public:
 	void SetPointSamplerState();
 
 	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
+
+	void PauseGame()
+	{
+		isPauseGame *= -1;
+	}
+
+	int GetIsPauseGame() const { return isPauseGame; }
 
 	void OnOffDisplayBoundingBox()
 	{

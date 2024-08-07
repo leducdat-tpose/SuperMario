@@ -88,6 +88,9 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		//CDataManager::getInstance()->SetIsFinishStage(playScene->GetId(), true);
 		CGame::GetInstance()->InitiateSwitchScene(SCENE_INTRO);
 		break;
+	case DIK_W:
+		CGame::GetInstance()->PauseGame();
+		break;
 	}
 }
 

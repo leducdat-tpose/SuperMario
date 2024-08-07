@@ -5,6 +5,7 @@ CPlayer::CPlayer(float x, float y):CGameObject(x,y)
 {
 	information = "";
 	sprite = sprites->Get(ID_SPRITE_PLAYER_STATUS);
+	pauseGameSprite = sprites->Get(ID_SPRITE_PAUSE_GAME);
 	id_world = 0;
 	coin = 0;
 	life = 0;
@@ -60,7 +61,9 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CPlayer::Render()
 {
+	
 	sprite->Draw(posHudX, posHudY, 1.0f);
+	if (game->GetIsPauseGame() == 1) pauseGameSprite->Draw((SCREEN_WIDTH - 20)/2, posHudY - 120, 1.0f);
 	int speedIndex = 0;
 	speedIndex = (int)((mario->GetSpeed() - MARIO_WALKING_SPEED) / marioSpeed_sub) - 1;
 	if (speedIndex < 0) speedIndex = 0;

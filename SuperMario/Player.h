@@ -18,6 +18,7 @@ class CPlayer: public CGameObject
 	CMario* mario = (CMario*)playScene->GetPlayer();
 	CSprites* sprites = CSprites::GetInstance();
 	LPSPRITE sprite;
+	LPSPRITE pauseGameSprite;
 	string information;
 	float marioSpeed_sub;
 	float posHudX;
