@@ -25,6 +25,7 @@ void CGoomba::SetSpecialAbility(bool specialAbility) {
 
 void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
+	if (!enable) return;
 	if (state == GOOMBA_STATE_DIE)
 	{
 		left = x - GOOMBA_BBOX_WIDTH / 2;
@@ -83,6 +84,7 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!enable) return;
 	vy += ay * dt;
 	vx += ax * dt;
 
@@ -104,6 +106,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CGoomba::Render()
 {
+	if (!enable) return;
 	int aniId = ID_ANI_GOOMBA_WALKING;
 	if (state == PARAGOOMBA_STATE_WALKING)
 	{

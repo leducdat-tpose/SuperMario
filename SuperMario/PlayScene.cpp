@@ -177,7 +177,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	int object_type = atoi(tokens[0].c_str());
 	float x = (float)atof(tokens[1].c_str());
 	float y = (float)atof(tokens[2].c_str());
-
+	int dynamicObject = 0;
+	if(tokens.size() > 3)	dynamicObject = atoi(tokens[3].c_str());
 	CGameObject* obj = NULL;
 
 	switch (object_type)
@@ -271,6 +272,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	// General object setup
 	obj->SetPosition(x, y);
 
+	obj->SetIsDynamicObject(dynamicObject);
 
 	objects.push_back(obj);
 }

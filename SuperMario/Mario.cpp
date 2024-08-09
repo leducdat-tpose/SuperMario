@@ -23,6 +23,7 @@
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!enable) return;
 	if (inTransform)
 	{
 		vx = 0;
@@ -586,6 +587,7 @@ int CMario::GetAniIdRaccoon()
 
 void CMario::Render()
 {
+	if (!enable) return;
 	if (inTransform)
 	{
 		if (transformSmallToBig == 0) return;
@@ -730,7 +732,7 @@ void CMario::SetState(int state)
 
 void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (inTransform) return;
+	if (inTransform || !enable) return;
 	if (level == MARIO_LEVEL_BIG || level == MARIO_LEVEL_RACCOON)
 	{
 		if (isSitting)

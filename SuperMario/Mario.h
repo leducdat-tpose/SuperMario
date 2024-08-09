@@ -228,6 +228,7 @@ public:
 		hitbox = nullptr;
 		isSitting = false;
 		isAttack = false;
+		enable = true;
 		isInSecret = false;
 		attackDone = false;
 		isFinishScene = false;

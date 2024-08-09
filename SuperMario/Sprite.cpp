@@ -52,7 +52,6 @@ void CSprite::Draw(float x, float y)
 }
 
 void CSprite::Draw(float x, float y,float alpha)
-
 {
 	CGame::GetInstance()->Draw(x, y, this->texture, this->left, this->top, this->right, this->bottom, alpha);
 }

@@ -10,6 +10,7 @@ CSuperLeaf::CSuperLeaf(float x, float y) :CGameObject(x, y)
 
 void CSuperLeaf::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
+	if (!enable) return;
 	left = x - SUPERLEAF_BBOX_WIDTH / 2;
 	top = y - SUPERLEAF_BBOX_HEIGHT / 2;
 	right = left + SUPERLEAF_BBOX_WIDTH;
@@ -35,6 +36,7 @@ void CSuperLeaf::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CSuperLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!enable) return;
 	vy = ay * dt;
 	vx += ax * dt;
 	if ((GetTickCount64() - fall_start > SUPERLEAF_TIME_TURN_STATE) && (state == SUPERLEAF_STATE_FALL_LEFT))
@@ -51,6 +53,7 @@ void CSuperLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CSuperLeaf::Render()
 {
+	if (!enable) return;
 	int aniId = ID_ANI_SUPERLEAF;
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	RenderBoundingBox();

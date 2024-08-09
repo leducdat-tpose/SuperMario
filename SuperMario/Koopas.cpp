@@ -22,6 +22,7 @@ void CKoopas::SetSpecialAbility(bool specialAbility) {
 
 void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
+	if (!enable) return;
 	if (state == KOOPAS_STATE_WALKING_RIGHT)
 	{
 		left = x - KOOPAS_BBOX_WIDTH / 2;
@@ -189,6 +190,7 @@ void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!enable) return;
 	vy += ay * dt;
 	vx += ax * dt;
 	if ((state == PARAKOOPAS_STATE_WALKING_RIGHT || state == PARAKOOPAS_STATE_WALKING_LEFT) && (GetTickCount64() - fly_start > PARAKOOPAS_FLY_DELAY_TIME))
@@ -211,6 +213,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CKoopas::Render()
 {
+	if (!enable) return;
 	int aniId = KOOPAS_ANI_WALKING_LEFT;
 	if (state == KOOPAS_STATE_WALKING_LEFT) {
 		aniId = KOOPAS_ANI_WALKING_LEFT;

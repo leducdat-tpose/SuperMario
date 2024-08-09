@@ -29,7 +29,10 @@ protected:
 
 	int state;
 
+	int dynamicObject;
+
 	bool enable;
+
 	bool isDeleted;
 
 public:
@@ -37,6 +40,8 @@ public:
 	void SetPositionX(float x) { this->x = x; }
 	void SetPositionY(float y) { this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
+	void SetIsDynamicObject(int dynamicObject) { this->dynamicObject = dynamicObject; }
+	int GetIsDynamicObject() const { return this->dynamicObject; }
 	void SetEnable(bool enable) { this->enable = enable; }
 	void SetDirection(int nx) { this->nx = nx; }
 	void GetPosition(float& x, float& y) const { x = this->x; y = this->y; }

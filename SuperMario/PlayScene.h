@@ -29,9 +29,10 @@ class CPlayScene : public CScene
 	float cameraIndexFollowY;
 
 	vector<LPGAMEOBJECT> objects;
+
 	vector<CPath*> listPaths;
 	int currentIdPath;
-	//Mario jump into it
+
 	vector<LPGAMEOBJECT> listPipeObjects;
 
 	bool isDoneScene = false;
@@ -69,7 +70,15 @@ public:
 	bool GetIsDone() const { return isDoneScene; }
 	void SetIsGameOver(bool isGameOver) { this->isGameOver = isGameOver; }
 	bool GetIsGameOver() const { return isGameOver; }
-
+	void PauseGame(int isPauseGame)
+	{
+		for (auto obj : objects)
+		{
+			if (obj->GetIsDynamicObject() != 1) continue;
+			if (isPauseGame == 1) obj->SetEnable(false);
+			else obj->SetEnable(true);
+		}
+	}
 	void Clear();
 	void PurgeDeletedObjects();
 	void UpdateCameraPosition();

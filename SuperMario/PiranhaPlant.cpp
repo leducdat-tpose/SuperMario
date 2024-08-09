@@ -20,6 +20,7 @@ CPiranhaPlant::CPiranhaPlant(float x, float y, LPGAMEOBJECT player, int type) :C
 
 void CPiranhaPlant::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
+	if (!enable) return;
 	left = x - PIRANHAPLANT_BBOX_WIDTH / 2;
 	top = y - PIRANHAPLANT_BBOX_HEIGHT / 2;
 	right = left + PIRANHAPLANT_BBOX_WIDTH;
@@ -39,6 +40,7 @@ void CPiranhaPlant::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!enable) return;
 	vy = ay * dt;
 	y += vy * dt;
 
@@ -95,6 +97,7 @@ void CPiranhaPlant::Shoot()
 
 void CPiranhaPlant::Render()
 {
+	if (!enable) return;
 	int aniId = ID_ANI_PIRANHAPLANT_NOT_SHOOT;
 	if (type == PIRANHAPLANT_TYPE_SHOOT)
 	{

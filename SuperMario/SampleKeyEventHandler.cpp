@@ -90,6 +90,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		break;
 	case DIK_W:
 		CGame::GetInstance()->PauseGame();
+		playScene->PauseGame(CGame::GetInstance()->GetIsPauseGame());
 		break;
 	}
 }

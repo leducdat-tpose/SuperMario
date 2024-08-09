@@ -10,6 +10,7 @@ CMushroom::CMushroom(float x, float y, bool isGreen) :CGameObject(x, y)
 
 void CMushroom::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
+	if (!enable) return;
 	//From goomba code
 	left = x - MUSHROOM_BBOX_WIDTH / 2;
 	top = y - MUSHROOM_BBOX_HEIGHT / 2;
@@ -40,6 +41,7 @@ void CMushroom::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!enable) return;
 	vy += ay * dt;
 	vx += ax * dt;
 	if (state == MUSHROOM_STATE_DIE)
@@ -54,6 +56,7 @@ void CMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CMushroom::Render()
 {
+	if (!enable) return;
 	int aniId = ID_ANI_MUSHROOM;
 	if (isGreen) aniId = ID_ANI_MUSHROOM_GREEN;
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
