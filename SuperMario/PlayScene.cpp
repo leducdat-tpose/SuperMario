@@ -594,11 +594,6 @@ void CPlayScene::Update(DWORD dt)
 
 	PurgeDeletedObjects();
 }
-
-void CPlayScene::UpdateMario(DWORD dt)
-{
-}
-
 void CPlayScene::UpdateCameraPosition()
 {
 	float cx, cy;

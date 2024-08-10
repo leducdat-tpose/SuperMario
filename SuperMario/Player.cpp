@@ -33,7 +33,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	UpdateIndex();
 	int remainTime = 0;
-	if (mario->GetState() != MARIO_STATE_DIE && playScene->GetId() != SCENE_INTRO) time += dt;
+	if (mario->GetState() != MARIO_STATE_DIE && playScene->GetId() != SCENE_INTRO && game->GetIsPauseGame() == -1) time += dt;
 	remainTime = DEFAULT_TIME_PLAY - time / CLOCKS_PER_SEC;
 	CDataManager::getInstance()->UpdatePlayTime(time / CLOCKS_PER_SEC);
 	if (remainTime <= 0)

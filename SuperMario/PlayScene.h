@@ -82,7 +82,6 @@ public:
 	void Clear();
 	void PurgeDeletedObjects();
 	void UpdateCameraPosition();
-	void UpdateMario(DWORD dt);
 	void AddObject(LPGAMEOBJECT obj);
 	void UpdateCurrentIdPath(int index) { 
 		if (this->id != SCENE_INTRO) return;

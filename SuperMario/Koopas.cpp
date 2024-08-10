@@ -3,6 +3,7 @@
 
 CKoopas::CKoopas(float x, float y, bool specialAbility) :CGameObject(x, y)
 {
+	this->enable = true;
 	this->specialAbility = specialAbility;
 	this->ax = 0;
 	this->ay = KOOPAS_GRAVITY;

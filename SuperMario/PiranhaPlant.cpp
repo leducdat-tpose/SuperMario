@@ -2,6 +2,7 @@
 
 CPiranhaPlant::CPiranhaPlant(float x, float y, LPGAMEOBJECT player, int type) :CGameObject(x, y)
 {
+	this->enable = true;
 	this->ax = 0;
 	this->ay = -PIRANHAPLANT_GRAVITY;
 	this->disXToPlayer = 0;
