@@ -33,7 +33,7 @@ class CPlayScene : public CScene
 	vector<CPath*> listPaths;
 	int currentIdPath;
 
-	vector<LPGAMEOBJECT> listPipeObjects;
+	vector<LPGAMEOBJECT> listStaticObjects;
 
 	bool isDoneScene = false;
 	bool isGameOver = false;

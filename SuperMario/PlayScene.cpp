@@ -220,14 +220,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		hiddenbutton = (CHiddenButton*)obj;
 		break;
 	case OBJECT_TYPE_GOLDBRICK: obj = new CBrick(x, y, TYPE_GOLD_BRICK); break;
-	/*case OBJECT_TYPE_PIPE:
+	case OBJECT_TYPE_PIPE:
 	{
-		for (int i = 0; i < listPipeObjects.size(); i++)
+		for (int i = 0; i < listStaticObjects.size(); i++)
 		{
-			objects.push_back(listPipeObjects[i]);
+			objects.push_back(listStaticObjects[i]);
 		}
 		return;
-	}*/
+	}
 	case OBJECT_TYPE_RANDOMGADGET: obj = new CRandomGadget(x, y); break;
 	case OBJECT_TYPE_PLATFORM:
 	{
@@ -306,100 +306,11 @@ void CPlayScene::LoadAssets(LPCWSTR assetFile)
 		case ASSETS_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
 		}
 	}
-
+	
 	f.close();
 
 	DebugOut(L"[INFO] Done loading assets from %s\n", assetFile);
 }
-//
-//void CPlayScene::LoadObjects(LPCWSTR filePath)
-//{
-//	fstream fs;
-//	fs.open(filePath, ios::in);
-//	if (fs.fail())
-//	{
-//		DebugOut(L"[ERROR] from LoadObjects in PlayScene!");
-//		fs.close();
-//		return;
-//	}
-//	int idObj = 0;
-//	float posX, posY;
-//
-//	while (!fs.eof())
-//	{
-//		fs >> idObj >> posX >> posY;
-//		switch (idObj)
-//		{
-//		case OBJECT_TYPE_MARIO:
-//		{
-//			break;
-//		}
-//		case OBJECT_TYPE_BRICK:
-//		{
-//			CBrick* brick = new CBrick(posX, posY);
-//			unit = new Unit(grid, brick, posX, posY);
-//			break;
-//		}
-//			
-//		case OBJECT_TYPE_GOOMBA:
-//		{
-//			CGoomba* goomba = new CGoomba(posX, posY, false);
-//			unit = new Unit(grid, goomba, posX, posY);
-//			break;
-//		}
-//			
-//		case OBJECT_TYPE_KOOPAS:
-//		{
-//			CKoopas* koopas = new CKoopas(posX, posY, false);
-//			unit = new Unit(grid, koopas, posX, posY);
-//			break;
-//		}
-//		case OBJECT_TYPE_COIN:
-//		{
-//			CCoin* coin = new CCoin(posX, posY);
-//			unit = new Unit(grid, coin, posX, posY);
-//			break;
-//		}
-//		case OBJECT_TYPE_PLATFORM:
-//		{
-//			//Not now
-//			break;
-//		}
-//		case OBJECT_TYPE_LUCKYBOX:
-//		{
-//			CLuckyBox* luckybox = new CLuckyBox(posX, posY);
-//			unit = new Unit(grid, luckybox, posX, posY);
-//			break;
-//		}
-//		case OBJECT_TYPE_PARAGOOMBA:
-//		{
-//			CGoomba* paragoomba = new CGoomba(posX, posY, true);
-//			unit = new Unit(grid, paragoomba, posX, posY);
-//			break;
-//		}
-//		case OBJECT_TYPE_MUSHROOM:
-//		{
-//			CMushroom* mushroom = new CMushroom(posX, posY);
-//			unit = new Unit(grid, mushroom, posX, posY);
-//			break;
-//		}
-//		case OBJECT_TYPE_PARAKOOPAS:
-//		{
-//			CKoopas* parakoopas = new CKoopas(posX, posY, true);
-//			unit = new Unit(grid, parakoopas, posX, posY);
-//			break;
-//		}
-//		case OBJECT_TYPE_GROUND:
-//		{
-//			CGround* ground = new CGround();
-//			unit = new Unit(grid, ground, posX, posY);
-//			break;
-//		}
-//		}
-//	}
-//	
-//}
-
 
 void CPlayScene::Load()
 {
@@ -496,7 +407,7 @@ void CPlayScene::LoadObjectsFromMap()
 			case 12:
 			{
 				LPGAMEOBJECT obj = new CGround(j * 16.0f, i * 16.0f, idSprite);
-				objects.push_back(obj);
+				listStaticObjects.push_back(obj);
 				break;
 			}
 			case 24:
@@ -512,7 +423,7 @@ void CPlayScene::LoadObjectsFromMap()
 			case 117:
 			{
 				LPGAMEOBJECT obj = new CGround(j * 16.0f, i * 16.0f, idSprite);
-				objects.push_back(obj);
+				listStaticObjects.push_back(obj);
 				break;
 			}
 			case 13:
@@ -549,7 +460,7 @@ void CPlayScene::LoadObjectsFromMap()
 					16.0f, 16.0f, lengthPlatform,
 					idSpriteBegin, idSpriteMiddle, idSpriteEnd
 				);
-				objects.push_back(obj);
+				listStaticObjects.push_back(obj);
 				lengthPlatform = 0;
 				break;
 			}
@@ -562,7 +473,7 @@ void CPlayScene::LoadObjectsFromMap()
 					16.0f, 16.0f, lengthPlatform,
 					idSpriteBegin, idSpriteMiddle, idSpriteEnd, true
 				);
-				objects.push_back(obj);
+				listStaticObjects.push_back(obj);
 				lengthPlatform = 0;
 				break;
 			}
@@ -679,7 +590,7 @@ void CPlayScene::Unload()
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
 	objects.clear();
-	listPipeObjects.clear();
+	listStaticObjects.clear();
 	map.clear();
 	listPaths.clear();
 	player = NULL;

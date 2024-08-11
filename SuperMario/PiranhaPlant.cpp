@@ -44,27 +44,35 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (!enable) return;
 	vy = ay * dt;
 	y += vy * dt;
-
 	CalPosPlayer();
-	if (hibernate == false && (initY - y > PIRANHAPLANT_BBOX_HEIGHT))
+	GoUpAndDown();
+	CGameObject::Update(dt, coObjects);
+	CCollision::GetInstance()->Process(this, dt, coObjects);
+}
+
+void CPiranhaPlant::GoUpAndDown()
+{
+	if (hibernate == false && (initY - y > PIRANHAPLANT_BBOX_HEIGHT - 4))
 	{
 		ay = 0;
 		if (shoot_start == -1) shoot_start = GetTickCount64();
 		if (GetTickCount64() - shoot_start > PIRANHAPLANT_SHOOT_DELAY_TIME)
 		{
 			shoot_start = -1;
-			if(type == PIRANHAPLANT_TYPE_SHOOT) Shoot();
+			if (type == PIRANHAPLANT_TYPE_SHOOT) Shoot();
 			SetState(PIRANHAPLANT_STATE_DOWN);
 		}
 	}
-	if (hibernate == true && (y - initY > PIRANHAPLANT_BBOX_HEIGHT/2))
+	if (hibernate == true && (y - initY > PIRANHAPLANT_BBOX_HEIGHT / 2 - 2))
 	{
-		y = initY + PIRANHAPLANT_BBOX_HEIGHT / 2;
 		ay = 0;
-		SetState(PIRANHAPLANT_STATE_UP);
+		if (shoot_start == -1) shoot_start = GetTickCount64();
+		if (GetTickCount64() - shoot_start > PIRANHAPLANT_SHOOT_DELAY_TIME)
+		{
+			shoot_start = -1;
+			SetState(PIRANHAPLANT_STATE_UP);
+		}
 	}
-	CGameObject::Update(dt, coObjects);
-	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
 void CPiranhaPlant::CalPosPlayer()

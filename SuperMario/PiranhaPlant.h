@@ -50,4 +50,5 @@ public:
 	void SetState(int state);
 	void CalPosPlayer();
 	void Shoot();
+	void GoUpAndDown();
 };
