@@ -10,6 +10,11 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 {
 	CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
 	CMario* mario = (CMario*)playScene->GetPlayer();
+	if (playScene->GetId() == SCENE_TITLE)
+	{
+		if (KeyCode == DIK_W)	CGame::GetInstance()->InitiateSwitchScene(SCENE_INTRO);
+		return;
+	}
 	if (playScene->GetId() == SCENE_INTRO)
 	{
 		CPath* currentPath = playScene->GetCurrentPath();

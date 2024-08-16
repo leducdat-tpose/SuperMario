@@ -1,0 +1,20 @@
+# list of object assets to load in this scene
+[ASSETS]
+mario.txt
+introscene.txt
+player.txt
+
+[OBJECTS]
+# type	x	y	extra_settings per object type
+# type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas
+# See OBJECT_TYPE constants in AssetIDs.h
+
+# MARIO
+0	62	52	1
+
+100	150	97	0	0
+
+103	155	101
+
+104	95	141
+

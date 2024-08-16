@@ -195,6 +195,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			y = GetCurrentPath()->GetPathY();
 			obj = new CMario(x, y, true);
 		}
+		else if (id == SCENE_TITLE)
+		{
+			obj = new CMario(x, y, true);
+		}
 		else obj = new CMario(x, y);
 		
 		player = (CMario*)obj;
@@ -255,9 +259,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CPortal(x, y, r, b, 0);
 		break;
 	}
-	case OBJECT_TYPE_MAP: obj = new CIntroScene(1, x, y); break;
+	case OBJECT_TYPE_MAP:
+	{
+		obj = new CIntroScene(atoi(tokens[4].c_str()), x, y); break;
+	}
 	case OBJECT_TYPE_MAP_ENTITY: obj = new CIntroSceneEntity(x, y); break;
 	case OBJECT_TYPE_HELP_MESSAGE: obj = new CIntroSceneEntity(x, y, ENTITY_TYPE_HELP_MESSAGE); break;
+	case OBJECT_TYPE_SELECT_OPTION: obj = new CIntroSceneEntity(x, y, ENTITY_TYPE_SELECT_OPTION); break;
+	case OBJECT_TYPE_NUM_VERSION: obj = new CIntroSceneEntity(x, y, ENTITY_TYPE_NUMBER_VERSION_3); break;
 	case OBJECT_TYPE_PLAYER_INFORMATION: 
 	{
 		obj = new CPlayer(x, y);
@@ -495,7 +504,7 @@ void CPlayScene::Update(DWORD dt)
 		if (abs(objects[i]->GetPositionX() - player->GetPositionX()) <= 300)
 			objects[i]->Update(dt, &coObjects);
 	}
-	hud->Update(dt);
+	if(hud != nullptr)	hud->Update(dt);
 
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;

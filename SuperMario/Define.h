@@ -6,6 +6,6 @@
 
 #define SCENE_1 1
 #define SCENE_INTRO 2
-#define SCENE_TITLE 10
+#define SCENE_TITLE 3
 
 #define GAMESTATE_1 1

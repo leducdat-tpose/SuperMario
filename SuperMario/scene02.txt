@@ -9,7 +9,7 @@ player.txt
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas
 # See OBJECT_TYPE constants in AssetIDs.h
 
-100	150	88
+100	150	88	0	1
 
 101	46	20
 101	62	20
