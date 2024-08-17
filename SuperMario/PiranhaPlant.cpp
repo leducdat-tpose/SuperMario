@@ -1,13 +1,12 @@
 #include "PiranhaPlant.h"
 
-CPiranhaPlant::CPiranhaPlant(float x, float y, LPGAMEOBJECT player, int type) :CGameObject(x, y)
+CPiranhaPlant::CPiranhaPlant(float x, float y,int type) :CGameObject(x, y)
 {
 	this->enable = true;
 	this->ax = 0;
 	this->ay = -PIRANHAPLANT_GRAVITY;
 	this->disXToPlayer = 0;
 	this->disYToPlayer = 0;
-	this->player = player;
 	shoot_start = -1;
 	this->type = type;
 	this->hibernate = false;
@@ -77,9 +76,9 @@ void CPiranhaPlant::GoUpAndDown()
 
 void CPiranhaPlant::CalPosPlayer()
 {
-	if (player == nullptr) return;
+	if (playScene->GetPlayer() == nullptr) return;
 	float posX_player = 0, posY_player = 0;
-	player->GetPosition(posX_player, posY_player);
+	playScene->GetPlayer()->GetPosition(posX_player, posY_player);
 	//This index can negative
 	disXToPlayer = posX_player - x;
 	disYToPlayer = posY_player - y;
@@ -93,7 +92,6 @@ void CPiranhaPlant::CalPosPlayer()
 void CPiranhaPlant::Shoot()
 {
 	LPGAMEOBJECT fireball = new CFireBall(x, y - 8, disXToPlayer, disYToPlayer);
-	CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
 	if (playScene != nullptr)
 	{
 		playScene->AddObject(fireball);

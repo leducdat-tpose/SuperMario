@@ -37,7 +37,7 @@ protected:
 	int type;
 	bool hibernate;
 	ULONGLONG shoot_start;
-	LPGAMEOBJECT player;
+	CPlayScene* playScene = (LPPLAYSCENE)(CGame::GetInstance()->GetCurrentScene());
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
@@ -46,7 +46,7 @@ protected:
 	virtual void OnNoCollision(DWORD dt);
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 public:
-	CPiranhaPlant(float x, float y, LPGAMEOBJECT player, int type = PIRANHAPLANT_TYPE_SHOOT);
+	CPiranhaPlant(float x, float y, int type = PIRANHAPLANT_TYPE_SHOOT);
 	void SetState(int state);
 	void CalPosPlayer();
 	void Shoot();

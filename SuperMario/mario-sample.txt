@@ -5,9 +5,9 @@ height	240
 
 #id	type	file
 [SCENES]
-0	sceneintro.txt
+0	scene00.txt
 1	scene01.txt
-2	scene02.txt
+2	sceneintro.txt
 3	scenetitle.txt
 
 # id	file 
