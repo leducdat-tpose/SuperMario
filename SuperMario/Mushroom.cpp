@@ -2,6 +2,7 @@
 
 CMushroom::CMushroom(float x, float y, bool isGreen) :CGameObject(x, y)
 {
+	this->dynamicObject = 1;
 	this->ax = 0;
 	this->ay = MUSHROOM_GRAVITY;
 	this->isGreen = isGreen;

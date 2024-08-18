@@ -45,6 +45,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vx += ax * dt;
 		MarioDecelerate();
 		if (abs(vx) > abs(maxVx)) vx = maxVx;
+		CheckingNextToWall();
 		if (heldKoopas != nullptr) HoldKoopas();
 		// reset untouchable timer if untouchable time has passed
 		if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
@@ -104,11 +105,12 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 			allow_fly_start = -1;
 		}
 	}
-	else
-		if (e->nx != 0 && e->obj->IsBlocking())
-		{
-			vx = 0;
-		}
+	if (e->nx != 0 && e->obj->IsBlocking())
+	{
+		preX = x;
+		isNextToWall = true;
+		vx = 0;
+	}
 
 	if (dynamic_cast<CGoomba*>(e->obj))
 		OnCollisionWithGoomba(e);
@@ -362,7 +364,7 @@ int CMario::GetAniIdSmall()
 				aniId = ID_ANI_MARIO_SIT_LEFT;
 		}
 		else
-			if (vx == 0)
+			if (vx == 0 || isNextToWall)
 			{
 				if (nx > 0) aniId = ID_ANI_MARIO_SMALL_IDLE_RIGHT;
 				else aniId = ID_ANI_MARIO_SMALL_IDLE_LEFT;
@@ -372,7 +374,7 @@ int CMario::GetAniIdSmall()
 				if (ax < 0)
 				{
 					aniId = ID_ANI_MARIO_SMALL_BRACE_RIGHT;
-					if(isKick) StopKick();
+					if (isKick) StopKick();
 				}
 				else if (isKick)
 					aniId = ID_ANI_MARIO_SMALL_KICK_RIGHT;
@@ -433,7 +435,7 @@ int CMario::GetAniIdBig()
 				aniId = ID_ANI_MARIO_SIT_LEFT;
 		}
 		else
-			if (vx == 0)
+			if (vx == 0 || isNextToWall)
 			{
 				if (nx > 0) aniId = ID_ANI_MARIO_IDLE_RIGHT;
 				else aniId = ID_ANI_MARIO_IDLE_LEFT;
@@ -536,7 +538,7 @@ int CMario::GetAniIdRaccoon()
 				aniId = ID_ANI_MARIO_RACCOON_SIT_LEFT;
 		}
 		else
-			if (vx == 0)
+			if (vx == 0 || isNextToWall)
 			{
 				if (isAttack)
 					if (nx > 0) aniId = ID_ANI_MARIO_RACCOON_ATTACK_RIGHT;
@@ -938,3 +940,11 @@ void CMario::StartTransform()
 	transform_start = GetTickCount64();
 }
 
+void CMario::CheckingNextToWall()
+{
+	if (!isNextToWall)
+	{
+		return;
+	}
+	if (abs(preX - x) > 1.0f) isNextToWall = false;
+}

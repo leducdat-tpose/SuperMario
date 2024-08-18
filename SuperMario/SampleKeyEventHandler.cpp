@@ -97,6 +97,8 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		CGame::GetInstance()->PauseGame();
 		playScene->PauseGame(CGame::GetInstance()->GetIsPauseGame());
 		break;
+	case DIK_T:
+		DebugOut(L"Mario's position X: %f\n", mario->GetPositionX());
 	}
 }
 

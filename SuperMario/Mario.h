@@ -188,6 +188,8 @@ class CMario : public CGameObject
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
+	//Use to make mario stop animation when hit collide forward
+	float preX;
 	int autoMoving;
 	int level;
 	int untouchable;
@@ -199,6 +201,7 @@ class CMario : public CGameObject
 	ULONGLONG transform_start;
 
 	BOOLEAN isOnPlatform;
+	BOOLEAN isNextToWall;
 	int coin;
 	bool isInIntroScene;
 
@@ -228,6 +231,7 @@ public:
 		hitbox = nullptr;
 		isSitting = false;
 		isAttack = false;
+		preX = 0;
 		enable = true;
 		isInSecret = false;
 		attackDone = false;
@@ -252,6 +256,7 @@ public:
 		transformSmallToBig = 0;
 		coin = 0;
 		isOnPlatform = false;
+		isNextToWall = false;
 		inTransform = false;
 		aniFly = false;
 		this->isInIntroScene = isInIntroScene;
@@ -292,6 +297,7 @@ public:
 	void ReleaseKoopas();
 	void StartAllowFly();
 	void StartTransform();
+	void CheckingNextToWall();
 	void AllowToFly();
 	void Fly();
 	LPGAMEOBJECT GetHeldKoopas() const { return heldKoopas; }
