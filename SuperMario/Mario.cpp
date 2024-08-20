@@ -632,7 +632,14 @@ void CMario::Render()
 void CMario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
-	if (this->state == MARIO_STATE_DIE) return;
+	if (this->state == MARIO_STATE_DIE) {
+		if (GetTickCount64() - switchscene_start > MARIO_SWITCH_SCENE_OVERWORLD_TIME)
+		{
+			CGame::GetInstance()->InitiateSwitchScene(SCENE_INTRO);
+			switchscene_start = -1;
+		}
+		return;
+	}
 	switch (autoMoving)
 	{
 	case 0: break;
@@ -722,6 +729,7 @@ void CMario::SetState(int state)
 		vx = 0;
 		ax = 0;
 		CDataManager::getInstance()->AddLife(-1);
+		switchscene_start = GetTickCount64();
 		break;
 	case MARIO_STATE_KICK:
 		isKick = true;

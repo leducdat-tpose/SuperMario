@@ -7,7 +7,7 @@ CDataManager::CDataManager()
 	isInit = false;
 	id_world = 1;
 	coin = 0;
-	life = 3;
+	life = 0;
 	point = 0;
 	time = 300;
 	gadgets.push_back(GADGET_NONE);

@@ -45,6 +45,8 @@ protected:
 	LPGAMEOBJECT hiddenbutton;
 	//Player information or player status
 	LPGAMEOBJECT hud;
+	//Game over menu
+	LPGAMEOBJECT gameOverMenu;
 
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
@@ -66,6 +68,7 @@ public:
 
 	LPGAMEOBJECT GetPlayer() const { return player; }
 	LPGAMEOBJECT GetHiddenButton() const { return hiddenbutton; }
+	LPGAMEOBJECT GetGameOverMenu() const { return gameOverMenu; }
 	void SetIsDone(bool isDoneScene) { this->isDoneScene = isDoneScene; }
 	bool GetIsDone() const { return isDoneScene; }
 	void SetIsGameOver(bool isGameOver) { this->isGameOver = isGameOver; }

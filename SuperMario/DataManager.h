@@ -66,12 +66,23 @@ public:
 	void UpdateIdWorld(int id_world) { this->id_world = id_world; }
 	void AddPoint(int point) { this->point += point; }
 	void AddCoin(int coin) { this->coin += coin; }
-	void AddLife(int life) { this->life += life; }
+	void AddLife(int life) { 
+		this->life += life;
+		if (this->life < 0)
+		{
+			CGame::GetInstance()->SetIsGameOver(1);
+			this->life = 0;
+		}
+	}
 	void UpdatePlayTime(int time) { this->time = time; }
 	void UpdateGadget(int index);
 	bool getIsFinishStage(int idScene)
 	{
 		return finishStageOverWorld_1[idScene];
+	}
+	int getLifeIndex() const
+	{
+		return this->life;
 	}
 	void SetIsFinishStage(int idScene, bool isFinish)
 	{

@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "DataManager.h"
+#include <cstdlib>
 
 CPlayer::CPlayer(float x, float y):CGameObject(x,y)
 {
@@ -61,16 +62,15 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CPlayer::Render()
 {
-	
-	sprite->Draw(posHudX, posHudY, 1.0f);
-	if (game->GetIsPauseGame() == 1) pauseGameSprite->Draw((SCREEN_WIDTH - 20)/2, posHudY - 120, 1.0f);
+	sprite->Draw(posHudX, posHudY, 10);
+	if (game->GetIsPauseGame() == 1) pauseGameSprite->Draw((SCREEN_WIDTH - 20)/2, posHudY - 120, 10);
 	int speedIndex = 0;
 	speedIndex = (int)((mario->GetSpeed() - MARIO_WALKING_SPEED) / marioSpeed_sub) - 1;
 	if (speedIndex < 0) speedIndex = 0;
-	marioSpeed[speedIndex]->Draw(posHudX - 31, posHudY - 4, 1.0f);
+	marioSpeed[speedIndex]->Draw(posHudX - 31, posHudY - 4, 10);
 	for (int i = 0; i < 3; i++)
 	{
-		gadgetsSprite[i]->Draw(posHudX + 52 + i * 26, posHudY, 1.0f);
+		gadgetsSprite[i]->Draw(posHudX + 52 + i * 26, posHudY, 10);
 	}
 	RECT rect;
 	SetRect(&rect, 0, 175, SCREEN_WIDTH, SCREEN_HEIGHT);

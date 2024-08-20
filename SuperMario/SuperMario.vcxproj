@@ -158,6 +158,7 @@
     <ClInclude Include="Mario.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="OverGameMenu.h" />
     <ClInclude Include="PiranhaPlant.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="OverGameMenu.cpp" />
     <ClCompile Include="PiranhaPlant.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />

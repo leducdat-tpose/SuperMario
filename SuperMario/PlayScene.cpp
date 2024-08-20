@@ -21,7 +21,7 @@
 #include "HiddenButton.h"
 #include "Player.h"
 #include "RandomGadget.h"
-
+#include "OverGameMenu.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -33,6 +33,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	player = NULL;
 	hiddenbutton = NULL;
 	hud = NULL;
+	gameOverMenu = NULL;
 	cameraIndexFollowY = 0;
 	key_handler = new CSampleKeyHandler(this);
 	numsRowInMap = 0;
@@ -271,6 +272,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	{
 		obj = new CPlayer(x, y);
 		hud = (CPlayer*)obj;
+		break;
+	}
+	case OBJECT_TYPE_GAMEOVER_MENU: 
+	{
+		obj = new COverGameMenu(x, y);
+		gameOverMenu = (COverGameMenu*)obj;
 		break;
 	}
 	default:

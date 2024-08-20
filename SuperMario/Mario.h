@@ -48,6 +48,7 @@
 #define MARIO_KICK_ANIMATION_TIME	300
 #define MARIO_TRANSFORM_RACCOON_TIME 350
 #define MARIO_TRANSFORM_TIME		1200
+#define MARIO_SWITCH_SCENE_OVERWORLD_TIME 3000
 
 #pragma region ANIMATION_ID
 
@@ -199,6 +200,7 @@ class CMario : public CGameObject
 	ULONGLONG allow_fly_start;
 	ULONGLONG fly_cooldown_start;
 	ULONGLONG transform_start;
+	ULONGLONG switchscene_start;
 
 	BOOLEAN isOnPlatform;
 	BOOLEAN isNextToWall;
@@ -254,6 +256,7 @@ public:
 		fly_cooldown_start = 0;
 		transform_start = -1;
 		transformSmallToBig = 0;
+		switchscene_start = -1;
 		coin = 0;
 		isOnPlatform = false;
 		isNextToWall = false;

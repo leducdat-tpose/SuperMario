@@ -4,6 +4,7 @@
 #include "Game.h"
 
 #include "Mario.h"
+#include "OverGameMenu.h"
 #include "PlayScene.h"
 
 void CSampleKeyHandler::OnKeyDown(int KeyCode)
@@ -13,6 +14,23 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	if (playScene->GetId() == SCENE_TITLE)
 	{
 		if (KeyCode == DIK_W)	CGame::GetInstance()->InitiateSwitchScene(SCENE_INTRO);
+		return;
+	}
+	if (CGame::GetInstance()->GetIsGameOver() == 1)
+	{
+		COverGameMenu* gameOverMenu = (COverGameMenu*)playScene->GetGameOverMenu();
+		if (KeyCode == DIK_UP)
+		{
+			gameOverMenu->ChooseOption(OPTION_CONTINUE);
+		}
+		else if (KeyCode == DIK_DOWN)
+		{
+			gameOverMenu->ChooseOption(OPTION_END);
+		}
+		else if (KeyCode == DIK_W)
+		{
+			gameOverMenu->RunOption();
+		}
 		return;
 	}
 	if (playScene->GetId() == SCENE_INTRO)
@@ -48,7 +66,6 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		}
 		return;
 	}
-	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	switch (KeyCode)
 	{
 	case DIK_DOWN:

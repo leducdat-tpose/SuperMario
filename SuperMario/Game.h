@@ -56,6 +56,7 @@ class CGame
 
 	int isDisplayBoundingBox = -1;
 	int isPauseGame = -1;
+	int isGameOver = -1;
 
 	D3DXVECTOR3 cameraPosition;
 
@@ -121,7 +122,11 @@ public:
 		isPauseGame *= -1;
 	}
 
+	void SetIsGameOver(int isGameOver) { this->isGameOver = isGameOver; }
+
 	int GetIsPauseGame() const { return isPauseGame; }
+
+	int GetIsGameOver() const { return isGameOver; }
 
 	void OnOffDisplayBoundingBox()
 	{

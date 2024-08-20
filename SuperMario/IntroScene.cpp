@@ -25,6 +25,7 @@ CIntroSceneEntity::CIntroSceneEntity(float x, float y, int type) :CGameObject(x,
 
 void CIntroSceneEntity::Render()
 {
+	if (!enable) return;
 	int aniId = ID_ANI_INTRO_SCENE_1_ENTITY;
 	if (type == ENTITY_TYPE_HELP_MESSAGE)
 	{

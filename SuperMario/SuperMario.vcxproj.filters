@@ -153,6 +153,9 @@
     <ClInclude Include="RandomGadget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="OverGameMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -270,6 +273,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RandomGadget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OverGameMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
