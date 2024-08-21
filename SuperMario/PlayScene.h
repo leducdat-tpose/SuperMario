@@ -86,9 +86,14 @@ public:
 	void PurgeDeletedObjects();
 	void UpdateCameraPosition();
 	void AddObject(LPGAMEOBJECT obj);
+	void ResetCurrentIdPath() {
+		currentIdPath = 0;
+		UpdateCurrentIdPath(0);
+	}
 	void UpdateCurrentIdPath(int index) { 
 		if (this->id != SCENE_INTRO) return;
-		this->currentIdPath += index; 
+		this->currentIdPath += index;
+		player->SetPosition(GetCurrentPath()->GetPathX(), GetCurrentPath()->GetPathY());
 	}
 	CPath* GetCurrentPath();
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);

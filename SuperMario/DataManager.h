@@ -12,6 +12,12 @@
 #define GADGET_FLOWER 20
 #define GADGET_STAR 30
 
+#define DEFAULT_LIFE 1
+#define DEFAULT_COIN 0
+#define DEFAULT_TIME 300
+#define DEFAULT_POINT 0
+
+
 class CDataManager
 {
 private:
@@ -63,6 +69,7 @@ public:
 
 	void GetData(int& id_world, int& coin, int& life, int& point, vector<int>& gadgets);
 	void SaveData(int coin, int life, int point, int time);
+	void ResetData();
 	void UpdateIdWorld(int id_world) { this->id_world = id_world; }
 	void AddPoint(int point) { this->point += point; }
 	void AddCoin(int coin) { this->coin += coin; }

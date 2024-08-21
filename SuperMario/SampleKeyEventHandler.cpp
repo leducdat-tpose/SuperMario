@@ -41,23 +41,15 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		{
 		case DIK_UP:
 			playScene->UpdateCurrentIdPath(currentPath->GetDirectUp());
-			currentPath = playScene->GetCurrentPath();
-			mario->SetPosition(currentPath->GetPathX(), currentPath->GetPathY());
 			break;
 		case DIK_DOWN:
 			playScene->UpdateCurrentIdPath(currentPath->GetDirectDown());
-			currentPath = playScene->GetCurrentPath();
-			mario->SetPosition(currentPath->GetPathX(), currentPath->GetPathY());
 			break;
 		case DIK_RIGHT:
 			playScene->UpdateCurrentIdPath(currentPath->GetDirectRight());
-			currentPath = playScene->GetCurrentPath();
-			mario->SetPosition(currentPath->GetPathX(), currentPath->GetPathY());
 			break;
 		case DIK_LEFT:
 			playScene->UpdateCurrentIdPath(currentPath->GetDirectLeft());
-			currentPath = playScene->GetCurrentPath();
-			mario->SetPosition(currentPath->GetPathX(), currentPath->GetPathY());
 			break;
 		case DIK_S:
 			if (currentPath->GetSceneId() == 0) return;

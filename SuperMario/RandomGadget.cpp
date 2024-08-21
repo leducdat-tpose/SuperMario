@@ -19,7 +19,6 @@ void CRandomGadget::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += ay * dt;
 	if (isCollected != 0 && GetTickCount64() - delete_start > RANDOMGADGET_EXIST_TIME)
 	{
-		CDataManager::getInstance()->UpdateGadget(isCollected);
 		this->Delete();
 	}
 	CGameObject::Update(dt, coObjects);
@@ -53,4 +52,5 @@ void CRandomGadget::CollectGadget()
 	ay = RANDOMGADGET_GRAVITY;
 	delete_start = GetTickCount64();
 	CDataManager::getInstance()->SetIsFinishStage(CGame::GetInstance()->GetCurrentScene()->GetId(), true);
+	CDataManager::getInstance()->UpdateGadget(isCollected);
 }

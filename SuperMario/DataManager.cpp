@@ -6,10 +6,16 @@ CDataManager::CDataManager()
 {
 	isInit = false;
 	id_world = 1;
-	coin = 0;
-	life = 0;
-	point = 0;
-	time = 300;
+	ResetData();
+}
+
+void CDataManager::ResetData()
+{
+	coin = DEFAULT_COIN;
+	life = DEFAULT_LIFE;
+	point = DEFAULT_POINT;
+	time = DEFAULT_TIME;
+	gadgets.clear();
 	gadgets.push_back(GADGET_NONE);
 	gadgets.push_back(GADGET_NONE);
 	gadgets.push_back(GADGET_NONE);

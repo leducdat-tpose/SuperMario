@@ -11,12 +11,14 @@ class COverGameMenu : public CGameObject
 private:
 	int option;
 	CIntroSceneEntity* selectOption;
+	CPlayScene* playScene = (LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene();
 public:
 	COverGameMenu(float x, float y):CGameObject(x,y)
 	{
 		enable = false;
 		option = OPTION_CONTINUE;
 		selectOption = new CIntroSceneEntity(x - 15, y + 12, ENTITY_TYPE_SELECT_OPTION);
+		selectOption->SetEnable(false);
 	}
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -28,11 +30,5 @@ public:
 			selectOption->SetPosition(x - 15, y + 20);
 		else selectOption->SetPosition(x - 15, y + 12);
 	}
-	void RunOption()
-	{
-		int selectScene;
-		if (option == OPTION_CONTINUE) selectScene = SCENE_INTRO;
-		else selectScene = SCENE_TITLE;
-		CGame::GetInstance()->InitiateSwitchScene(selectScene);
-	}
+	void RunOption();
 };
