@@ -14,7 +14,8 @@
 #define EFFECT_TYPE_BREAK_BRICK 300
 #define EFFECT_TYPE_1UP 400
 #define EFFECT_TYPE_TRANSFORM 500
-#define EFFECT_TYPE_OTHER 600
+#define EFFECT_TYPE_SWITCH_SCENE 600
+#define EFFECT_TYPE_OTHER 700
 
 #define ID_ANI_EFFECT 20000
 
@@ -38,6 +39,7 @@
 class CEffects : public CGameObject {
 private:
 protected:
+	float alphaSwitchScene;
 	float ax;
 	float ay;
 	int type;

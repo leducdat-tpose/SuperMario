@@ -7,6 +7,7 @@ CEffects::CEffects() : CGameObject(0, 0)
 	this->type = EFFECT_TYPE_NONE;
 	this->point = 0;
 	this->existStart = -1;
+	this->alphaSwitchScene = 1;
 }
 
 CEffects::CEffects(float x, float y, int type, int point) : CGameObject(x, y)
@@ -16,6 +17,7 @@ CEffects::CEffects(float x, float y, int type, int point) : CGameObject(x, y)
 	this->type = type;
 	this->point = point;
 	this->existStart = -1;
+	this->alphaSwitchScene = 1;
 }
 
 void CEffects::OnNoCollision(DWORD dt)
@@ -28,7 +30,18 @@ void CEffects::Render()
 {
 	if (type == EFFECT_TYPE_NONE) return;
 	int aniId = ID_ANI_EFFECT_100_POINT;
-	if (type == EFFECT_TYPE_POINT)
+	if (type == EFFECT_TYPE_SWITCH_SCENE)
+	{
+		RECT rect;
+		LPTEXTURE switchscene = CTextures::GetInstance()->Get(ID_TEX_SWITCH_SCENE_EFFECT);
+		rect.left = 0;
+		rect.top = 0;
+		rect.right = SCREEN_WIDTH;
+		rect.bottom = SCREEN_HEIGHT;
+		CGame::GetInstance()->Draw(x, y, switchscene, &rect, alphaSwitchScene);
+		return;
+	}
+	else if (type == EFFECT_TYPE_POINT)
 	{
 		if (point == 200)
 			aniId = ID_ANI_EFFECT_200_POINT;
@@ -67,8 +80,14 @@ void CEffects::Render()
 void CEffects::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (type == EFFECT_TYPE_NONE) return;
+	if (type == EFFECT_TYPE_SWITCH_SCENE)
+	{
+		alphaSwitchScene -= 0.015f;
+		DebugOut(L"alpha:%f\n", alphaSwitchScene);
+		if (alphaSwitchScene <= 0) this->Delete();
+	}
 	vy = ay * dt;
-	if (GetTickCount64() - existStart > EFFECT_EXIST_TIME)
+	if (GetTickCount64() - existStart > EFFECT_EXIST_TIME && type != EFFECT_TYPE_SWITCH_SCENE)
 	{
 		existStart = -1;
 		this->reset();

@@ -280,6 +280,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		gameOverMenu = (COverGameMenu*)obj;
 		break;
 	}
+	case OBJECT_TYPE_EFFECT_SWITCH_SCENE: obj = new CEffects(x, y, EFFECT_TYPE_SWITCH_SCENE); break;
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;
