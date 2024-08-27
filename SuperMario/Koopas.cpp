@@ -1,5 +1,6 @@
 #include "Koopas.h"
 #include "ObjectPool.h"
+#include "PiranhaPlant.h"
 
 CKoopas::CKoopas(float x, float y, bool specialAbility) :CGameObject(x, y)
 {
@@ -84,6 +85,8 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (dynamic_cast<CGoomba*>(e->obj))
 		OnCollisionWithGoomba(e);
+	if (dynamic_cast<CPiranhaPlant*>(e->obj))
+		OnCollisionWithPiranhaPlant(e);
 	if(dynamic_cast<CLuckyBox*>(e->obj))
 		OnCollisionWithLuckyBox(e);
 	else if(dynamic_cast<CBrick*>(e->obj))
@@ -141,6 +144,17 @@ void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		}
 	}
 	
+}
+
+void CKoopas::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
+{
+	if (state != KOOPAS_STATE_HIDE_MOVING) return;
+	CPiranhaPlant* piranha = dynamic_cast<CPiranhaPlant*>(e->obj);
+	float piranhaPosX, piranhaPosY;
+	piranha->GetPosition(piranhaPosX, piranhaPosY);
+	piranha->Delete();
+	CObjectPool::getInstance()->getEffect()->SetValue(piranhaPosX, piranhaPosY, EFFECT_TYPE_KABOOM, 0, 0.0f, 0.0f);
+	CObjectPool::getInstance()->getEffect()->SetValue(piranhaPosX, piranhaPosY, EFFECT_TYPE_POINT, 100);
 }
 
 void CKoopas::OnCollisionWithLuckyBox(LPCOLLISIONEVENT e)

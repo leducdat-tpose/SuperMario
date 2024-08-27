@@ -1,5 +1,6 @@
 #include "HitBox.h"
 #include "ObjectPool.h"
+#include "PiranhaPlant.h"
 
 void CHitBox::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
@@ -35,6 +36,8 @@ void CHitBox::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithGoomba(e);
 	else if (dynamic_cast<CKoopas*>(e->obj))
 		OnCollisionWithKoopas(e);
+	else if (dynamic_cast<CPiranhaPlant*>(e->obj))
+		OnCollisionWithPiranhaPlant(e);
 	else if (dynamic_cast<CBrick*>(e->obj))
 		OnCollisionWithBrick(e);
 	SetEnable(false);
@@ -70,4 +73,13 @@ void CHitBox::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 	CBrick* brick = dynamic_cast<CBrick*>(e->obj);
 	if (brick->GetType() != TYPE_GOLD_BRICK) return;
 	brick->Delete();
+}
+void CHitBox::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
+{
+	CPiranhaPlant* piranha = dynamic_cast<CPiranhaPlant*>(e->obj);
+	float piranhaPosX, piranhaPosY;
+	piranha->GetPosition(piranhaPosX, piranhaPosY);
+	piranha->Delete();
+	CObjectPool::getInstance()->getEffect()->SetValue(piranhaPosX, piranhaPosY, EFFECT_TYPE_KABOOM, 0, 0.0f, 0.0f);
+	CObjectPool::getInstance()->getEffect()->SetValue(piranhaPosX, piranhaPosY, EFFECT_TYPE_POINT, 100);
 }
