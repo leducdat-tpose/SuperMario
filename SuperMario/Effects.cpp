@@ -82,8 +82,7 @@ void CEffects::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (type == EFFECT_TYPE_NONE) return;
 	if (type == EFFECT_TYPE_SWITCH_SCENE)
 	{
-		alphaSwitchScene -= 0.015f;
-		DebugOut(L"alpha:%f\n", alphaSwitchScene);
+		alphaSwitchScene -= 0.05f;
 		if (alphaSwitchScene <= 0) this->Delete();
 	}
 	vy = ay * dt;
